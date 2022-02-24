@@ -6,14 +6,21 @@ li {
   list-style: none;
 }
 
+#menu {
+  cursor: pointer;
+}
+
 //   white-space: nowrap;
 
 //   navlink
 .nav--item {
   position: relative;
+  line-height: 1.5em;
   //   list-style: none;
   .nav--link {
     font-size: 12px;
+    display: block;
+    width: 100%;
     font-weight: 600;
     color: #333;
     text-decoration: none;
@@ -31,19 +38,19 @@ li {
   &:hover .sub-menu {
     opacity: 1;
     visibility: visible;
-    //   clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
-    //   top: 110%;
+    // clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    top: 110%;
     transition: all 0.25s ease;
   }
   .sub-menu {
     position: absolute;
     z-index: 100;
-    top: 110%;
+    top: 210%;
     left: 0;
     background: #fff;
     border: 1px solid #ddd;
     cursor: pointer;
-    //   clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+    // clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
     opacity: 0;
     visibility: hidden;
     transition: all 0.25s ease;
@@ -65,6 +72,8 @@ li {
         }
         a {
           color: #333;
+          display: block;
+          width: 100%;
           // transition: color 0.1s linear;
         }
         &:hover .hoverActive1 {
@@ -74,7 +83,7 @@ li {
         &:hover .more-menu-list {
           opacity: 1;
           visibility: visible;
-          // clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+          clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
           transition: all 0.2s ease;
         }
         .more-menu-list {
@@ -85,7 +94,7 @@ li {
           background-color: #fff;
           opacity: 0;
           visibility: hidden;
-          // clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
+          clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
           transition: all 0.25s ease;
           .more-menu-list1 {
             display: flex;
@@ -123,10 +132,11 @@ li {
 
 .left0 {
   left: 0 !important;
+  transition: all 0.25s ease;
 }
 
 .clip-path100 {
-  clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%) !important;
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%) !important;
 }
 
 @media screen and (max-width: 1200px) {
@@ -134,6 +144,7 @@ li {
     // opacity: 1;
     // visibility: visible;
     display: block;
+    // transform: translateY(0);
     // clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
   }
 
@@ -141,12 +152,15 @@ li {
     // opacity: 0;
     // visibility: hidden;
     display: none;
+    // transform: translateY(100%);
     // clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
   }
   .fixed {
     position: fixed;
     top: 0;
-    left: -110%;
+    // left: -150%;
+    left: 0;
+    clip-path: polygon(0 0, 0 0, 0 100%, 0% 100%);
     z-index: 1000;
     width: 80% !important;
     height: 100vh;
@@ -154,6 +168,7 @@ li {
     background: #fff;
     overflow: hidden;
     overflow-y: scroll;
+    transition: all 0.25s ease;
     .flex-col {
       flex-direction: column;
       align-items: start !important;
@@ -168,13 +183,20 @@ li {
           top: 0 !important;
           border: none !important;
           box-shadow: 0;
-          // background: red;
+          opacity: 1;
+          visibility: visible;
+
           .more-menu-list {
             position: relative;
             top: 0 !important;
             left: 0 !important;
             opacity: 1 !important;
+
             visibility: visible !important;
+            clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+            .more-menu-list1 {
+              border: none !important;
+            }
           }
         }
       }
@@ -183,7 +205,25 @@ li {
       position: absolute;
       top: 5px;
       right: 5px;
+      cursor: pointer;
     }
+  }
+  #menu-nav::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  #menu-nav::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+
+  /* Handle */
+  #menu-nav::-webkit-scrollbar-thumb {
+    background: #888;
+  }
+
+  /* Handle on hover */
+  #menu-nav::-webkit-scrollbar-thumb:hover {
+    background: #555;
   }
 }
 

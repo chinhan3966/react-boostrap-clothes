@@ -36,16 +36,20 @@ export const CustomNavbar = () => {
         <Col xs={3} lg={1} className="d-flex justify-content-center">
           <CgChanel size={"60px "} />
         </Col>
-        <Col lg={9} id="menu-nav" className={`fixed ${open ? "left0" : ""}`}>
+        <Col
+          lg={9}
+          id="menu-nav"
+          className={`fixed ${open ? "left0 clip-path100" : ""}`}
+        >
           <ul className="d-flex flex-col flex-wrap align-items-center  m-0 ">
             <li className="nav--item mx-3 fs-6 text-uppercase fw-normal borderBottom  ">
               <a className="nav--link ">trang chủ</a>
             </li>
-            <li
-              className=" nav--item mx-3 fs-6 text-uppercase fw-normal borderBottom "
-              onClick={() => setOpenSubMenu1(!openSubMenu1)}
-            >
-              <a className="nav--link d-xl-flex align-items-center ">
+            <li className=" nav--item mx-3 fs-6 text-uppercase fw-normal borderBottom ">
+              <a
+                className="nav--link d-xl-flex align-items-center "
+                onClick={() => setOpenSubMenu1(!openSubMenu1)}
+              >
                 sản phẩm <BiChevronDown size={"20px"} className="hoverActive" />
               </a>
               <div
@@ -55,17 +59,13 @@ export const CustomNavbar = () => {
               >
                 <ul className="sub-list">
                   <li className="more-menu">
-                    <a>
+                    <a onClick={() => setOpenMoreMenu1(!openMoreMenu1)}>
                       Áo
-                      <BiChevronRight
-                        size={"20px"}
-                        className="hoverActive1"
-                        onClick={() => setOpenMoreMenu1(!openMoreMenu1)}
-                      />
+                      <BiChevronRight size={"20px"} className="hoverActive1" />
                     </a>
                     <div
                       className={`more-menu-list shadow-sm ${
-                        openSubMenu1 && openMoreMenu1 ? "active" : "nonActive"
+                        openMoreMenu1 ? "active" : "nonActive"
                       } `}
                     >
                       <ul className="more-menu-list1">
@@ -88,17 +88,13 @@ export const CustomNavbar = () => {
                     </div>
                   </li>
                   <li className="more-menu">
-                    <a>
+                    <a onClick={() => setOpenMoreMenu2(!openMoreMenu2)}>
                       Quần{" "}
-                      <BiChevronRight
-                        size={"20px"}
-                        className="hoverActive1"
-                        onClick={() => setOpenMoreMenu2(!openMoreMenu2)}
-                      />
+                      <BiChevronRight size={"20px"} className="hoverActive1" />
                     </a>
                     <div
                       className={`more-menu-list shadow-sm  ${
-                        openSubMenu1 && openMoreMenu2 ? "active" : "nonActive"
+                        openMoreMenu2 ? "active" : "nonActive"
                       }  `}
                     >
                       <ul className="more-menu-list1">
@@ -121,18 +117,14 @@ export const CustomNavbar = () => {
                     </div>
                   </li>
                   <li className="more-menu">
-                    <a>
-                      Giày & Phụ Kiện{" "}
-                      <BiChevronRight
-                        size={"20px"}
-                        className="hoverActive1"
-                        onClick={() => setOpenMoreMenu3(!openMoreMenu3)}
-                      />
+                    <a onClick={() => setOpenMoreMenu3(!openMoreMenu3)}>
+                      Giày & Phụ Kiện
+                      <BiChevronRight size={"20px"} className="hoverActive1" />
                     </a>
                     <div
                       className={`more-menu-list shadow-sm  ${
-                        openSubMenu1 && openMoreMenu3 ? "active" : "nonActive"
-                      }  `}
+                        openMoreMenu3 ? "active" : "nonActive"
+                      }`}
                     >
                       <ul className="more-menu-list1">
                         <li className="more-menu-item">
