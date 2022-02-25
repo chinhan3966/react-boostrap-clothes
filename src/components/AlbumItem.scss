@@ -1,0 +1,89 @@
+.album--item {
+  position: relative;
+  .album--img {
+    width: 100%;
+  }
+  .album--quanlity {
+    position: absolute;
+    z-index: 1000;
+    left: 0;
+    bottom: 5%;
+    color: #333;
+    padding: 15px 35px;
+    background-color: #fff;
+    text-transform: uppercase;
+    font-weight: 600;
+    h6 {
+      position: relative;
+      span {
+        content: "75";
+        position: absolute;
+        top: -50%;
+        right: -23%;
+        font-size: 11px;
+        color: orange;
+        font-weight: 700;
+      }
+    }
+  }
+}
+
+.album {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  span {
+    margin: 3rem 0;
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 20px;
+    // background: orange;
+    // background: linear-gradient(to left, orange, rgb(219, 149, 18));
+    animation: color 2s infinite;
+    color: #fff;
+    display: inline-block;
+    padding: 0.5rem 3rem;
+    clip-path: polygon(100% 0, 93% 50%, 100% 99%, 0% 100%, 7% 50%, 0% 0%);
+  }
+}
+
+@keyframes color {
+  0% {
+    background: #33cccc;
+  }
+  20% {
+    background: #33cc36;
+  }
+  40% {
+    background: orange;
+  }
+  60% {
+    background: #fcca00;
+  }
+  80% {
+    background: #33cc36;
+  }
+  100% {
+    background: #33cccc;
+  }
+}
+
+// Custom Navigation//
+
+#customNavigation .swiper-button-next,
+#customNavigation .swiper-button-prev {
+  border: 1px solid #ddd;
+  height: 2rem;
+  width: 2rem;
+  border-radius: 50%;
+  color: black;
+  background: white;
+}
+
+#customNavigation .swiper-button-next:hover,
+#customNavigation .swiper-button-prev:hover {
+  background-color: black;
+  color: white;
+  transform: scale(1.2);
+  transition: all 0.25s ease;
+}

@@ -10,6 +10,10 @@ li {
   cursor: pointer;
 }
 
+.pointer {
+  cursor: pointer;
+}
+
 //   white-space: nowrap;
 
 //   navlink
@@ -137,6 +141,59 @@ li {
 
 .clip-path100 {
   clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%) !important;
+  transition: all 0.25s ease-in-out;
+}
+
+.clickInput {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+  background: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  transition: all 0.3s ease-in-out;
+  .logo {
+    margin: 10px 0;
+  }
+  .formInput {
+    width: 60%;
+    display: flex;
+    margin-bottom: 30px;
+    min-height: 40px;
+    input {
+      width: 100%;
+      padding: 5px 10px;
+      // border: none;
+      border: 1px solid #ddd;
+      outline: none;
+      :focus {
+        outline: 5px solid green;
+      }
+      ::placeholder {
+        color: red;
+        font-size: 1.2px;
+        font-style: italic;
+      }
+    }
+    button {
+      border: 1px solid #ddd;
+      border-left: 0;
+      outline: none;
+      padding: 9px 20px;
+      background: white;
+    }
+  }
+  .deleteIcon {
+    position: absolute;
+    top: 0.5rem;
+    right: 2rem;
+    font-weight: 300;
+  }
 }
 
 @media screen and (max-width: 1200px) {

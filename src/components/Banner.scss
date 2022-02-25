@@ -1,0 +1,36 @@
+.imgBox {
+  width: 100%;
+  //   aspect-ratio: auto 4 / 3;
+  aspect-ratio: 16 / 9;
+  max-height: 450px;
+  object-fit: cover;
+}
+
+// .imgPaddingTop1 {
+//   background-image: url(https://theme.hstatic.net/1000360022/1000759577/14/slideshow_2.jpg?v=466);
+//   padding-top: 100%;
+//   background-repeat: no-repeat;
+//   background-size: cover;
+// }
+
+.swiper-button-next,
+.swiper-button-prev {
+  border: 1px solid #ddd;
+  height: 2rem;
+  width: 2rem;
+  border-radius: 5px;
+  color: black;
+  background: white;
+}
+
+.swiper-button-next::after,
+.swiper-button-prev::after {
+  font-size: 12px;
+}
+
+.swiper-button-next:hover,
+.swiper-button-prev:hover {
+  background-color: black;
+  color: white;
+  transition: all 0.25s ease;
+}
