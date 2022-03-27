@@ -5,7 +5,7 @@ import "./AlbumItem.scss";
 export const AlbumItem = ({ url, type, quanlity }) => {
   return (
     <div className="album--item">
-      <Link to={`/${type}`}>
+      <Link to={`/collections/${type}`}>
         <img className="album--img" src={url} />
         <div className="album--quanlity">
           <h6>

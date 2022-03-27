@@ -14,6 +14,10 @@ li {
   cursor: pointer;
 }
 
+.padding-bottom {
+  border-bottom: 1px solid #ddd;
+}
+
 //   white-space: nowrap;
 
 //   navlink
@@ -163,11 +167,13 @@ li {
   .formInput {
     width: 60%;
     display: flex;
+    align-items: center;
     margin-bottom: 30px;
-    min-height: 40px;
+    // min-height: 40px;
     input {
       width: 100%;
-      padding: 5px 10px;
+      height: 100%;
+      padding: 7px 10px;
       // border: none;
       border: 1px solid #ddd;
       outline: none;
@@ -184,8 +190,9 @@ li {
       border: 1px solid #ddd;
       border-left: 0;
       outline: none;
-      padding: 9px 20px;
+      padding: 5px 15px;
       background: white;
+      height: 100%;
     }
   }
   .deleteIcon {
@@ -266,7 +273,7 @@ li {
     }
   }
   #menu-nav::-webkit-scrollbar {
-    width: 10px;
+    width: 2px;
   }
 
   #menu-nav::-webkit-scrollbar-track {

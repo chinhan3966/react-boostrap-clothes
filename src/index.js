@@ -6,12 +6,19 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.min.js";
+import PageProduct from "./components/PageProduct";
+import Home from "./components/Home";
+import Collections from "./components/Collections";
 
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<App />} />
+        <Route path="/" element={<App />}>
+          <Route index element={<Home />} />
+          <Route path="product/:slug" element={<PageProduct />} />
+          <Route path="collections/:slug" element={<Collections />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   </React.StrictMode>,

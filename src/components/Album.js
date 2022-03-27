@@ -13,8 +13,13 @@ import "./AlbumItem.scss";
 import { Pagination, Navigation } from "swiper";
 import { AlbumItem } from "./AlbumItem";
 import { Container } from "react-bootstrap";
+import { useSelector } from "react-redux";
 
 const Album = () => {
+  const listAlbum = useSelector(
+    (state) => state.listProduct.value.listCollections
+  );
+  // console.log(listAlbum);
   return (
     <Container className="mb-5" id="customNavigation">
       <h1 className="album">
@@ -44,74 +49,21 @@ const Album = () => {
         modules={[Navigation]}
         className="mySwiper"
       >
-        <SwiperSlide>
-          <AlbumItem
-            url={
-              "https://bizweb.dktcdn.net/thumb/large/100/331/067/collections/4.png?v=1622924614140"
-            }
-            type={"t-shirt"}
-            quanlity="75"
-          />
-        </SwiperSlide>
-        <SwiperSlide>
-          {" "}
-          <AlbumItem
-            url={
-              "https://bizweb.dktcdn.net/thumb/large/100/331/067/collections/3.png?v=1622924599443"
-            }
-            type={"hoodie"}
-            quanlity="35"
-          />
-        </SwiperSlide>
-        <SwiperSlide>
-          <AlbumItem
-            url={
-              "https://bizweb.dktcdn.net/thumb/large/100/331/067/collections/5.png?v=1622924567753"
-            }
-            type={"jacket"}
-            quanlity="15"
-          />
-        </SwiperSlide>
-        <SwiperSlide>
-          <AlbumItem
-            url={
-              "https://bizweb.dktcdn.net/thumb/large/100/331/067/collections/1.png?v=1622924504003"
-            }
-            type={"pant"}
-            quanlity="5"
-          />
-        </SwiperSlide>
-        <SwiperSlide>
-          <AlbumItem
-            url={
-              "https://bizweb.dktcdn.net/thumb/large/100/331/067/collections/32132.png?v=1623003430463"
-            }
-            type={"shirt"}
-            quanlity="75"
-          />
-        </SwiperSlide>
+        {listAlbum &&
+          listAlbum.length > 0 &&
+          listAlbum.map((item, index) => {
+            return (
+              <SwiperSlide key={index}>
+                <AlbumItem
+                  url={item.img}
+                  type={item.categorySlug}
+                  quanlity={item.quanlity}
+                />
+              </SwiperSlide>
+            );
+          })}
       </Swiper>
     </Container>
-    // <div>
-    //   <AlbumItem
-    //     url={
-    //       "https://bizweb.dktcdn.net/thumb/large/100/331/067/collections/4.png?v=1622924614140"
-    //     }
-    //     type={"t-shirt"}
-    //   />
-    //   <AlbumItem
-    //     url={
-    //       "https://bizweb.dktcdn.net/thumb/large/100/331/067/collections/3.png?v=1622924599443"
-    //     }
-    //     type={"hoodie"}
-    //   />
-    //   <AlbumItem
-    //     url={
-    //       "https://bizweb.dktcdn.net/thumb/large/100/331/067/collections/5.png?v=1622924567753"
-    //     }
-    //     type={"jacket"}
-    //   />
-    // </div>
   );
 };
 

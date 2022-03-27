@@ -1,0 +1,24 @@
+.newShirt {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 4rem 0;
+  .icon {
+    color: orange;
+    margin-right: 10px;
+  }
+  h2 {
+    font-size: 25px;
+    font-weight: 600;
+    text-transform: uppercase;
+  }
+}
+
+#customScrollBar .swiper {
+  padding-bottom: 15px;
+}
+
+#customScrollBar .swiper-horizontal > .swiper-scrollbar {
+  bottom: 0;
+}

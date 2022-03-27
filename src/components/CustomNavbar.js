@@ -7,6 +7,7 @@ import { AiOutlineShoppingCart } from "react-icons/ai";
 import { FaTimes } from "react-icons/fa";
 import { BiChevronDown, BiChevronRight } from "react-icons/bi";
 import "./CustomNavBar.scss";
+import { Link } from "react-router-dom";
 export const CustomNavbar = () => {
   const [open, setOpen] = useState(false);
   const [openSubMenu1, setOpenSubMenu1] = useState(false);
@@ -17,15 +18,15 @@ export const CustomNavbar = () => {
   const [openMoreMenu3, setOpenMoreMenu3] = useState(false);
   const [search, setSearch] = useState(false);
   return (
-    <div className="py-2 position-relative">
+    <div className="py-2 position-relative padding-bottom">
       <Container>
         {/* {console.log("open", open)} */}
-        {console.log("openSubMenu1", openSubMenu1)}
+        {/* {console.log("openSubMenu1", openSubMenu1)} */}
         {/* {console.log("openSub2", openSubMenu2)}
       {console.log("openSub3", openSubMenu3)} */}
-        {console.log("openMoreMenu1", openMoreMenu1)}
+        {/* {console.log("openMoreMenu1", openMoreMenu1)}
         {console.log("openMoreMenu2", openMoreMenu2)}
-        {console.log("openMoreMenu3", openMoreMenu3)}
+        {console.log("openMoreMenu3", openMoreMenu3)} */}
         <Row className="align-items-center justify-content-between">
           <Col
             xs={3}
@@ -45,7 +46,9 @@ export const CustomNavbar = () => {
           >
             <ul className="d-flex flex-col flex-wrap align-items-center  m-0 ">
               <li className="nav--item mx-3 fs-6 text-uppercase fw-normal borderBottom  ">
-                <a className="nav--link ">trang chủ</a>
+                <Link to="/" className="nav--link ">
+                  trang chủ
+                </Link>
               </li>
               <li className=" nav--item mx-3 fs-6 text-uppercase fw-normal borderBottom ">
                 <a
