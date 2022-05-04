@@ -1,14 +1,14 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import "./index.css";
+import "../src/components/scss/index.scss";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.min.js";
-import PageProduct from "./components/PageProduct";
-import Home from "./components/Home";
-import Collections from "./components/Collections";
+import PageProduct from "./components/page/PageProduct";
+import Home from "../src/components/page/Home";
+import Collections from "./components/page/Collections";
 
 ReactDOM.render(
   <React.StrictMode>
@@ -16,7 +16,7 @@ ReactDOM.render(
       <Routes>
         <Route path="/" element={<App />}>
           <Route index element={<Home />} />
-          <Route path="product/:slug" element={<PageProduct />} />
+          <Route path="product/:slug/:id" element={<PageProduct />} />
           <Route path="collections/:slug" element={<Collections />} />
         </Route>
       </Routes>

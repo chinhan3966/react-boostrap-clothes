@@ -6,7 +6,7 @@ import { MdOutlineAccountCircle } from "react-icons/md";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { FaTimes } from "react-icons/fa";
 import { BiChevronDown, BiChevronRight } from "react-icons/bi";
-import "./CustomNavBar.scss";
+// import "./scss/CustomNavBar.scss";
 import { Link } from "react-router-dom";
 export const CustomNavbar = () => {
   const [open, setOpen] = useState(false);

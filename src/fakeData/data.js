@@ -48,7 +48,7 @@ const data = {
       price: "330.000₫",
       img: [
         "https://product.hstatic.net/1000383583/product/9fd766cb-4eaf-46a6-889d-51682ddf36c4_b91985ce3a164ae0884da6f7f315074e_large.jpg",
-        "https://product.hstatic.net/1000383583/product/527bb4dc-feba-45b0-9b4d-9af41711c17d_6451ff6d48a14930867c77cc8047ee08_master.jpg",
+        "https://product.hstatic.net/1000383583/product/absolutely_den_185764853d44424a88ad114719a0146f_master.jpg",
       ],
       categorySlug: "t-shirt",
       slug: "t-shirt-club-ver2-tee",
@@ -73,8 +73,8 @@ const data = {
       title: "PENCIL ICON TEE",
       price: "330.000₫",
       img: [
-        "https://product.hstatic.net/1000383583/product/3bdc867c-b82c-4681-ba56-314899889899_3a21bb31b81d45f7a813ecf0e3677ce7_master.jpg",
-        "https://product.hstatic.net/1000383583/product/4a987bf3-b63e-45de-8f12-f6fe2fbff8c9_e9b312844d764611b427ac9e61f9b9df_master.jpg",
+        "https://product.hstatic.net/1000383583/product/absolutely_trang_04559652d5ed40d29ec857642574aeeb_master.jpg",
+        "https://product.hstatic.net/1000383583/product/absolutely_trang1fd_69072c5dd6fa4406a62b1a9695882fc0_master.jpg",
       ],
       categorySlug: "t-shirt",
       slug: "t-shirt-pencil-icon-tee",
@@ -134,6 +134,8 @@ const data = {
       colors: ["white", "red", "orange", "blue"],
     },
     // tShirt Collection
+
+    // pant Collection
     {
       id: 11,
       title: "Quần Jean Slim Trơn Dark Blue",
@@ -147,8 +149,6 @@ const data = {
       size: ["s", "m", "l"],
       colors: ["white", "red", "orange", "blue"],
     },
-    // pant Collection
-
     // pant Collection
   ],
   listCollections: [
@@ -183,8 +183,6 @@ const data = {
       quanlity: "95",
     },
   ],
-  jacket: [],
-  pant: [],
 };
 
 export default data;

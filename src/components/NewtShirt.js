@@ -1,14 +1,14 @@
-import React, { useContext, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { AiFillThunderbolt } from "react-icons/ai";
 import dataContext from "./Context";
-import CardProduct from "./CardProduct";
+import CardProduct from "./common/CardProduct";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/scrollbar";
 
-import "./NewShirt.scss";
+// import "./scss/NewtShirt.scss";
 
 // import required modules
 import { Scrollbar } from "swiper";
@@ -17,8 +17,15 @@ import { useSelector } from "react-redux";
 
 const NewtShirt = () => {
   // const { data } = useContext(dataContext);
-  const tShirt = useSelector((state) => state.listProduct.value.listProduct);
-  // console.log(tShirt);
+  const listRedux = useSelector((state) => state.listProduct.value.listProduct);
+
+  const [tShirt, setTshirt] = useState([]);
+
+  useEffect(() => {
+    const filter = listRedux.filter((item) => item.categorySlug === "t-shirt");
+    setTshirt(filter);
+  }, []);
+  console.log(tShirt);
   return (
     <Container className="mb-5" id="customScrollBar">
       <div className="newShirt">

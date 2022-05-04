@@ -7,8 +7,6 @@ import "swiper/css";
 // import "swiper/css/pagination";
 import "swiper/css/navigation";
 
-import "./AlbumItem.scss";
-
 // import required modules
 import { Pagination, Navigation } from "swiper";
 import { AlbumItem } from "./AlbumItem";
@@ -48,6 +46,7 @@ const Album = () => {
         }}
         modules={[Navigation]}
         className="mySwiper"
+        id="album"
       >
         {listAlbum &&
           listAlbum.length > 0 &&

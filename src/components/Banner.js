@@ -5,9 +5,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
-import "./Banner.scss";
 
-// import "./styles.css";
 // import required modules
 import { Autoplay, Pagination, Navigation } from "swiper";
 
@@ -29,6 +27,7 @@ const Banner = () => {
         navigation={true}
         modules={[Autoplay, Pagination, Navigation]}
         className="mySwiper"
+        id="banner"
       >
         <SwiperSlide>
           {/* <div className="imgPaddingTop1"></div> */}

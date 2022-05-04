@@ -1,0 +1,30 @@
+.imgBox {
+  width: 100%;
+  //   aspect-ratio: auto 4 / 3;
+  // aspect-ratio: 16 / 9;
+  // max-height: 450px;
+  object-fit: cover;
+}
+
+
+#banner .swiper-button-next,
+#banner .swiper-button-prev {
+  border: 1px solid #ddd;
+  height: 2rem;
+  width: 2rem;
+  border-radius: 5px;
+  color: black;
+  background: white;
+}
+
+#banner .swiper-button-next::after,
+#banner .swiper-button-prev::after {
+  font-size: 12px;
+}
+
+#banner .swiper-button-next:hover,
+#banner .swiper-button-prev:hover {
+  background-color: black;
+  color: white;
+  transition: all 0.25s ease;
+}

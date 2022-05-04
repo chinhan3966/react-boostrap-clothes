@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import "./CardProduct.scss";
+
 const CardProduct = ({ imgFront, imgBack, title, price, item }) => {
   return (
     <div className="w-100">
@@ -8,7 +8,7 @@ const CardProduct = ({ imgFront, imgBack, title, price, item }) => {
         <div className="flip-card-inner">
           {/* <Link to={`/product/${item.slug}`}> */}
           <div className="flip-card-front">
-            <Link to={`/product/${item.slug}`}>
+            <Link to={`/product/${item.slug}/${item.id}`}>
               <img
                 src={imgFront}
                 alt="Avatar"
@@ -23,7 +23,7 @@ const CardProduct = ({ imgFront, imgBack, title, price, item }) => {
           </div>
 
           <div className="flip-card-back">
-            <Link to={`/product/${item.slug}`}>
+            <Link to={`/product/${item.slug}/${item.id}`}>
               <img
                 src={imgBack}
                 alt="Avatar"
@@ -40,7 +40,7 @@ const CardProduct = ({ imgFront, imgBack, title, price, item }) => {
         </div>
       </div>
       <div className="flip-body text-center">
-        <Link to={`/product/${item.slug}`}>
+        <Link to={`/product/${item.slug}/${item.id}`}>
           <h4 className="text-uppercase">{title}</h4>
         </Link>
         <h6>{price}</h6>

@@ -1,6 +1,5 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import "./AlbumItem.scss";
 
 export const AlbumItem = ({ url, type, quanlity }) => {
   return (

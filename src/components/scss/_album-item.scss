@@ -70,8 +70,8 @@
 
 // Custom Navigation//
 
-#customNavigation .swiper-button-next,
-#customNavigation .swiper-button-prev {
+#customNavigation #album .swiper-button-next,
+#customNavigation #album .swiper-button-prev {
   border: 1px solid #ddd;
   height: 2rem;
   width: 2rem;
@@ -80,10 +80,17 @@
   background: white;
 }
 
-#customNavigation .swiper-button-next:hover,
-#customNavigation .swiper-button-prev:hover {
+#customNavigation #album .swiper-button-next:hover,
+#customNavigation #album .swiper-button-prev:hover {
   background-color: black;
   color: white;
   transform: scale(1.2);
   transition: all 0.25s ease;
 }
+
+
+#album .swiper-button-next::after,
+#album .swiper-button-prev::after {
+  font-size: 12px;
+}
+
