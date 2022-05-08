@@ -2,8 +2,15 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 export const AlbumItem = ({ url, type, quanlity }) => {
+  const handleOntop = (e) => {
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "smooth",
+    });
+  };
   return (
-    <div className="album--item">
+    <div className="album--item" onClick={handleOntop}>
       <Link to={`/collections/${type}`}>
         <img className="album--img" src={url} />
         <div className="album--quanlity">

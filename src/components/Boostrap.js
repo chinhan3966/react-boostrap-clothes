@@ -128,17 +128,6 @@ const Boostrap = () => {
             </div>
           </Col>
         </Row>
-        {/* <Row>
-          <Col sm={2} md={4} className="border">
-            sm=true
-          </Col>
-          <Col sm={2} md={4} className="border">
-            sm=true
-          </Col>
-          <Col sm={6} md={4} className="border">
-            sm=true
-          </Col>
-        </Row> */}
       </Container>
     </div>
   );

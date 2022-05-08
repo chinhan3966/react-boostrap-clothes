@@ -1,9 +1,67 @@
+@mixin mobile {
+  @media only screen and (max-width: 576px) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media only screen and (min-width: 576px) and (max-width: 1024px) {
+    @content;
+  }
+}
+
+html {
+
+  font-size: 62.5%;
+
+  @include tablet{
+    font-size: 55%;
+  }
+
+  @include mobile{
+    font-size: 45%;
+  }
+
+}
+
+
 @import "./newtshirt";
 @import "./custom-navbar";
 @import "./cardproduct";
 @import "./album-item";
 @import "./banner";
+@import "./hotdeal";
+@import "./cardproductslider";
+@import "./bestseller";
 
+
+
+.w-full{
+  width: 100%;
+}
+
+.h-full{
+  height: 100%;
+}
+
+.fixedToTop{
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 10;
+  padding: 15px;
+  background-color: black;
+  color: white;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  &:hover{
+    background-color: #ff8400;
+    transition: all 0.25s ease;
+  }
+}
 
 
 body {
@@ -23,4 +81,8 @@ code {
 
 a {
   text-decoration: none !important;
+}
+
+html{
+  scroll-behavior: smooth;
 }

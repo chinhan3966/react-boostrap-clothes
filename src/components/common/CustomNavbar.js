@@ -37,7 +37,9 @@ export const CustomNavbar = () => {
             <AiOutlineMenu size={"24px"} />
           </Col>
           <Col xs={3} lg={1} className="d-flex justify-content-center">
-            <CgChanel size={"60px "} />
+            <Link to="/">
+              <CgChanel size={"60px "} style={{ color: "black" }} />
+            </Link>
           </Col>
           <Col
             lg={9}

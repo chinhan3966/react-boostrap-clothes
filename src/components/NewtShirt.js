@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { AiFillThunderbolt } from "react-icons/ai";
-import dataContext from "./Context";
+
 import CardProduct from "./common/CardProduct";
 import { Swiper, SwiperSlide } from "swiper/react";
 
@@ -25,7 +25,7 @@ const NewtShirt = () => {
     const filter = listRedux.filter((item) => item.categorySlug === "t-shirt");
     setTshirt(filter);
   }, []);
-  console.log(tShirt);
+  // console.log(tShirt);
   return (
     <Container className="mb-5" id="customScrollBar">
       <div className="newShirt">
@@ -35,7 +35,7 @@ const NewtShirt = () => {
         <h2>new shirt</h2>
       </div>
       <Swiper
-        slidesPerView={1}
+        slidesPerView={2}
         spaceBetween={10}
         scrollbar={{
           hide: true,

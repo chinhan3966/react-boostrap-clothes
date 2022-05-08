@@ -2,8 +2,18 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const CardProduct = ({ imgFront, imgBack, title, price, item }) => {
+  const handleOntop = (e) => {
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "smooth",
+    });
+  };
+  const priceSplitter = (number) =>
+    number && number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+
   return (
-    <div className="w-100">
+    <div className="w-100" onClick={handleOntop}>
       <div className="flip-card">
         <div className="flip-card-inner">
           {/* <Link to={`/product/${item.slug}`}> */}
@@ -43,7 +53,7 @@ const CardProduct = ({ imgFront, imgBack, title, price, item }) => {
         <Link to={`/product/${item.slug}/${item.id}`}>
           <h4 className="text-uppercase">{title}</h4>
         </Link>
-        <h6>{price}</h6>
+        <h6>{priceSplitter(price)}đ</h6>
       </div>
     </div>
   );

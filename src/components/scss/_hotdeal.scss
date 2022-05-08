@@ -1,0 +1,163 @@
+.hotdeal__title{
+    margin-bottom: 25px;
+    &-header{
+        display: flex;
+        align-items: center;
+        justify-content:center;
+        h2{
+            font-size: 3rem;
+            text-transform: uppercase;
+            font-weight: 700;
+            margin-left: 5px;
+        }
+        svg{
+            font-size: 3rem;
+            color: #ff8400;
+        }
+    }
+
+    &-des{
+        text-align: center;
+        font-size: 1.8rem;
+        margin-top: 0.5rem;
+        font-weight: 500;
+    }
+}
+
+
+
+
+.hotdeal{
+    background-image: url(http://bizweb.dktcdn.net/100/331/067/themes/823156/assets/bg_deal.jpg?1650910756256);
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    // padding-top: 40%;
+    height: 50rem;
+    position: relative;
+    &__container{
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        // display: flex;
+        // justify-content: space-between;
+       
+        &-item{
+            background: white;
+            padding: 9rem 2rem;
+            padding-bottom: 5rem;
+            @include tablet{
+                padding: 2rem 3rem;
+            }
+            @include mobile {
+                padding: 2rem 1rem;
+            }
+            width: 100%;
+            
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            &__block{
+                width: 60%;
+                h2{
+                    font-size: 2rem;
+                    text-transform: uppercase;
+                    &:hover{
+                        color: #ff8400;
+                        cursor: pointer;
+                        transition: 0.25s all;
+                    }
+                }
+                h4{
+                    font-size:1.5rem;
+                    font-weight: 450;
+                    margin-top: 2rem;
+                    letter-spacing:0.03em;
+                }
+                span{
+                    font-weight: 700;
+                    font-size: 1.7rem;
+                }
+                &-countdown{
+                    display: flex;
+                    align-items: center;
+                    width: 50%;
+                    justify-content:space-between;
+                    &__hour{
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                        p{
+                            text-transform: uppercase;
+                            font-weight: 500;
+                        }
+                        span{
+                            color: #ff8400;
+                            font-size: 3rem;
+                        }
+                    }
+                    &__min {
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                        p {
+                            text-transform: uppercase;
+                            font-weight: 500;
+                        }
+                        
+                        span {
+                            color: #ff8400;
+                            font-size: 3rem;
+                        }
+                    }
+                    &__sec {
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                        p {
+                            text-transform: uppercase;
+                            font-weight: 500;
+                        }
+                        
+                        span {
+                            color: #ff8400;
+                            font-size: 3rem;
+                        }
+                    }
+                }
+                &-setting{
+                    display: flex;
+                    align-items: center;
+                    padding: 0.8rem 1.5rem;
+                    background: white;
+                    border: 2px solid #ebebeb;
+                    span{
+                        text-transform: uppercase;
+                        font-weight: 600;
+                        margin-left: 10px;
+                        font-size: 1.5rem;
+                    }
+                    svg{
+                        font-size: 2.5rem;
+                    }
+                    &:hover {
+                        background: #ff8400;
+                        border: 2px solid #ff8400;
+                        transition: all 0.25s ease;
+                    }
+                }
+            }
+            &__block1{
+                width: 40%;
+                img{
+                    width: 100%;
+                    object-fit: cover;
+                }
+            }
+        }
+    }
+}
+
+
+

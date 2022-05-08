@@ -15,12 +15,12 @@
     font-weight: 600;
     h6 {
       position: relative;
-      span {
-        content: "75";
+      font-size: 1.5rem;
+      span { 
         position: absolute;
-        top: -50%;
-        right: -23%;
-        font-size: 11px;
+        top: -70%;
+        right: -34%;
+        font-size: 1.1rem;
         color: orange;
         font-weight: 700;
       }
@@ -36,7 +36,7 @@
     margin: 3rem 0;
     text-align: center;
     text-transform: uppercase;
-    font-size: 20px;
+    font-size: 2rem;
     // background: orange;
     // background: linear-gradient(to left, orange, rgb(219, 149, 18));
     animation: color 2s infinite;
@@ -73,8 +73,8 @@
 #customNavigation #album .swiper-button-next,
 #customNavigation #album .swiper-button-prev {
   border: 1px solid #ddd;
-  height: 2rem;
-  width: 2rem;
+  height: 3.5rem;
+  width: 3.5rem;
   border-radius: 50%;
   color: black;
   background: white;

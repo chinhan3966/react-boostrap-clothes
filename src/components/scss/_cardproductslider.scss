@@ -1,0 +1,55 @@
+.cardSlider{
+    margin-bottom: 5rem;
+    &__img{
+        aspect-ratio:1/1;
+        img{
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+
+        }
+    }
+
+    &__des{
+        text-align:center;
+        h2{
+            font-size: 1.7rem;
+            text-transform: uppercase;
+            font-weight: 400;
+            margin-top: 20px;
+            display: -webkit-box;
+                -webkit-box-orient: vertical;
+                -webkit-line-clamp: 1;
+            overflow: hidden;
+        }
+        p{
+            font-size: 1.6rem;  
+            font-weight: 500;
+        }
+    }
+
+    &__listImg{
+        display: flex;
+        align-items: center;
+        justify-content:center;
+        width: 55%;
+        margin: 0 auto;
+        div{
+            width: 38px;
+            height: 38px;
+            border: 1px solid #ddd;
+            margin: 0 5px;
+            cursor: pointer;
+            img{
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+        }
+    }
+}
+
+
+.border-active{
+    border: 1px solid #ff8400;
+}
