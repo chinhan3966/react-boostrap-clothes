@@ -4,6 +4,7 @@ import Banner from "../Banner";
 import BestSeller from "../BestSeller";
 import Boostrap from "../Boostrap";
 import HotDeal from "../HotDeal";
+import NewArrival from "../NewArrival";
 import NewtShirt from "../NewtShirt";
 
 const Home = () => {
@@ -20,6 +21,7 @@ const Home = () => {
         />
       </div>
       <BestSeller />
+      <NewArrival />
     </div>
   );
 };

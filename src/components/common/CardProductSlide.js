@@ -2,15 +2,17 @@ import React, { useEffect, useState } from "react";
 
 const CardProductSlide = ({ name, price, img }) => {
   const [listImg, setListImg] = useState([]);
+  // const [imgDefault, setImgDefault] = useState("");
   const [dynamicImg, setDynamicImg] = useState(img[0]);
   const [activeBorder, setActiveBorder] = useState(0);
-  console.log("list img", listImg);
+  // console.log("list img", listImg);
   useEffect(() => {
     if (Array.isArray(img)) {
       const slideList = img.slice(0, 3);
       setListImg(slideList);
+      setDynamicImg(img[0]);
     }
-  }, []);
+  }, [img]);
   const priceSplitter = (number) =>
     number && number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
   return (

@@ -33,7 +33,7 @@ html {
 @import "./hotdeal";
 @import "./cardproductslider";
 @import "./bestseller";
-
+@import "./newarrival";
 
 
 .w-full{
@@ -61,6 +61,11 @@ html {
     background-color: #ff8400;
     transition: all 0.25s ease;
   }
+}
+
+.ff8400 {
+  color: #ff8400;
+  transition: all 0.25 ;
 }
 
 

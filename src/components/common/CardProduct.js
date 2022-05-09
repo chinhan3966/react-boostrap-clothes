@@ -13,12 +13,12 @@ const CardProduct = ({ imgFront, imgBack, title, price, item }) => {
     number && number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 
   return (
-    <div className="w-100" onClick={handleOntop}>
+    <div className="w-100">
       <div className="flip-card">
         <div className="flip-card-inner">
           {/* <Link to={`/product/${item.slug}`}> */}
           <div className="flip-card-front">
-            <Link to={`/product/${item.slug}/${item.id}`}>
+            <Link to={`/product/${item.slug}/${item.id}`} onClick={handleOntop}>
               <img
                 src={imgFront}
                 alt="Avatar"
@@ -33,7 +33,7 @@ const CardProduct = ({ imgFront, imgBack, title, price, item }) => {
           </div>
 
           <div className="flip-card-back">
-            <Link to={`/product/${item.slug}/${item.id}`}>
+            <Link to={`/product/${item.slug}/${item.id}`} onClick={handleOntop}>
               <img
                 src={imgBack}
                 alt="Avatar"
@@ -50,7 +50,7 @@ const CardProduct = ({ imgFront, imgBack, title, price, item }) => {
         </div>
       </div>
       <div className="flip-body text-center">
-        <Link to={`/product/${item.slug}/${item.id}`}>
+        <Link to={`/product/${item.slug}/${item.id}`} onClick={handleOntop}>
           <h4 className="text-uppercase">{title}</h4>
         </Link>
         <h6>{priceSplitter(price)}đ</h6>

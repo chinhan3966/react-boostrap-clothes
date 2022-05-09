@@ -1,0 +1,50 @@
+.newArrival-title{
+    margin-top: 20px;
+    margin-bottom: 5rem;
+    h4{
+        text-align: center;
+        font-size: 3rem;
+        text-transform: uppercase;
+        font-weight: 700;
+    }
+    &__parent{
+        display: flex;
+        justify-content:center;
+        align-items:center;
+        margin-top: 10px;
+        h5{
+            position: relative;
+            font-size: 1.5rem;
+            text-transform: uppercase;
+            margin: 0 20px;
+            font-weight: 700;
+            cursor: pointer;
+            &:hover{
+                color: #ff8400;
+                transition: all 0.25s;
+            }
+            span {
+                display: block;
+                position: absolute;
+                top: 140%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                width: 30px;
+                height: 3px;
+                background-color: #ff8400;
+            }
+        }
+    }
+}
+
+.newArrival{
+    align-items:center;
+ 
+    &__block1{
+        img{
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    }
+}

@@ -8,11 +8,6 @@ const PageProduct = () => {
   const item = data.find((item) => item.slug === slug);
   console.log("check", id);
 
-  useEffect(async () => {
-    try {
-      let res = await axios.get(`localhost:8085/api/v1/product/${slug}`);
-    } catch {}
-  }, []);
   return <div>{slug}</div>;
 };
 

@@ -6,10 +6,11 @@ import CardProductSlide from "./common/CardProductSlide";
 const BestSeller = () => {
   const [data, setData] = useState([]);
   const listRedux = useSelector((state) => state.listProduct.value.listProduct);
-  console.log(data);
+  // console.log(data);
   useEffect(() => {
     const filter = listRedux.filter((item) => item.discount > 20);
-    setData(filter);
+    const slice = filter.slice(0, 8);
+    setData(slice);
   }, []);
   return (
     <Container>
