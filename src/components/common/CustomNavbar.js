@@ -5,6 +5,7 @@ import { AiOutlineSearch, AiOutlineMenu } from "react-icons/ai";
 import { MdOutlineAccountCircle } from "react-icons/md";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { FaTimes } from "react-icons/fa";
+import { VscClose } from "react-icons/vsc";
 import { BiChevronDown, BiChevronRight } from "react-icons/bi";
 // import "./scss/CustomNavBar.scss";
 import { Link } from "react-router-dom";
@@ -44,7 +45,7 @@ export const CustomNavbar = () => {
           <Col
             lg={9}
             id="menu-nav"
-            className={`fixed ${open ? "left0 clip-path100" : ""}`}
+            className={`fixed ${open ? " clip-path100" : ""}`}
           >
             <ul className="d-flex flex-col flex-wrap align-items-center  m-0 ">
               <li className="nav--item mx-3 fs-6 text-uppercase fw-normal borderBottom  ">
@@ -248,7 +249,7 @@ export const CustomNavbar = () => {
                 <a className="nav--link">địa chỉ cửa hàng</a>
               </li>
             </ul>
-            <FaTimes
+            <VscClose
               size={"24px"}
               className="d-xl-none fixed__close"
               onClick={() => setOpen(!open)}
@@ -292,6 +293,10 @@ export const CustomNavbar = () => {
           />
         </div>
       </div>
+      <div
+        className={`fixed__blur ${open ? "clip-path100-blur" : ""}`}
+        onClick={() => setOpen(!open)}
+      ></div>
     </div>
   );
 };

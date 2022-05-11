@@ -6,6 +6,7 @@ import Boostrap from "../Boostrap";
 import HotDeal from "../HotDeal";
 import NewArrival from "../NewArrival";
 import NewtShirt from "../NewtShirt";
+import News from "../News";
 
 const Home = () => {
   return (
@@ -22,6 +23,7 @@ const Home = () => {
       </div>
       <BestSeller />
       <NewArrival />
+      <News />
     </div>
   );
 };
