@@ -29,6 +29,8 @@ const BestSeller = () => {
                   name={item.title}
                   price={item.price}
                   img={item.img}
+                  slug={item.slug}
+                  id={item.id}
                 />
               </Col>
             );

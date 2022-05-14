@@ -286,7 +286,7 @@ export const CustomNavbar = () => {
           </button>
         </div>
         <div className="deleteIcon">
-          <FaTimes
+          <VscClose
             className="pointer"
             size={"25px"}
             onClick={() => setSearch(!search)}

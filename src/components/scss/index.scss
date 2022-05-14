@@ -36,6 +36,7 @@ html {
 @import "./newarrival";
 @import "./news";
 @import "./footer";
+@import "./pageproduct";
 
 .w-full{
   width: 100%;
@@ -44,6 +45,11 @@ html {
 .h-full{
   height: 100%;
 }
+
+.pointer{
+  cursor: pointer;
+}
+
 
 .fixedToTop{
   position: fixed;
