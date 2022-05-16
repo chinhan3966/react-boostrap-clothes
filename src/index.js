@@ -17,7 +17,7 @@ ReactDOM.render(
         <Route path="/" element={<App />}>
           <Route index element={<Home />} />
           <Route path="product/:slug/:id" element={<PageProduct />} />
-          <Route path="collections/:slug" element={<Collections />} />
+          <Route path="collections/:categorySlug" element={<Collections />} />
         </Route>
       </Routes>
     </BrowserRouter>

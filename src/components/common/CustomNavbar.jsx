@@ -280,7 +280,7 @@ export const CustomNavbar = () => {
           <CgChanel size={"60px"} />
         </div>
         <div className="formInput">
-          <input type="text" placeholder="Tim Kiem" />
+          <input type="text" placeholder="Tìm Kiếm..." />
           <button>
             <AiOutlineSearch size={"23px"} />
           </button>

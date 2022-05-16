@@ -24,7 +24,7 @@ const NewArrival = () => {
   const listRedux = useSelector((state) => state.listProduct.value.listProduct);
   const [dataDynamic, setDataDynamic] = useState([]);
   const [imgDefault, setImageDefault] = useState("");
-  console.log("check data dynamic", dataDynamic);
+  // console.log("check data dynamic", dataDynamic);
   const [activeCollection, setActiveCollection] = useState("hoodie");
   const [activeColor, setActiveColor] = useState(1);
   useEffect(() => {

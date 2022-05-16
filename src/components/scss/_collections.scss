@@ -1,0 +1,67 @@
+.collections {
+  &__introduce {
+    position: relative;
+    background-color: #f8f8f8;
+    padding: 1rem;
+    // clip-path: polygon(0 0, 100% 0, 100% 65%, 0 65%);
+    // height: calc(100% - 100px);
+    h1 {
+      text-align: center;
+      text-transform: uppercase;
+      font-size: 2.8rem;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+    div {
+      font-size: 1.4rem;
+      text-align: center;
+      font-weight: 400;
+      color: #333;
+    }
+  }
+  &__filter {
+    background-color: #ebebeb;
+    padding: 1rem 2rem;
+
+    &-header {
+      display: flex;
+      align-items: center;
+      svg {
+        margin-right: 5px;
+      }
+      span {
+        font-size: 1.5rem;
+        font-weight: 700;
+      }
+    }
+
+    &-size {
+      margin-top: 20px;
+      margin-bottom: 20px;
+      font-size: 1.4rem;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+
+      span {
+        white-space: nowrap;
+        margin-right: 5rem;
+        min-width: 90px;
+      }
+
+      .swiper {
+        width: 100%;
+        .swiper-slide {
+          text-align: center;
+          padding: 0.5rem 1rem;
+          border-radius: 20px;
+          background-color: #fff;
+        }
+      }
+    }
+  }
+
+  &__product {
+    margin-top: 5rem;
+  }
+}

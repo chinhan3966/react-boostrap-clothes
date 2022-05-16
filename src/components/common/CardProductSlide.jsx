@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 const CardProductSlide = ({ name, price, img, slug, id }) => {
   const [listImg, setListImg] = useState([]);
   // const [imgDefault, setImgDefault] = useState("");
-  const [dynamicImg, setDynamicImg] = useState(img[0]);
+  const [dynamicImg, setDynamicImg] = useState(img && img[0]);
   const [activeBorder, setActiveBorder] = useState(0);
 
   useEffect(() => {

@@ -11,19 +11,16 @@
 }
 
 html {
-
   font-size: 62.5%;
 
-  @include tablet{
+  @include tablet {
     font-size: 55%;
   }
 
-  @include mobile{
+  @include mobile {
     font-size: 45%;
   }
-
 }
-
 
 @import "./newtshirt";
 @import "./custom-navbar";
@@ -37,21 +34,21 @@ html {
 @import "./news";
 @import "./footer";
 @import "./pageproduct";
+@import "./collections";
 
-.w-full{
+.w-full {
   width: 100%;
 }
 
-.h-full{
+.h-full {
   height: 100%;
 }
 
-.pointer{
+.pointer {
   cursor: pointer;
 }
 
-
-.fixedToTop{
+.fixedToTop {
   position: fixed;
   bottom: 20px;
   right: 20px;
@@ -64,7 +61,7 @@ html {
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  &:hover{
+  &:hover {
     background-color: #ff8400;
     transition: all 0.25s ease;
   }
@@ -72,9 +69,15 @@ html {
 
 .ff8400 {
   color: #ff8400;
-  transition: all 0.25 ;
+  transition: all 0.25;
 }
 
+.line-camp-3 {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+}
 
 body {
   margin: 0;
@@ -95,6 +98,10 @@ a {
   text-decoration: none !important;
 }
 
-html{
+html {
   scroll-behavior: smooth;
+}
+
+button {
+  color: #000;
 }

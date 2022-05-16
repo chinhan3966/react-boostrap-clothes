@@ -33,9 +33,9 @@ const listNew = [
       "Theo  công văn chính thức của Chính phủ về việc giãn cách xã hội  trước  tình hình diễn biến phức tạp của dịch bệnh SARS-CoV-2, YG SHOP xin phép được tạm đóng cửa các Store",
   },
   {
-    id: 3,
-    img: "https://bizweb.dktcdn.net/thumb/large/100/331/067/articles/191731369-1970303873125285-7851866387332580118-n.jpg?v=1622844378397",
-    title: "stay home stay safe [freeship - miễn phí vận chuyển ]",
+    id: 4,
+    img: "https://file.hstatic.net/1000360022/article/271795973_1574282416298187_5394937596153332571_n_00a828f48fe64d538a6db7bc3a0dc62e_grande.jpeg",
+    title: `tết nhâm thân mặc gì cho "fashion" #2`,
     description:
       "Theo  công văn chính thức của Chính phủ về việc giãn cách xã hội  trước  tình hình diễn biến phức tạp của dịch bệnh SARS-CoV-2, YG SHOP xin phép được tạm đóng cửa các Store",
   },
