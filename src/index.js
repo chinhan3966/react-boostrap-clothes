@@ -9,6 +9,7 @@ import "bootstrap/dist/js/bootstrap.min.js";
 import PageProduct from "./components/page/PageProduct";
 import Home from "../src/components/page/Home";
 import Collections from "./components/page/Collections";
+import Cart from "./components/page/Cart";
 
 ReactDOM.render(
   <React.StrictMode>
@@ -18,6 +19,7 @@ ReactDOM.render(
           <Route index element={<Home />} />
           <Route path="product/:slug/:id" element={<PageProduct />} />
           <Route path="collections/:categorySlug" element={<Collections />} />
+          <Route path="cart" element={<Cart />} />
         </Route>
       </Routes>
     </BrowserRouter>

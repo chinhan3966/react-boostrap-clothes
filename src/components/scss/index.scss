@@ -35,6 +35,7 @@ html {
 @import "./footer";
 @import "./pageproduct";
 @import "./collections";
+@import "./cart";
 
 .w-full {
   width: 100%;
@@ -79,6 +80,13 @@ html {
   overflow: hidden;
 }
 
+.line-camp-1 {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
@@ -102,6 +110,7 @@ html {
   scroll-behavior: smooth;
 }
 
-button {
-  color: #000;
+button,
+a {
+  color: #000 !important;
 }

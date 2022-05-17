@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Container } from "react-bootstrap";
 import Accordion from "react-bootstrap/Accordion";
 import CardProductSlide from "../common/CardProductSlide";
@@ -17,6 +17,7 @@ import "swiper/css/effect-coverflow";
 // import required modules
 import { FreeMode, Navigation, Thumbs, EffectCoverflow } from "swiper";
 import Helmet from "../common/Helmet";
+import { addCart } from "../../redux/actions";
 const PageProduct = () => {
   const { slug, id } = useParams();
   const data = useSelector((state) => state.listProduct.value.listProduct);
@@ -33,6 +34,8 @@ const PageProduct = () => {
   const [qty, setQty] = useState(1);
   const [color, setColor] = useState(item.colors[0]);
   const [size, setSize] = useState(item && item.size && item.size[0]);
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const categorySlug = item.categorySlug;
@@ -52,6 +55,19 @@ const PageProduct = () => {
 
   const handleIncreaseQty = () => {
     setQty(qty + 1);
+  };
+
+  const addItem = () => {
+    dispatch(
+      addCart({
+        id: item.id,
+        img: item.img[0],
+        name: item.title,
+        price: item.price,
+        qty: 1,
+      })
+    );
+    // toast.success("add product success");
   };
   return (
     <Helmet title={item.slug}>
@@ -224,7 +240,7 @@ const PageProduct = () => {
                   </div>
                 </div>
               </div>
-              <button className="product__des-cart">
+              <button className="product__des-cart" onClick={addItem}>
                 <BiCartAlt />
                 <div>thêm vào giỏ hàng</div>
               </button>

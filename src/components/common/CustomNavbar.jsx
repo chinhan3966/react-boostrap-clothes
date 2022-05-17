@@ -269,7 +269,9 @@ export const CustomNavbar = () => {
                 <MdOutlineAccountCircle size={"24px"} className="pointer" />
               </div>
               <div>
-                <AiOutlineShoppingCart size={"24px"} className="pointer" />
+                <Link to="cart">
+                  <AiOutlineShoppingCart size={"24px"} className="pointer" />
+                </Link>
               </div>
             </div>
           </Col>
