@@ -10,6 +10,7 @@ import PageProduct from "./components/page/PageProduct";
 import Home from "../src/components/page/Home";
 import Collections from "./components/page/Collections";
 import Cart from "./components/page/Cart";
+import SignIn from "./components/page/SignIn";
 
 ReactDOM.render(
   <React.StrictMode>
@@ -20,6 +21,7 @@ ReactDOM.render(
           <Route path="product/:slug/:id" element={<PageProduct />} />
           <Route path="collections/:categorySlug" element={<Collections />} />
           <Route path="cart" element={<Cart />} />
+          <Route path="sign-in" element={<SignIn />} />
         </Route>
       </Routes>
     </BrowserRouter>

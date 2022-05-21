@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { MdOutlineDeleteForever } from "react-icons/md";
 import { useDispatch } from "react-redux";
-import { changeQty } from "../../redux/actions";
+import { toast } from "react-toastify";
+import { changeQty, removeCart } from "../../redux/actions";
 
 const ItemCart = ({ id, img, name, price, quantity }) => {
   const [qty, setQty] = useState(quantity);
@@ -31,6 +32,11 @@ const ItemCart = ({ id, img, name, price, quantity }) => {
     setQty(qty + 1);
   };
 
+  const handleDelete = () => {
+    dispatch(removeCart(id));
+    toast.success("Remove product success");
+  };
+
   const priceSplitter = (number) =>
     number && number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
   return (
@@ -50,7 +56,10 @@ const ItemCart = ({ id, img, name, price, quantity }) => {
           <div>{qty}</div>
           <div onClick={handleIncreaseQty}>+</div>
         </div>
-        <div className="cart__body-listCart__item-qty__delete">
+        <div
+          className="cart__body-listCart__item-qty__delete"
+          onClick={handleDelete}
+        >
           <MdOutlineDeleteForever />
         </div>
       </div>

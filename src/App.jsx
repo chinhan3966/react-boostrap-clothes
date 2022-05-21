@@ -10,8 +10,10 @@ import { Outlet } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { BsChevronUp } from "react-icons/bs";
 import Footer from "./components/common/Footer";
+import { ToastContainer } from "react-toastify";
 function App() {
   const [isTop, setIsTop] = useState(0);
+  // console.log("check is top", isTop);
 
   useEffect(() => {
     const handleScrollY = (e) => {
@@ -43,6 +45,19 @@ function App() {
           ""
         )}
       </div>
+      <ToastContainer
+        position="top-right"
+        autoClose={1000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
+      {/* Same as */}
+      <ToastContainer />
     </Provider>
   );
 }

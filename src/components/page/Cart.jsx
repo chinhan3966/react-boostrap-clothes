@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 
 import ItemCart from "../common/ItemCart";
 import Helmet from "../common/Helmet";
+import { Link } from "react-router-dom";
 const loop = [0, 1, 2, 3];
 const Cart = () => {
   const [totalCart, setTotalCart] = useState(null);
@@ -50,7 +51,7 @@ const Cart = () => {
           </div>
           <div className="cart__body-footer">
             <button className="cart__body-footer__continue">
-              Tiếp tục mua hàng
+              <Link to="/">Tiếp tục mua hàng</Link>
             </button>
             <div className="cart__body-footer__payment">
               <h6>

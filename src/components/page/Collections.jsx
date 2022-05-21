@@ -10,6 +10,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
 import CardProductSlide from "../common/CardProductSlide";
+import Helmet from "../common/Helmet";
 
 const description = [
   {
@@ -130,25 +131,79 @@ const Collections = () => {
     console.log("check filter dynamic", filter);
   };
   return (
-    <div className="collections">
-      <Container fluid className="collections__introduce">
-        <h1>
-          {description.find((item) => item.categorySlug === categorySlug).name}
-        </h1>
-        <Container className="line-camp-3">
-          {description.find((item) => item.categorySlug === categorySlug).des}
+    <Helmet title="Collections">
+      <div className="collections">
+        <Container fluid className="collections__introduce">
+          <h1>
+            {
+              description.find((item) => item.categorySlug === categorySlug)
+                .name
+            }
+          </h1>
+          <Container className="line-camp-3">
+            {description.find((item) => item.categorySlug === categorySlug).des}
+          </Container>
         </Container>
-      </Container>
-      <Container>
-        <div className="collections__filter">
-          <div className="collections__filter-header">
-            <BsFilter size={"24px"} />
-            <span>Bộ lọc</span>
-          </div>
+        <Container>
+          <div className="collections__filter">
+            <div className="collections__filter-header">
+              <BsFilter size={"24px"} />
+              <span>Bộ lọc</span>
+            </div>
 
-          {filterSize && filterSize.length > 0 && (
+            {filterSize && filterSize.length > 0 && (
+              <div className="collections__filter-size">
+                <span>Kích thước</span>
+                <>
+                  <Swiper
+                    slidesPerView={3}
+                    spaceBetween={10}
+                    pagination={{
+                      clickable: true,
+                    }}
+                    breakpoints={{
+                      640: {
+                        slidesPerView: 4,
+                        spaceBetween: 20,
+                      },
+                      768: {
+                        slidesPerView: 8,
+                        spaceBetween: 40,
+                      },
+                      1024: {
+                        slidesPerView: 9,
+                        spaceBetween: 50,
+                      },
+                    }}
+                    // modules={[Pagination]}
+                    className="mySwiper"
+                  >
+                    {filterSize &&
+                      filterSize.length > 0 &&
+                      filterSize.map((item, index) => {
+                        return (
+                          <SwiperSlide
+                            key={index}
+                            className={
+                              index === activeSize
+                                ? "border border-warning pointer"
+                                : "pointer"
+                            }
+                            onClick={() => {
+                              handleFilterSize(index, item);
+                            }}
+                          >
+                            {item}
+                          </SwiperSlide>
+                        );
+                      })}
+                  </Swiper>
+                </>
+              </div>
+            )}
+
             <div className="collections__filter-size">
-              <span>Kích thước</span>
+              <span>Màu sắc</span>
               <>
                 <Swiper
                   slidesPerView={3}
@@ -158,34 +213,34 @@ const Collections = () => {
                   }}
                   breakpoints={{
                     640: {
-                      slidesPerView: 4,
+                      slidesPerView: 5,
                       spaceBetween: 20,
                     },
                     768: {
-                      slidesPerView: 8,
+                      slidesPerView: 6,
                       spaceBetween: 40,
                     },
                     1024: {
-                      slidesPerView: 9,
+                      slidesPerView: 7,
                       spaceBetween: 50,
                     },
                   }}
                   // modules={[Pagination]}
                   className="mySwiper"
                 >
-                  {filterSize &&
-                    filterSize.length > 0 &&
-                    filterSize.map((item, index) => {
+                  {filterColor &&
+                    filterColor.length > 0 &&
+                    filterColor.map((item, index) => {
                       return (
                         <SwiperSlide
                           key={index}
                           className={
-                            index === activeSize
+                            index === activeColor
                               ? "border border-warning pointer"
-                              : "pointer"
+                              : " pointer"
                           }
                           onClick={() => {
-                            handleFilterSize(index, item);
+                            handleFilterColor(index, item);
                           }}
                         >
                           {item}
@@ -195,78 +250,29 @@ const Collections = () => {
                 </Swiper>
               </>
             </div>
-          )}
-
-          <div className="collections__filter-size">
-            <span>Màu sắc</span>
-            <>
-              <Swiper
-                slidesPerView={3}
-                spaceBetween={10}
-                pagination={{
-                  clickable: true,
-                }}
-                breakpoints={{
-                  640: {
-                    slidesPerView: 5,
-                    spaceBetween: 20,
-                  },
-                  768: {
-                    slidesPerView: 6,
-                    spaceBetween: 40,
-                  },
-                  1024: {
-                    slidesPerView: 7,
-                    spaceBetween: 50,
-                  },
-                }}
-                // modules={[Pagination]}
-                className="mySwiper"
-              >
-                {filterColor &&
-                  filterColor.length > 0 &&
-                  filterColor.map((item, index) => {
-                    return (
-                      <SwiperSlide
-                        key={index}
-                        className={
-                          index === activeColor
-                            ? "border border-warning pointer"
-                            : " pointer"
-                        }
-                        onClick={() => {
-                          handleFilterColor(index, item);
-                        }}
-                      >
-                        {item}
-                      </SwiperSlide>
-                    );
-                  })}
-              </Swiper>
-            </>
           </div>
-        </div>
-        <div className="collections__product">
-          <Row>
-            {listData &&
-              listData.length > 0 &&
-              listData.map((item, index) => {
-                return (
-                  <Col xl={3} lg={4} md={6} sm={6} xs={6} key={index}>
-                    <CardProductSlide
-                      name={item.title}
-                      price={item.price}
-                      img={item.img}
-                      slug={item.slug}
-                      id={item.id}
-                    />
-                  </Col>
-                );
-              })}
-          </Row>
-        </div>
-      </Container>
-    </div>
+          <div className="collections__product">
+            <Row>
+              {listData &&
+                listData.length > 0 &&
+                listData.map((item, index) => {
+                  return (
+                    <Col xl={3} lg={4} md={6} sm={6} xs={6} key={index}>
+                      <CardProductSlide
+                        name={item.title}
+                        price={item.price}
+                        img={item.img}
+                        slug={item.slug}
+                        id={item.id}
+                      />
+                    </Col>
+                  );
+                })}
+            </Row>
+          </div>
+        </Container>
+      </div>
+    </Helmet>
   );
 };
 

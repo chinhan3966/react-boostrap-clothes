@@ -266,10 +266,30 @@ export const CustomNavbar = () => {
                 />
               </div>
               <div>
-                <MdOutlineAccountCircle size={"24px"} className="pointer" />
+                <Link
+                  to="/sign-in"
+                  onClick={() => {
+                    window.scrollTo({
+                      top: 126,
+                      left: 0,
+                      behavior: "smooth",
+                    });
+                  }}
+                >
+                  <MdOutlineAccountCircle size={"24px"} className="pointer" />
+                </Link>
               </div>
               <div>
-                <Link to="cart">
+                <Link
+                  to="cart"
+                  onClick={() => {
+                    window.scrollTo({
+                      top: 75,
+                      left: 0,
+                      behavior: "smooth",
+                    });
+                  }}
+                >
                   <AiOutlineShoppingCart size={"24px"} className="pointer" />
                 </Link>
               </div>

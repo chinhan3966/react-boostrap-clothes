@@ -18,6 +18,7 @@ import "swiper/css/effect-coverflow";
 import { FreeMode, Navigation, Thumbs, EffectCoverflow } from "swiper";
 import Helmet from "../common/Helmet";
 import { addCart } from "../../redux/actions";
+import { toast } from "react-toastify";
 const PageProduct = () => {
   const { slug, id } = useParams();
   const data = useSelector((state) => state.listProduct.value.listProduct);
@@ -64,10 +65,18 @@ const PageProduct = () => {
         img: item.img[0],
         name: item.title,
         price: item.price,
-        qty: 1,
+        qty: qty,
       })
     );
-    // toast.success("add product success");
+    toast.success("add product success", {
+      position: "top-right",
+      autoClose: 1000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
   };
   return (
     <Helmet title={item.slug}>
