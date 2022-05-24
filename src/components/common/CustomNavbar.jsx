@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import { CgChanel } from "react-icons/cg";
 import { AiOutlineSearch, AiOutlineMenu } from "react-icons/ai";
@@ -7,6 +7,7 @@ import { AiOutlineShoppingCart } from "react-icons/ai";
 import { FaTimes } from "react-icons/fa";
 import { VscClose } from "react-icons/vsc";
 import { BiChevronDown, BiChevronRight } from "react-icons/bi";
+import { useSelector } from "react-redux";
 // import "./scss/CustomNavBar.scss";
 import { Link } from "react-router-dom";
 export const CustomNavbar = () => {
@@ -18,6 +19,14 @@ export const CustomNavbar = () => {
   const [openMoreMenu2, setOpenMoreMenu2] = useState(false);
   const [openMoreMenu3, setOpenMoreMenu3] = useState(false);
   const [search, setSearch] = useState(false);
+  const [qtyCart, setQtyCart] = useState(0);
+  const qtyCartRedux = useSelector((state) => state.cart);
+  console.log("check qty cart", qtyCartRedux);
+
+  useEffect(() => {
+    let qty = qtyCartRedux.length;
+    setQtyCart(qty);
+  }, [qtyCartRedux]);
   return (
     <div className="py-2 position-relative padding-bottom">
       <Container>
@@ -279,7 +288,7 @@ export const CustomNavbar = () => {
                   <MdOutlineAccountCircle size={"24px"} className="pointer" />
                 </Link>
               </div>
-              <div>
+              <div className="cart__navbar">
                 <Link
                   to="cart"
                   onClick={() => {
@@ -292,6 +301,7 @@ export const CustomNavbar = () => {
                 >
                   <AiOutlineShoppingCart size={"24px"} className="pointer" />
                 </Link>
+                <span>{qtyCart}</span>
               </div>
             </div>
           </Col>

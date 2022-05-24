@@ -42,8 +42,46 @@
             font-size: 1.3rem;
           }
         }
+        &-firstname {
+          margin-bottom: 20px;
+          label {
+            display: block;
+            font-size: 1.4rem;
+            color: #333;
+            font-weight: 600;
+            margin-bottom: 5px;
+          }
+          input {
+            width: 100%;
+            padding: 0.7rem 1.2rem;
+            outline: 0;
+            border: 1px solid #b1b3b7;
+            border-radius: 5px;
+            font-size: 1.3rem;
+          }
+        }
+        &-lastname {
+          margin-bottom: 20px;
+          label {
+            display: block;
+            font-size: 1.4rem;
+            color: #333;
+            font-weight: 600;
+            margin-bottom: 5px;
+          }
+          input {
+            width: 100%;
+            padding: 0.7rem 1.2rem;
+            outline: 0;
+            border: 1px solid #b1b3b7;
+            border-radius: 5px;
+            font-size: 1.3rem;
+          }
+        }
         &-password {
           margin-top: 20px;
+          margin-bottom: 40px;
+
           label {
             display: block;
             font-size: 1.4rem;

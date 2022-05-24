@@ -1,6 +1,7 @@
 import React from "react";
 import { Container } from "react-bootstrap";
 import { FcGoogle } from "react-icons/fc";
+import { Link } from "react-router-dom";
 const SignIn = () => {
   return (
     <div className="signin">
@@ -33,7 +34,21 @@ const SignIn = () => {
             </form>
           </div>
           <div className="signin__container-body__signup">
-            Don't have an account? <span>Sign Up</span>
+            Don't have an account?{" "}
+            <span>
+              <Link
+                to="/sign-up"
+                onClick={() => {
+                  window.scrollTo({
+                    top: 126,
+                    left: 0,
+                    behavior: "smooth",
+                  });
+                }}
+              >
+                Sign Up
+              </Link>
+            </span>
           </div>
           <div className="signin__container-body__google">
             <FcGoogle />

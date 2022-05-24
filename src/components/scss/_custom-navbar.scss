@@ -336,3 +336,20 @@ li {
   clip-path: polygon(100% 0, 0 0, 0 100%, 100% 100%);
   transition: all 0.25s ease-in-out;
 }
+
+.cart__navbar {
+  position: relative;
+  span {
+    position: absolute;
+    top: -18px;
+    right: -9px;
+    width: 20px;
+    height: 20px;
+    background: #ff8400;
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}

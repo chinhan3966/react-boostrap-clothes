@@ -128,7 +128,7 @@
         height: fit-content;
         font-size: 1.6rem;
         color: #333;
-        white-space: nowrap;
+        white-space: nowrap !important;
         @include mobile {
           width: 100%;
           display: block;
