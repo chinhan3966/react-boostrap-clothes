@@ -33,6 +33,10 @@ li {
     color: #333;
     text-decoration: none;
     transition: all 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94) ease-in-out;
+    @include tablet {
+      display: flex;
+      align-items: center;
+    }
     &:hover {
       color: orange;
       cursor: pointer;
@@ -181,6 +185,7 @@ li {
       font-size: 1.5rem;
       border: 1px solid #ddd;
       outline: none;
+      border-radius: unset;
       :focus {
         outline: 5px solid green;
       }
@@ -246,8 +251,11 @@ li {
       padding-left: 0;
       padding-top: 1rem;
       .nav--item {
-        padding: 5px;
+        padding: 13px 15px;
+        box-shadow: rgb(0 0 0 / 25%) 0 1px 0,
+          inset rgb(255 255 255 / 16%) 0 1px 0;
         width: 100%;
+
         // border-bottom: 1px solid #ddd;
         .sub-menu {
           position: relative !important;
@@ -351,5 +359,20 @@ li {
     display: flex;
     justify-content: center;
     align-items: center;
+    @include mobile {
+      width: 15px;
+      height: 15px;
+      top: -14px;
+      right: -4px;
+    }
+  }
+}
+
+.icon {
+  svg {
+    @include mobile {
+      width: 20px;
+      height: 20px;
+    }
   }
 }

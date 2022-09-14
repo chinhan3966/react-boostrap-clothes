@@ -18,7 +18,7 @@ const Banner = () => {
         loop={true}
         grabCursor={true}
         autoplay={{
-          delay: 1500,
+          delay: 5000,
           disableOnInteraction: false,
         }}
         pagination={{
@@ -33,7 +33,14 @@ const Banner = () => {
           {/* <div className="imgPaddingTop1"></div> */}
           <img
             className="imgBox"
-            src="https://theme.hstatic.net/1000360022/1000759577/14/slideshow_2.jpg?v=466"
+            // src="https://theme.hstatic.net/1000360022/1000759577/14/slideshow_2.jpg?v=466"
+            src="https://file.hstatic.net/1000383583/file/2_5_c866225cde1b4e5c9753c1cc9f557643.png"
+          />
+        </SwiperSlide>
+        <SwiperSlide>
+          <img
+            className="imgBox"
+            src="https://bizweb.dktcdn.net/100/331/067/themes/862373/assets/slider_1.jpg?1661445975319"
           />
         </SwiperSlide>
         <SwiperSlide>

@@ -10,6 +10,7 @@ import { BiChevronDown, BiChevronRight } from "react-icons/bi";
 import { useSelector } from "react-redux";
 // import "./scss/CustomNavBar.scss";
 import { Link } from "react-router-dom";
+import { disableScrollBody } from "../helper/options/body-class";
 export const CustomNavbar = () => {
   const [open, setOpen] = useState(false);
   const [openSubMenu1, setOpenSubMenu1] = useState(false);
@@ -27,16 +28,13 @@ export const CustomNavbar = () => {
     let qty = qtyCartRedux.length;
     setQtyCart(qty);
   }, [qtyCartRedux]);
+
+  useEffect(() => {
+    disableScrollBody(open);
+  }, [open]);
   return (
     <div className="py-2 position-relative padding-bottom">
       <Container>
-        {/* {console.log("open", open)} */}
-        {/* {console.log("openSubMenu1", openSubMenu1)} */}
-        {/* {console.log("openSub2", openSubMenu2)}
-      {console.log("openSub3", openSubMenu3)} */}
-        {/* {console.log("openMoreMenu1", openMoreMenu1)}
-        {console.log("openMoreMenu2", openMoreMenu2)}
-        {console.log("openMoreMenu3", openMoreMenu3)} */}
         <Row className="align-items-center justify-content-between">
           <Col
             xs={3}
@@ -265,7 +263,7 @@ export const CustomNavbar = () => {
             />
           </Col>
           <Col xs={3} lg={2}>
-            <div className="d-flex justify-content-between">
+            <div className="d-flex justify-content-between icon">
               <div id="search">
                 {/* className="d-none d-sm-block" */}
                 <AiOutlineSearch

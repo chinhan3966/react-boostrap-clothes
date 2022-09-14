@@ -1,10 +1,30 @@
- @import 'react-toastify/dist/ReactToastify.css';
+@import "react-toastify/dist/ReactToastify.css";
 
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
+
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #ffad4b;
+}
+
+/* Handle on hover */
+/* ::-webkit-scrollbar-thumb:hover {
+  background: #555;
+} */
 
 .box {
   padding: 5px;
@@ -31,4 +51,8 @@
 
 body {
   height: 10000;
+}
+
+body.disable-scroll {
+  overflow-y: hidden;
 }

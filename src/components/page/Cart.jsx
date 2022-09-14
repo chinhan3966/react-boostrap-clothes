@@ -23,7 +23,9 @@ const Cart = () => {
     <Helmet title="Giỏ Hàng">
       <div className="cart">
         <div className="cart__bg">
-          <div>Trang chủ</div>
+          <div>
+            <Link to="/">Trang chủ</Link>
+          </div>
           <AiOutlineRight />
           <span>Giỏ hàng</span>
         </div>

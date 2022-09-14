@@ -36,7 +36,7 @@ const SignUp = () => {
                 </div>
               </div> */}
               <button className="signin__container-body__form-submit">
-                Sign in
+                Sign up
               </button>
             </form>
           </div>
