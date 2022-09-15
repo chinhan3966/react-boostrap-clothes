@@ -1,0 +1,158 @@
+.form-field {
+  position: relative;
+  .form-input {
+    border: 1px solid #eee;
+    border-radius: 4px;
+    width: 100%;
+    height: 50px;
+    padding: 0 20px;
+    transition: 0.25s ease;
+    outline: none;
+    background-color: #fff;
+    font-size: 1.5rem;
+    @include tablet {
+      height: 45px;
+    }
+    @include mobile {
+      height: 40px;
+    }
+    &:focus {
+      border-color: #1435c3;
+    }
+
+    &:focus + .form-label,
+    &:not(:placeholder-shown) + .form-label {
+      top: 0;
+      left: 11px;
+      padding: 0 10px;
+      display: inline-block;
+      background-color: #fff;
+      color: #1435c3;
+      transition: all 0.25s ease;
+    }
+  }
+  .form-label {
+    position: absolute;
+    top: 50%;
+    left: 21px;
+    transform: translateY(-50%);
+    font-size: 1.6rem;
+    user-select: none;
+    pointer-events: none;
+    color: #999;
+    transition: all 0.25s ease;
+  }
+}
+
+.parent {
+  // background-color: #ff8400;
+
+  .payment {
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+    &__left {
+      width: 40%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      @include tablet {
+        width: 0%;
+      }
+      @include mobile {
+        width: 0%;
+      }
+      img {
+        width: 80%;
+        height: 80%;
+        object-fit: cover;
+      }
+    }
+    &__right {
+      width: 60%;
+      @include tablet {
+        width: 100%;
+      }
+      @include mobile {
+        width: 100%;
+      }
+      &-wrapper {
+        padding: 0 2.5rem;
+        @include tablet {
+          padding: 0 0.75rem;
+        }
+        .information__cart {
+          font-size: 1.4rem;
+          margin-top: 1.5rem;
+          margin-bottom: 1.2rem;
+          display: flex;
+          justify-content: space-between;
+          .cart__total {
+            display: flex;
+            align-items: center;
+            h5 {
+              font-size: 1.4rem;
+              margin: 0;
+            }
+            span {
+              font-size: 1.4rem;
+              color: #1435c3;
+              margin-left: 5px;
+            }
+          }
+        }
+        form {
+          padding: 2rem 0.4rem;
+          padding-bottom: 3.6rem;
+          margin: 0 auto;
+          .form__name {
+            margin-bottom: 4rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+          }
+          .button__payment {
+            display: flex;
+            align-items: center;
+            padding: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            &.active {
+              border: 1px solid #1435c3;
+            }
+          }
+          .button__order {
+            background: #1435c3;
+            text-align: center;
+            padding: 1.2rem 0;
+            border-radius: 0.5rem;
+            margin-top: 2rem;
+            button {
+              font-size: 1.6rem;
+              border: none;
+              color: #fff !important;
+              background: transparent;
+            }
+          }
+          .errorMessage {
+            display: block;
+            margin-top: 0.4rem;
+            color: red;
+            font-size: 1.4rem;
+            text-transform: capitalize;
+          }
+        }
+        .paypal {
+          max-height: 0;
+          overflow: hidden;
+          transition: 0.25s max-height;
+          &.active {
+            max-height: 50vh;
+            transition: 0.25s max-height;
+          }
+        }
+      }
+    }
+  }
+}

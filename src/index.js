@@ -12,11 +12,13 @@ import Collections from "./components/page/Collections";
 import Cart from "./components/page/Cart";
 import SignIn from "./components/page/SignIn";
 import SignUp from "./components/page/SignUp";
+import Payment from "./components/page/Payment";
+import AnimatedRoute from "./components/AnimatedRoute";
 
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
-      <Routes>
+      {/* <Routes>
         <Route path="/" element={<App />}>
           <Route index element={<Home />} />
           <Route path="product/:slug/:id" element={<PageProduct />} />
@@ -24,8 +26,10 @@ ReactDOM.render(
           <Route path="cart" element={<Cart />} />
           <Route path="sign-in" element={<SignIn />} />
           <Route path="sign-up" element={<SignUp />} />
+          <Route path="payment" element={<Payment />} />
         </Route>
-      </Routes>
+      </Routes> */}
+      <AnimatedRoute />
     </BrowserRouter>
   </React.StrictMode>,
   document.getElementById("root")

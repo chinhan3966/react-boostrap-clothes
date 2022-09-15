@@ -122,7 +122,7 @@
         flex-direction: column-reverse;
       }
       &__continue {
-        border: 0;
+        border: none;
         background-color: #f8f8f8;
         padding: 10px 35px;
         height: fit-content;
@@ -157,15 +157,22 @@
           border: 0;
           margin-top: 15px;
           white-space: nowrap;
+          text-align: center;
+          opacity: 0.8;
+          cursor: not-allowed;
+          &.active {
+            opacity: 1;
+            cursor: pointer;
+          }
           @include mobile {
             width: 100%;
             display: block;
             margin-bottom: 20px;
           }
-          &:hover {
-            background-color: black;
-            transition: all 0.25s;
-          }
+          // &:hover {
+          //   opacity: 0.8;
+          //   transition: all 0.25s;
+          // }
         }
       }
     }
