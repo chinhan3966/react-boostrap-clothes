@@ -14,11 +14,14 @@ import SignIn from "./components/page/SignIn";
 import SignUp from "./components/page/SignUp";
 import Payment from "./components/page/Payment";
 import AnimatedRoute from "./components/AnimatedRoute";
+import { Provider } from "react-redux";
+import store from "./redux/store";
 
 ReactDOM.render(
   <React.StrictMode>
-    <BrowserRouter>
-      {/* <Routes>
+    <Provider store={store}>
+      <BrowserRouter>
+        {/* <Routes>
         <Route path="/" element={<App />}>
           <Route index element={<Home />} />
           <Route path="product/:slug/:id" element={<PageProduct />} />
@@ -29,8 +32,9 @@ ReactDOM.render(
           <Route path="payment" element={<Payment />} />
         </Route>
       </Routes> */}
-      <AnimatedRoute />
-    </BrowserRouter>
+        <AnimatedRoute />
+      </BrowserRouter>
+    </Provider>
   </React.StrictMode>,
   document.getElementById("root")
 );

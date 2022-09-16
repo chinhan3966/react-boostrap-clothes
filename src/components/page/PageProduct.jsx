@@ -391,6 +391,7 @@ const PageProduct = () => {
                       return (
                         <SwiperSlide>
                           <CardProductSlide
+                            key={item.id}
                             name={item.title}
                             price={item.price}
                             img={item.img}

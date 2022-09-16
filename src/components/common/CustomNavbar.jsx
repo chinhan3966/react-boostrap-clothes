@@ -7,11 +7,15 @@ import { AiOutlineShoppingCart } from "react-icons/ai";
 import { FaTimes } from "react-icons/fa";
 import { VscClose } from "react-icons/vsc";
 import { BiChevronDown, BiChevronRight } from "react-icons/bi";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 // import "./scss/CustomNavBar.scss";
 import { Link } from "react-router-dom";
 import { disableScrollBody } from "../helper/options/body-class";
+import { logOut } from "../../redux/actions";
+import { toast } from "react-toastify";
+
 export const CustomNavbar = () => {
+  const [logout, setLogout] = useState(false);
   const [open, setOpen] = useState(false);
   const [openSubMenu1, setOpenSubMenu1] = useState(false);
   const [openSubMenu2, setOpenSubMenu2] = useState(false);
@@ -22,8 +26,14 @@ export const CustomNavbar = () => {
   const [search, setSearch] = useState(false);
   const [qtyCart, setQtyCart] = useState(0);
   const qtyCartRedux = useSelector((state) => state.cart);
-  console.log("check qty cart", qtyCartRedux);
+  const { loginGG } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+  // console.log("check home gg :>>", loginGG);
 
+  const handleLogout = () => {
+    toast.success("Logout Success");
+    dispatch(logOut());
+  };
   useEffect(() => {
     let qty = qtyCartRedux.length;
     setQtyCart(qty);
@@ -273,29 +283,43 @@ export const CustomNavbar = () => {
                 />
               </div>
               <div>
-                <Link
-                  to="/sign-in"
-                  onClick={() => {
-                    window.scrollTo({
-                      top: 126,
-                      left: 0,
-                      behavior: "smooth",
-                    });
-                  }}
-                >
-                  <MdOutlineAccountCircle size={"24px"} className="pointer" />
-                </Link>
+                {loginGG?.emailVerified ? (
+                  <div
+                    className="info__user"
+                    onClick={() => setLogout(!logout)}
+                  >
+                    {loginGG?.displayName?.slice(0, 1)}
+                    <div
+                      className={`${logout ? "active" : ""} dropdown__logout`}
+                    >
+                      <span onClick={handleLogout}>Đăng xuất</span>
+                    </div>
+                  </div>
+                ) : (
+                  <Link
+                    to="/sign-in"
+                    // onClick={() => {
+                    //   window.scrollTo({
+                    //     top: 126,
+                    //     left: 0,
+                    //     behavior: "smooth",
+                    //   });
+                    // }}
+                  >
+                    <MdOutlineAccountCircle size={"24px"} className="pointer" />
+                  </Link>
+                )}
               </div>
               <div className="cart__navbar">
                 <Link
                   to="cart"
-                  onClick={() => {
-                    window.scrollTo({
-                      top: 75,
-                      left: 0,
-                      behavior: "smooth",
-                    });
-                  }}
+                  // onClick={() => {
+                  //   window.scrollTo({
+                  //     top: 75,
+                  //     left: 0,
+                  //     behavior: "smooth",
+                  //   });
+                  // }}
                 >
                   <AiOutlineShoppingCart size={"24px"} className="pointer" />
                 </Link>

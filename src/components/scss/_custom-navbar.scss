@@ -38,7 +38,7 @@ li {
       align-items: center;
     }
     &:hover {
-      color: orange;
+      color: orange !important;
       cursor: pointer;
     }
 
@@ -80,7 +80,7 @@ li {
         white-space: nowrap;
         transition: all 0.2s ease;
         &:hover a {
-          color: orange;
+          color: orange !important;
         }
         a {
           color: #333;
@@ -107,6 +107,7 @@ li {
           opacity: 0;
           visibility: hidden;
           clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
+
           transition: all 0.25s ease;
           .more-menu-list1 {
             display: flex;
@@ -119,11 +120,11 @@ li {
               border-bottom: 1px solid #ddd;
               min-height: 41px;
               &:hover a {
-                color: orange;
+                color: orange !important;
                 transition: all 0.25 ease;
               }
               a {
-                color: #333;
+                color: #333 !important;
               }
             }
           }
@@ -373,6 +374,54 @@ li {
     @include mobile {
       width: 20px;
       height: 20px;
+    }
+  }
+}
+
+.info__user {
+  position: relative;
+  width: 24px;
+  height: 24px;
+  background: #ff8400;
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  @include mobile {
+    width: 20px;
+    height: 20px;
+    font-size: 13px;
+  }
+  .dropdown__logout {
+    position: absolute;
+    top: 150%;
+    left: 50%;
+    z-index: 10;
+    transform: translateX(-50%);
+    color: #333;
+    width: 150px;
+    border: 1px solid #d9dee4;
+    background: #fff;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.25s;
+    &.active {
+      top: 110%;
+      opacity: 1;
+      visibility: visible;
+      transition: all 0.25s;
+    }
+    span {
+      padding: 8px 15px;
+      display: block;
+      cursor: pointer;
+      &:hover {
+        background: #d9dee4;
+      }
     }
   }
 }

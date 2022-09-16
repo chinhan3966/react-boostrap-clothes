@@ -67,9 +67,12 @@ const Cart = () => {
                 })}
             </div>
             <div className="cart__body-footer">
-              <button className="cart__body-footer__continue">
-                <Link to="/">Tiếp tục mua hàng</Link>
-              </button>
+              <Link to="/">
+                <button className="cart__body-footer__continue">
+                  Tiếp tục mua hàng
+                </button>
+              </Link>
+
               <div className="cart__body-footer__payment">
                 <h6>
                   Tổng thanh toán : <span>{priceSplitter(totalCart)}đ</span>

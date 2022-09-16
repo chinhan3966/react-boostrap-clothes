@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
-
+import { Navigate, Redirect } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
 
 import App from "../App";
@@ -11,9 +11,14 @@ import Cart from "./page/Cart";
 import SignIn from "./page/SignIn";
 import SignUp from "./page/SignUp";
 import Payment from "./page/Payment";
+import NotFound from "./page/NotFound";
+import { useSelector } from "react-redux";
 
 const AnimatedRoute = () => {
   const location = useLocation();
+
+  // const { loginGG } = useSelector((state) => state.auth);
+  // console.log("check route login :>>", loginGG);
   //   const [admin, setAdmin] = useState(true);
   //   const informationUser = JSON.parse(sessionStorage.getItem("informationUser"));
 
@@ -39,6 +44,7 @@ const AnimatedRoute = () => {
           <Route path="sign-in" element={<SignIn />} />
           <Route path="sign-up" element={<SignUp />} />
           <Route path="payment" element={<Payment />} />
+          <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>
     </AnimatePresence>

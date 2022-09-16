@@ -40,6 +40,12 @@ const description = [
   },
   {
     id: 5,
+    name: "shirt",
+    des: "Sẽ thật là sai sót khi outfit của bạn thiếu đi những món phụ kiện. ICON chăm chút và giúp bạn trở nên hoàn hảo hơn với đủ thể loại phụ kiện từ khẩu trang, thắt lưng, các mẫu giày với đa dạng mẫu mã và màu sắc.",
+    categorySlug: "shirt",
+  },
+  {
+    id: 6,
     name: "accessories",
     des: "Sẽ thật là sai sót khi outfit của bạn thiếu đi những món phụ kiện. ICON chăm chút và giúp bạn trở nên hoàn hảo hơn với đủ thể loại phụ kiện từ khẩu trang, thắt lưng, các mẫu giày với đa dạng mẫu mã và màu sắc.",
     categorySlug: "accessories",
@@ -48,6 +54,7 @@ const description = [
 
 const Collections = () => {
   const { categorySlug } = useParams();
+  console.log("check category :>>", categorySlug);
   const dataRedux = useSelector((state) => state.listProduct.value.listProduct);
 
   const [listProductClone, setListProductClone] = useState([]);
@@ -151,7 +158,7 @@ const Collections = () => {
           <Container fluid className="collections__introduce">
             <h1>
               {
-                description.find((item) => item.categorySlug === categorySlug)
+                description?.find((item) => item.categorySlug === categorySlug)
                   .name
               }
             </h1>

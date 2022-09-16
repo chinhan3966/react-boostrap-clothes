@@ -3,17 +3,41 @@ import "./App.css";
 
 import { CustomNavbar } from "./components/common/CustomNavbar";
 
-import { Provider } from "react-redux";
+import { Provider, useDispatch } from "react-redux";
 import store from "./redux/store";
 // import Home from "./components/Home";
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { BsChevronUp } from "react-icons/bs";
 import Footer from "./components/common/Footer";
 import { ToastContainer } from "react-toastify";
+import { useSelector } from "react-redux";
+import { setUserGg } from "./redux/actions";
 function App() {
   const [isTop, setIsTop] = useState(0);
-  // console.log("check is top", isTop);
+  // const location = useLocation();
+  const dispatch = useDispatch();
+  const { pathname } = useLocation();
+  const navigate = useNavigate();
+
+  let isSignInPathName = pathname == "/sign-in";
+  let isSignUpPathName = pathname == "/sign-up";
+  const { loginGG, loginDB } = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    if (!loginGG?.uid) {
+      dispatch(setUserGg());
+    }
+  }, []);
+
+  useEffect(() => {
+    const hasLogin = loginGG && loginGG?.uid;
+    //  const isRequiredAuth = routesConfig[pathname]?.requiresAuth || false;
+
+    if ((isSignInPathName && hasLogin) || (isSignUpPathName && hasLogin)) {
+      navigate("/");
+    }
+  }, [loginGG, pathname]);
 
   useEffect(() => {
     const handleScrollY = (e) => {
@@ -32,7 +56,7 @@ function App() {
     });
   };
   return (
-    <Provider store={store}>
+    <div>
       <CustomNavbar />
       <Outlet />
       <Footer />
@@ -47,7 +71,7 @@ function App() {
       </div>
       <ToastContainer
         position="top-right"
-        autoClose={2000}
+        autoClose={1000}
         hideProgressBar={false}
         newestOnTop={false}
         closeOnClick
@@ -58,7 +82,7 @@ function App() {
       />
       {/* Same as */}
       <ToastContainer />
-    </Provider>
+    </div>
   );
 }
 
