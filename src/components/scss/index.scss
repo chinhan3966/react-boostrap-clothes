@@ -1,44 +1,28 @@
-@mixin mobile {
-  @media only screen and (max-width: 576px) {
-    @content;
-  }
-}
+@import "./helper/variable";
+@import "./helper/mixin";
 
-@mixin tablet {
-  @media only screen and (min-width: 576px) and (max-width: 1200px) {
-    @content;
-  }
-}
+//user
+@import "./user/newtshirt";
+@import "./user/custom-navbar";
+@import "./user/cardproduct";
+@import "./user/album-item";
+@import "./user/banner";
+@import "./user/hotdeal";
+@import "./user/cardproductslider";
+@import "./user/bestseller";
+@import "./user/newarrival";
+@import "./user/news";
+@import "./user/footer";
+@import "./user/pageproduct";
+@import "./user/collections";
+@import "./user/cart";
+@import "./user/signin";
+@import "./user/payment";
+//user
 
-html {
-  font-size: 62.5%;
-
-  @include tablet {
-    font-size: 55%;
-  }
-
-  @include mobile {
-    font-size: 45%;
-  }
-}
-
-@import "./newtshirt";
-@import "./custom-navbar";
-@import "./cardproduct";
-@import "./album-item";
-@import "./banner";
-@import "./hotdeal";
-@import "./cardproductslider";
-@import "./bestseller";
-@import "./newarrival";
-@import "./news";
-@import "./footer";
-@import "./pageproduct";
-@import "./collections";
-@import "./cart";
-@import "./signin";
-@import "./payment";
-
+//admin
+@import "./admin/admin";
+//admin
 .w-full {
   width: 100%;
 }
@@ -134,4 +118,16 @@ a {
   color: red;
   font-size: 1.4rem;
   text-transform: capitalize;
+}
+
+html {
+  font-size: 62.5%;
+
+  @include tablet {
+    font-size: 55%;
+  }
+
+  @include mobile {
+    font-size: 45%;
+  }
 }

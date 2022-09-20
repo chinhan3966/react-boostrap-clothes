@@ -5,7 +5,8 @@ import { motion } from "framer-motion";
 
 import { FastField, Form, Formik, useFormik } from "formik";
 import * as Yup from "yup";
-import Helmet from "../common/Helmet";
+import Helmet from "../../common/Helmet";
+
 const SignUp = () => {
   const formik = useFormik({
     initialValues: {

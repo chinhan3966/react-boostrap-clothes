@@ -4,8 +4,8 @@ import { AiOutlineRight } from "react-icons/ai";
 import { useSelector } from "react-redux";
 import { motion } from "framer-motion";
 
-import ItemCart from "../common/ItemCart";
-import Helmet from "../common/Helmet";
+import ItemCart from "../../common/ItemCart";
+import Helmet from "../../common/Helmet";
 import { Link } from "react-router-dom";
 const loop = [0, 1, 2, 3];
 const Cart = () => {

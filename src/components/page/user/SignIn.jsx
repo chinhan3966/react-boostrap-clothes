@@ -8,7 +8,7 @@ import { FastField, Form, Formik, useFormik } from "formik";
 import * as Yup from "yup";
 
 //firebase
-import { authentication } from "../../firebase/config";
+import { authentication } from "../../../firebase/config";
 import {
   signInWithPopup,
   GoogleAuthProvider,
@@ -16,8 +16,8 @@ import {
   onAuthStateChanged,
 } from "firebase/auth";
 import { useDispatch } from "react-redux";
-import { addInformationGG, removeInformationGG } from "../../redux/actions";
-import Helmet from "../common/Helmet";
+import { addInformationGG, removeInformationGG } from "../../../redux/actions";
+import Helmet from "../../common/Helmet";
 import { toast } from "react-toastify";
 
 const SignIn = () => {

@@ -1,17 +1,24 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-
-import Album from "../Album";
-import Banner from "../Banner";
-import BestSeller from "../BestSeller";
-import Boostrap from "../Boostrap";
-import HotDeal from "../HotDeal";
-import NewArrival from "../NewArrival";
-import NewtShirt from "../NewtShirt";
-import News from "../News";
-import Helmet from "../common/Helmet";
+import { IoIosClose } from "react-icons/io";
+import Album from "../../Album";
+import Banner from "../../Banner";
+import BestSeller from "../../BestSeller";
+import Boostrap from "../../Boostrap";
+import HotDeal from "../../HotDeal";
+import NewArrival from "../../NewArrival";
+import NewtShirt from "../../NewtShirt";
+import News from "../../News";
+import Helmet from "../../common/Helmet";
+import banner from "../../../assets/banner/banner-popup.jpg";
 
 const Home = () => {
+  const [isShowPopUp, setIsShowPopUp] = useState(false);
+  useEffect(() => {
+    setTimeout(() => {
+      setIsShowPopUp(true);
+    }, 10000);
+  }, []);
   return (
     <Helmet title="Home">
       <motion.div
@@ -42,6 +49,12 @@ const Home = () => {
           <BestSeller />
           <NewArrival />
           <News />
+        </div>
+        <div className={`show__PopUp ${isShowPopUp ? "active" : ""}`}>
+          <img src={banner} alt="banner" />
+          <div className="closePopUp" onClick={() => setIsShowPopUp(false)}>
+            <IoIosClose size={25} />
+          </div>
         </div>
       </motion.div>
     </Helmet>

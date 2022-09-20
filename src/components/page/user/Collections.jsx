@@ -10,8 +10,8 @@ import { motion } from "framer-motion";
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/pagination";
-import CardProductSlide from "../common/CardProductSlide";
-import Helmet from "../common/Helmet";
+import CardProductSlide from "../../common/CardProductSlide";
+import Helmet from "../../common/Helmet";
 
 const description = [
   {

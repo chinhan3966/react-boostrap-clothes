@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 // import logo from "../../assets/payment.png";
 import { PayPalScriptProvider } from "@paypal/react-paypal-js";
-import ButtonWrapper from "../ButtonWrapper";
+import ButtonWrapper from "../../ButtonWrapper";
 import { useFormik } from "formik";
 import axios from "axios";
 import * as Yup from "yup";
@@ -12,9 +12,9 @@ import { Link, useNavigate } from "react-router-dom";
 import Select from "react-select";
 import { useDispatch, useSelector } from "react-redux";
 import { motion } from "framer-motion";
-import Helmet from "../common/Helmet";
+import Helmet from "../../common/Helmet";
 // import jwt_decode from "jwt-decode";
-import priceSplitter from "../helper/options/format-money";
+// import priceSplitter from "../helper/options/format-money";
 
 // This values are the props in the UI
 // const amount = "5";

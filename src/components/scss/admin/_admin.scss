@@ -1,0 +1,166 @@
+.wrapper__admin {
+  color: #fff;
+  background: #1c1c2b;
+  //   color: #1c1c2b;
+  //   background: #fff;
+  .admin {
+    display: flex;
+    &__left {
+      position: relative;
+      width: 260px;
+      height: 100vh;
+      overflow: auto;
+      transition: all 0.25s;
+      @include maxResponsive(large-down) {
+        position: fixed;
+        width: 260px !important;
+        top: 0;
+        left: 0;
+        z-index: 10;
+        background: #2181f7;
+        clip-path: polygon(0 1%, 0 0, 0 100%, 0% 100%);
+        &.active {
+          clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+        }
+      }
+      &.active {
+        width: 0px;
+        transition: all 0.25s;
+      }
+      .header__left {
+        position: relative;
+        display: flex;
+        align-items: center;
+        height: 80px;
+        padding: 0 1.5rem;
+        // background: #000;
+        .close__navbar-admin {
+          position: absolute;
+          top: 50%;
+          transform: translateY(-50%);
+          right: 5px;
+          z-index: 10;
+          display: none;
+          @include maxResponsive(large-down) {
+            display: block;
+          }
+        }
+        span {
+          font-size: 15px;
+          text-transform: uppercase;
+          margin-left: 10px;
+        }
+      }
+      .navbarAdmin {
+        height: calc(100vh - 80px);
+        padding: 1rem 1.5rem;
+        @include maxResponsive(large-down) {
+          border-top: 1px solid #fff;
+        }
+        ul {
+          padding: 0;
+          margin: 0;
+          background: #2181f7;
+          height: 90%;
+          border-radius: 5px;
+          li {
+            padding: 10px 8px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            &:hover {
+              box-shadow: 0 1px 0 rgb(0 0 0 / 25%),
+                inset 0 1px 0 hsl(0deg 0% 100% / 16%);
+            }
+            span {
+              margin-left: 10px;
+              text-transform: uppercase;
+              font-size: 13px;
+            }
+          }
+        }
+      }
+    }
+    &__right {
+      width: calc(100% - 260px);
+      transition: width 0.25s;
+      @include maxResponsive(large-down) {
+        width: 100%;
+      }
+      &.active {
+        width: 100%;
+        transition: width 0.25s;
+      }
+      .header__right {
+        height: 80px;
+        // background: red;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        padding: 0 3rem;
+
+        .user {
+          display: flex;
+          align-items: center;
+          .setting {
+            margin-right: 20px;
+          }
+          .userDropDown {
+            position: relative;
+            .dropdown-user {
+              position: absolute;
+              top: 220%;
+              left: -441%;
+              width: 160px;
+              background-color: #fff;
+              box-shadow: 0 1px 0 rgb(0 0 0 / 25%),
+                inset 0 1px 0 hsl(0deg 0% 100% / 16%);
+              color: #333;
+              border-radius: 2px;
+              opacity: 0;
+              visibility: hidden;
+              transition: all 0.25s;
+              &::before {
+                content: "";
+                position: absolute;
+                top: -2%;
+                left: 88%;
+                z-index: 9999;
+                width: 10px;
+                height: 10px;
+                transform: rotate(45deg);
+                background: #fff;
+              }
+              &.active {
+                top: 160%;
+                opacity: 1;
+                visibility: visible;
+                transition: all 0.25s;
+              }
+              ul {
+                padding: 1rem;
+                li {
+                  padding: 10px 23px;
+                  font-size: 12px;
+                  text-transform: capitalize;
+                  cursor: pointer;
+                  &:hover {
+                    background: hsla(0, 0%, 87.1%, 0.3);
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+      .content {
+        background: yellow;
+      }
+    }
+    svg {
+      cursor: pointer;
+      color: #fff;
+    }
+  }
+}

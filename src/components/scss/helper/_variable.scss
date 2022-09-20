@@ -1,0 +1,21 @@
+$mobile-width: 575.98px;
+$tablet-width: 991.98px;
+$small-laptop: 1440px;
+
+//break points
+$breakpoints: (
+  // "xxl-large": 1024px,
+  "max-width": 1400px,
+  "xl-large": 1280px,
+  "extra-large": 1200px,
+  "large": 992px,
+  "medium": 768px,
+  "small": 576px,
+  "mid-large": 1024px,
+  "extra-large-down": 1199.98px,
+  "large-down": 991.98px,
+  "medium-down": 767.98px,
+  "small-down": 575.98px,
+  "smaller-down": 375.99px,
+  "smallest": 319.99px
+);

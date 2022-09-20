@@ -2,17 +2,25 @@ import React, { useEffect, useState } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import { Navigate, Redirect } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
-
-import App from "../App";
-import Home from "./page/Home";
-import PageProduct from "./page/PageProduct";
-import Collections from "./page/Collections";
-import Cart from "./page/Cart";
-import SignIn from "./page/SignIn";
-import SignUp from "./page/SignUp";
-import Payment from "./page/Payment";
-import NotFound from "./page/NotFound";
 import { useSelector } from "react-redux";
+
+//user
+import App from "../App";
+import Home from "./page/user/Home";
+import PageProduct from "./page/user/PageProduct";
+import Collections from "./page/user/Collections";
+import Cart from "./page/user/Cart";
+import SignIn from "./page/user/SignIn";
+import SignUp from "./page/user/SignUp";
+import Payment from "./page/user/Payment";
+import NotFound from "./page/user/NotFound";
+//user
+
+//admin
+import Admin from "./page/admin/Admin";
+import Product from "./page/admin/Product";
+import Bill from "./page/admin/Bill";
+//admin
 
 const AnimatedRoute = () => {
   const location = useLocation();
@@ -45,6 +53,11 @@ const AnimatedRoute = () => {
           <Route path="sign-up" element={<SignUp />} />
           <Route path="payment" element={<Payment />} />
           <Route path="*" element={<NotFound />} />
+        </Route>
+        <Route path="/admin" element={<Admin />}>
+          {/* <Route index element={<Home />} /> */}
+          <Route path="product" element={<Product />} />
+          <Route path="bill" element={<Bill />} />
         </Route>
       </Routes>
     </AnimatePresence>

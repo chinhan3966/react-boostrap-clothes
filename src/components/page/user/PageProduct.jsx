@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Container } from "react-bootstrap";
 import Accordion from "react-bootstrap/Accordion";
-import CardProductSlide from "../common/CardProductSlide";
+import CardProductSlide from "../../common/CardProductSlide";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { BiCartAlt } from "react-icons/bi";
 // Import Swiper styles
@@ -18,8 +18,8 @@ import "swiper/css/effect-coverflow";
 
 // import required modules
 import { FreeMode, Navigation, Thumbs, EffectCoverflow } from "swiper";
-import Helmet from "../common/Helmet";
-import { addCart } from "../../redux/actions";
+import Helmet from "../../common/Helmet";
+import { addCart } from "../../../redux/actions";
 import { toast } from "react-toastify";
 const PageProduct = () => {
   const { slug, id } = useParams();
