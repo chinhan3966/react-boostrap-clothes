@@ -1,8 +1,21 @@
 .wrapper__admin {
-  color: #fff;
-  background: #1c1c2b;
-  //   color: #1c1c2b;
-  //   background: #fff;
+  color: #1c1c2b;
+  background: rgb(245, 255, 250);
+  transition: 0.25s all;
+  svg {
+    cursor: pointer;
+    color: #1c1c2b;
+  }
+  &.active {
+    color: #fff;
+    background: #1c1c2b;
+    transition: 0.25s all;
+    svg {
+      cursor: pointer;
+      color: #fff;
+    }
+  }
+
   .admin {
     display: flex;
     &__left {
@@ -33,7 +46,7 @@
         align-items: center;
         height: 80px;
         padding: 0 1.5rem;
-        // background: #000;
+
         .close__navbar-admin {
           position: absolute;
           top: 50%;
@@ -68,6 +81,10 @@
             display: flex;
             align-items: center;
             cursor: pointer;
+            &:nth-child(2) {
+              box-shadow: 0 1px 0 rgb(0 0 0 / 25%),
+                inset 0 1px 0 hsl(0deg 0% 100% / 16%);
+            }
             &:hover {
               box-shadow: 0 1px 0 rgb(0 0 0 / 25%),
                 inset 0 1px 0 hsl(0deg 0% 100% / 16%);
@@ -104,7 +121,123 @@
           display: flex;
           align-items: center;
           .setting {
+            position: relative;
             margin-right: 20px;
+            .dropdown-setting {
+              position: absolute;
+              top: 250%;
+              left: -1182%;
+              width: 260px;
+              background: linear-gradient(#222a42, #1d253b);
+              padding: 20px;
+              border-radius: 5px;
+              opacity: 0;
+              visibility: hidden;
+              transition: all 0.25s;
+              color: #fff;
+              &::before {
+                content: "";
+                position: absolute;
+                top: -2%;
+                left: 92%;
+                z-index: 9999;
+                width: 10px;
+                height: 10px;
+                transform: rotate(45deg);
+                background: linear-gradient(#222a42, #1d253b);
+              }
+              &.active {
+                top: 150%;
+                opacity: 1;
+                visibility: visible;
+                transition: all 0.25s;
+              }
+              h3 {
+                font-size: 15px;
+                text-transform: uppercase;
+                text-align: center;
+              }
+              .list__navbar {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin-top: 15px;
+                .blue {
+                  width: 20px;
+                  height: 20px;
+                  border-radius: 50%;
+                  background-color: #2181f7;
+                  margin: 0 10px;
+                  cursor: pointer;
+                  &.active {
+                    border: 2px solid #fff;
+                  }
+                }
+                .orange {
+                  width: 20px;
+                  height: 20px;
+                  border-radius: 50%;
+                  background-color: #ff8400;
+                  margin: 0 10px;
+                  cursor: pointer;
+                  &.active {
+                    border: 2px solid #fff;
+                  }
+                }
+                .yellow {
+                  width: 20px;
+                  height: 20px;
+                  border-radius: 50%;
+                  background-color: #ffc107;
+                  margin: 0 10px;
+                  cursor: pointer;
+                  &.active {
+                    border: 2px solid #fff;
+                  }
+                }
+              }
+              .mode {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin-top: 15px;
+                span {
+                  text-transform: uppercase;
+                  margin: 0 5px;
+                }
+                &__light {
+                  display: flex;
+                  align-items: center;
+                  margin: 0 10px;
+                  .white {
+                    width: 20px;
+                    height: 20px;
+                    border-radius: 50%;
+                    background-color: #fff;
+                    cursor: pointer;
+                    &.active {
+                      border: 2px solid #2181f7;
+                    }
+                  }
+                }
+                &__dark {
+                  display: flex;
+                  align-items: center;
+                  margin: 0 10px;
+
+                  .black {
+                    width: 20px;
+                    height: 20px;
+                    border-radius: 50%;
+                    background-color: #000;
+                    cursor: pointer;
+                    &.active {
+                      border: 2px solid #fff;
+                    }
+                  }
+                }
+              }
+            }
           }
           .userDropDown {
             position: relative;
@@ -158,9 +291,9 @@
         background: yellow;
       }
     }
-    svg {
-      cursor: pointer;
-      color: #fff;
-    }
+    // svg {
+    //   cursor: pointer;
+    //   color: #fff;
+    // }
   }
 }

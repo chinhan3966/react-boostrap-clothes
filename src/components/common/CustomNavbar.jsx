@@ -293,6 +293,7 @@ export const CustomNavbar = () => {
                       className={`${logout ? "active" : ""} dropdown__logout`}
                     >
                       <span onClick={handleLogout}>Đăng xuất</span>
+                      <span>Thông tin user</span>
                     </div>
                   </div>
                 ) : (

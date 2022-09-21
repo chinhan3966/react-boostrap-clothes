@@ -398,19 +398,32 @@ li {
   }
   .dropdown__logout {
     position: absolute;
-    top: 150%;
-    left: 50%;
+    top: 250%;
+    left: -200%;
     z-index: 10;
     transform: translateX(-50%);
     color: #333;
     width: 150px;
     border: 1px solid #d9dee4;
     background: #fff;
+    // background: rgba(222, 222, 222, 0.8);
     opacity: 0;
     visibility: hidden;
     transition: all 0.25s;
+    // &::before {
+    //   content: "";
+    //   position: absolute;
+    //   top: -2%;
+    //   left: 88%;
+    //   z-index: 9999;
+    //   width: 10px;
+    //   height: 10px;
+    //   transform: rotate(45deg);
+    //   background: rgba(222, 222, 222, 0.3);
+    //   border: 1px solid #d9dee4;
+    // }
     &.active {
-      top: 110%;
+      top: 150%;
       opacity: 1;
       visibility: visible;
       transition: all 0.25s;
@@ -419,6 +432,7 @@ li {
       padding: 8px 15px;
       display: block;
       cursor: pointer;
+      font-size: 13px;
       &:hover {
         background: #d9dee4;
       }
