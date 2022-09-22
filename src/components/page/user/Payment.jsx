@@ -13,6 +13,7 @@ import Select from "react-select";
 import { useDispatch, useSelector } from "react-redux";
 import { motion } from "framer-motion";
 import Helmet from "../../common/Helmet";
+import { Container } from "react-bootstrap";
 // import jwt_decode from "jwt-decode";
 // import priceSplitter from "../helper/options/format-money";
 
@@ -216,220 +217,251 @@ export default function Paypal() {
 
   return (
     <Helmet title="Thanh Toán">
-      <motion.div
-        initial={{ clipPath: "polygon(0 0, 0 0, 0 100%, 0% 100%)" }}
-        animate={{ clipPath: "polygon(100% 0, 0 0, 0 100%, 100% 100%)" }}
-        exit={{
-          clipPath: "polygon(0 0, 0 0, 0 100%, 0% 100%)",
-          transition: { duration: 0.1 },
-        }}
-        // initial={{ opacity: 0 }}
-        // animate={{ opacity: 1 }}
-        // exit={{
-        //   opacity: 0,
-        // }}
-      >
-        <div className="bg-slate-50  lg:p-10 p-5 parent">
-          <div className="flex items-center bg-white payment">
-            {/* block 1 */}
-            <div className="w-[40%] hidden lg:block payment__left">
-              <img
-                src={
-                  "https://media.istockphoto.com/vectors/payment-date-of-recurring-tax-money-scheduled-on-calendar-icon-bill-vector-id1360536098?b=1&k=20&m=1360536098&s=170667a&w=0&h=O1_QDeEdM-YZgg8CV9E8FgvEUn5BQCoufvGdmAlElRk="
-                }
-                className="rounded-l-lg transform scale-90"
-                alt="payment"
-              />
-            </div>
-            {/* block 1 */}
+      <Container>
+        <motion.div
+          initial={{ clipPath: "polygon(0 0, 0 0, 0 100%, 0% 100%)" }}
+          animate={{ clipPath: "polygon(100% 0, 0 0, 0 100%, 100% 100%)" }}
+          exit={{
+            clipPath: "polygon(0 0, 0 0, 0 100%, 0% 100%)",
+            transition: { duration: 0.1 },
+          }}
+          // initial={{ opacity: 0 }}
+          // animate={{ opacity: 1 }}
+          // exit={{
+          //   opacity: 0,
+          // }}
+        >
+          <div className="bg-slate-50  lg:p-10 p-5 parent">
+            <div className="flex items-center bg-white payment">
+              {/* block 1 */}
+              <div className="w-[40%] hidden lg:block payment__left">
+                <img
+                  src={
+                    "https://media.istockphoto.com/vectors/payment-date-of-recurring-tax-money-scheduled-on-calendar-icon-bill-vector-id1360536098?b=1&k=20&m=1360536098&s=170667a&w=0&h=O1_QDeEdM-YZgg8CV9E8FgvEUn5BQCoufvGdmAlElRk="
+                  }
+                  className="rounded-l-lg transform scale-90"
+                  alt="payment"
+                />
+              </div>
+              {/* block 1 */}
 
-            {/* block 2 */}
-            <div className="lg:w-[60%] w-full  rounded-r-lg payment__right">
-              <div className=" payment__right-wrapper">
-                <div className="information__cart">
-                  <h4>Thông tin đặt hàng</h4>
-                  <div className="flex items-center cart__total">
-                    <h5 className="text-base">Thành tiền : </h5>
-                    <span className="text-[#1435c3] text-sm ml-1 font-medium">
-                      {/* {priceSplitter(total1)}đ */}1000đ
-                    </span>
+              {/* block 2 */}
+              <div className="lg:w-[60%] w-full  rounded-r-lg payment__right">
+                <div className=" payment__right-wrapper">
+                  <div className="information__cart">
+                    <h4>Thông tin đặt hàng</h4>
+                    <div className="flex items-center cart__total">
+                      <h5 className="text-base">Thành tiền : </h5>
+                      <span className="text-[#1435c3] text-sm ml-1 font-medium">
+                        {/* {priceSplitter(total1)}đ */}1000đ
+                      </span>
+                    </div>
                   </div>
-                </div>
 
-                <form onSubmit={formik.handleSubmit}>
-                  <div className="mb-10 flex items-center justify-between form__name">
-                    <div style={{ width: "49%" }}>
-                      <div className="form-field">
-                        <input
-                          id="firstName"
-                          name="firstName"
-                          onChange={formik.handleChange}
-                          value={formik.values.firstName || ""}
-                          // value={firstName || formik.values.firstName}
-                          type="text"
-                          placeholder=" "
-                          className="form-input"
-                        />
-                        <label className="form-label" htmlFor="firstName">
-                          FirstName
-                        </label>
+                  <form onSubmit={formik.handleSubmit}>
+                    <div className="mb-10 flex items-center justify-between form__name">
+                      <div style={{ width: "49%" }}>
+                        <div className="form-field">
+                          <input
+                            id="firstName"
+                            name="firstName"
+                            onChange={formik.handleChange}
+                            value={formik.values.firstName || ""}
+                            // value={firstName || formik.values.firstName}
+                            type="text"
+                            placeholder=" "
+                            className="form-input"
+                          />
+                          <label className="form-label" htmlFor="firstName">
+                            FirstName
+                          </label>
+                        </div>
+                        <span className="errorMessage">
+                          {formik.errors.firstName}
+                        </span>
                       </div>
-                      <span className="errorMessage">
-                        {formik.errors.firstName}
-                      </span>
-                    </div>
-                    <div style={{ width: "49%" }}>
-                      <div className="form-field">
-                        <input
-                          id="lastName"
-                          name="lastName"
-                          onChange={formik.handleChange}
-                          value={formik.values.lastName || ""}
-                          // value={lastName || formik.values.lastName}
-                          type="text"
-                          placeholder=" "
-                          className="form-input"
-                        />
-                        <label className="form-label" htmlFor="lastName">
-                          Lastname
-                        </label>
+                      <div style={{ width: "49%" }}>
+                        <div className="form-field">
+                          <input
+                            id="lastName"
+                            name="lastName"
+                            onChange={formik.handleChange}
+                            value={formik.values.lastName || ""}
+                            // value={lastName || formik.values.lastName}
+                            type="text"
+                            placeholder=" "
+                            className="form-input"
+                          />
+                          <label className="form-label" htmlFor="lastName">
+                            Lastname
+                          </label>
+                        </div>
+                        <span className="errorMessage">
+                          {formik.errors.lastName}
+                        </span>
                       </div>
-                      <span className="errorMessage">
-                        {formik.errors.lastName}
-                      </span>
                     </div>
-                  </div>
-                  <div style={{ marginBottom: "4rem" }}>
-                    <div className="form-field">
-                      <input
-                        id="phone"
-                        name="phone"
-                        onChange={formik.handleChange}
-                        value={formik.values.phone || ""}
-                        type="text"
-                        placeholder=" "
-                        className="form-input"
-                      />
-                      <label className="form-label" htmlFor="phone">
-                        Phone
-                      </label>
-                    </div>
-                    <span className="errorMessage">{formik.errors.phone}</span>
-                  </div>
-
-                  {/* option address */}
-                  <div>
-                    {/* options city */}
-                    <div style={{ marginBottom: "4rem", fontSize: "1.6rem" }}>
-                      <Select
-                        options={citys || []}
-                        value={defaultValueCity(
-                          citys || [],
-                          formik.values.city
-                        )}
-                        placeholder="--Choose select city--"
-                        onChange={(e) => handleChangeCity(e)}
-                      />
-                      <span className="errorMessage">{formik.errors.city}</span>
-                    </div>
-                    {/* options city */}
-                    {/* options district */}
-                    <div style={{ marginBottom: "4rem", fontSize: "1.6rem" }}>
-                      <Select
-                        options={districts || []}
-                        value={defaultValueDistrict(
-                          districts || [],
-                          formik.values.district
-                        )}
-                        placeholder="--Choose select district--"
-                        onChange={(e) => handleChangeDistrict(e)}
-                      />
-                      <span className="errorMessage">
-                        {formik.errors.district}
-                      </span>
-                    </div>
-                    {/* options district */}
-                    {/* options ward */}
-                    <div
-                      style={{
-                        marginBottom: "4rem",
-                        zIndex: "999",
-                        fontSize: "1.6rem",
-                      }}
-                    >
-                      <Select
-                        options={wards || []}
-                        value={defaultValueWard(
-                          wards || [],
-                          formik.values.ward
-                        )}
-                        placeholder="--Choose select ward--"
-                        onChange={(e) => handleChangeWard(e)}
-                      />
-                      <span className="errorMessage">{formik.errors.ward}</span>
-                    </div>
-                    {/* options ward */}
-                  </div>
-                  {/* option address */}
-                  <div>
                     <div style={{ marginBottom: "4rem" }}>
                       <div className="form-field">
                         <input
-                          id="address"
-                          name="address"
+                          id="phone"
+                          name="phone"
                           onChange={formik.handleChange}
-                          value={formik.values.address || ""}
+                          value={formik.values.phone || ""}
+                          type="text"
                           placeholder=" "
                           className="form-input"
                         />
-                        <label className="form-label" htmlFor="address">
-                          Address
+                        <label className="form-label" htmlFor="phone">
+                          Phone
                         </label>
                       </div>
                       <span className="errorMessage">
-                        {formik.errors.address}
+                        {formik.errors.phone}
                       </span>
                     </div>
-                  </div>
 
-                  {/* option choose paymnet */}
-                  <div style={{ fontSize: "1.5rem" }}>
-                    <h4>Lựa chọn phương thức thanh toán</h4>
-                    <div style={{ display: "flex", margin: "1.2rem 0" }}>
-                      <div
-                        className={`
-                      button__payment ${payment ? "" : "active"}`}
-                        onClick={handleHome}
-                      >
-                        <AiOutlineHome
-                          size={"24px"}
-                          style={{ marginRight: "4px" }}
+                    {/* option address */}
+                    <div>
+                      {/* options city */}
+                      <div style={{ marginBottom: "4rem", fontSize: "1.6rem" }}>
+                        <Select
+                          options={citys || []}
+                          value={defaultValueCity(
+                            citys || [],
+                            formik.values.city
+                          )}
+                          placeholder="--Choose select city--"
+                          onChange={(e) => handleChangeCity(e)}
                         />
-                        <span>Thanh toán khi nhận hàng</span>
+                        <span className="errorMessage">
+                          {formik.errors.city}
+                        </span>
                       </div>
-                      <div
-                        className={`button__payment  ${
-                          payment ? "active" : ""
-                        }`}
-                        style={{ marginLeft: "10px" }}
-                        onClick={handlePayment}
-                      >
-                        <MdOutlinePayment
-                          size={"24px"}
-                          style={{ marginRight: "4px" }}
+                      {/* options city */}
+                      {/* options district */}
+                      <div style={{ marginBottom: "4rem", fontSize: "1.6rem" }}>
+                        <Select
+                          options={districts || []}
+                          value={defaultValueDistrict(
+                            districts || [],
+                            formik.values.district
+                          )}
+                          placeholder="--Choose select district--"
+                          onChange={(e) => handleChangeDistrict(e)}
                         />
-                        <span>Payment</span>
+                        <span className="errorMessage">
+                          {formik.errors.district}
+                        </span>
+                      </div>
+                      {/* options district */}
+                      {/* options ward */}
+                      <div
+                        style={{
+                          marginBottom: "4rem",
+                          zIndex: "999",
+                          fontSize: "1.6rem",
+                        }}
+                      >
+                        <Select
+                          options={wards || []}
+                          value={defaultValueWard(
+                            wards || [],
+                            formik.values.ward
+                          )}
+                          placeholder="--Choose select ward--"
+                          onChange={(e) => handleChangeWard(e)}
+                        />
+                        <span className="errorMessage">
+                          {formik.errors.ward}
+                        </span>
+                      </div>
+                      {/* options ward */}
+                    </div>
+                    {/* option address */}
+                    <div>
+                      <div style={{ marginBottom: "4rem" }}>
+                        <div className="form-field">
+                          <input
+                            id="address"
+                            name="address"
+                            onChange={formik.handleChange}
+                            value={formik.values.address || ""}
+                            placeholder=" "
+                            className="form-input"
+                          />
+                          <label className="form-label" htmlFor="address">
+                            Address
+                          </label>
+                        </div>
+                        <span className="errorMessage">
+                          {formik.errors.address}
+                        </span>
                       </div>
                     </div>
-                  </div>
-                  {/* option choose paymnet */}
 
-                  <div className="button__order">
-                    <button type="submit">Đặt hàng</button>
-                  </div>
-                </form>
-                {/* {payment && ( */}
-                <div
+                    {/* option choose paymnet */}
+                    <div style={{ fontSize: "1.5rem" }}>
+                      <h4>Lựa chọn phương thức thanh toán</h4>
+                      <div style={{ display: "flex", margin: "1.2rem 0" }}>
+                        <div
+                          className={`
+                      button__payment ${payment ? "" : "active"}`}
+                          onClick={handleHome}
+                        >
+                          <AiOutlineHome
+                            size={"24px"}
+                            style={{ marginRight: "4px" }}
+                          />
+                          <span>Thanh toán khi nhận hàng</span>
+                        </div>
+                        <div
+                          className={`button__payment  ${
+                            payment ? "active" : ""
+                          }`}
+                          style={{ marginLeft: "10px" }}
+                          onClick={handlePayment}
+                        >
+                          <MdOutlinePayment
+                            size={"24px"}
+                            style={{ marginRight: "4px" }}
+                          />
+                          <span>Payment</span>
+                        </div>
+                      </div>
+                    </div>
+                    {/* option choose paymnet */}
+
+                    <div
+                      className={`paypal ${payment ? "active" : ""}`}
+                      style={{
+                        width: "100%",
+                        // minHeight: "200px",
+                        zIndex: "100",
+                        textAlign: "center",
+                      }}
+                    >
+                      <PayPalScriptProvider
+                        options={{
+                          "client-id":
+                            "Acb4LyPCgYLfo5jeL3VioKCa33WiHIZ-Selm29Dlir5zrW-hRpeIo7SjXK0Zm2RXUPZ3-ZchIYFQSCPz",
+                          components: "buttons",
+                          currency: "USD",
+                        }}
+                      >
+                        <ButtonWrapper
+                          currency={currency}
+                          showSpinner={false}
+                        />
+                      </PayPalScriptProvider>
+                    </div>
+
+                    <div className="button__order">
+                      <button type="submit">Đặt hàng</button>
+                    </div>
+                  </form>
+
+                  {/* <div
                   className={`paypal ${payment ? "active" : ""}`}
                   style={{
                     width: "100%",
@@ -448,14 +480,14 @@ export default function Paypal() {
                   >
                     <ButtonWrapper currency={currency} showSpinner={false} />
                   </PayPalScriptProvider>
+                </div> */}
                 </div>
-                {/* )} */}
               </div>
+              {/* block 2 */}
             </div>
-            {/* block 2 */}
           </div>
-        </div>
-      </motion.div>
+        </motion.div>
+      </Container>
     </Helmet>
   );
 }

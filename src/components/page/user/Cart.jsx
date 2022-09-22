@@ -22,6 +22,7 @@ const Cart = () => {
     number && number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
   return (
     <Helmet title="Giỏ Hàng">
+      {/* <Container> */}
       <motion.div
         initial={{ clipPath: "polygon(0 0, 0 0, 0 100%, 0% 100%)" }}
         animate={{ clipPath: "polygon(100% 0, 0 0, 0 100%, 100% 100%)" }}
@@ -44,54 +45,64 @@ const Cart = () => {
             <AiOutlineRight />
             <span>Giỏ hàng</span>
           </div>
-          <div className="cart__body">
-            <div className="cart__body-title">Giỏ hàng của bạn</div>
+          <Container>
+            <div className="cart__body">
+              <div className="cart__body-title">Giỏ hàng của bạn</div>
 
-            <div className="cart__body-listCart">
-              {/* {loop.map((item, index) => {
+              <div className="cart__body-listCart">
+                {/* {loop.map((item, index) => {
             return <ItemCart index={index} />;
           })} */}
-              {listCart &&
-                listCart.length > 0 &&
-                listCart.map((item, index) => {
-                  return (
-                    <ItemCart
-                      index={index}
-                      img={item.img}
-                      name={item.name}
-                      price={item.price}
-                      quantity={item.qty}
-                      id={item.id}
-                    />
-                  );
-                })}
-            </div>
-            <div className="cart__body-footer">
-              <Link to="/">
-                <button className="cart__body-footer__continue">
-                  Tiếp tục mua hàng
-                </button>
-              </Link>
-
-              <div className="cart__body-footer__payment">
-                <h6>
-                  Tổng thanh toán : <span>{priceSplitter(totalCart)}đ</span>
-                </h6>
-                <Link to="/payment">
-                  <button
-                    disabled={listCart?.length > 0 ? false : true}
-                    className={`payment ${
-                      listCart?.length > 0 ? "active" : ""
-                    }`}
-                  >
-                    Tiến hành thanh toán
+                {listCart &&
+                  listCart.length > 0 &&
+                  listCart.map((item, index) => {
+                    return (
+                      <ItemCart
+                        index={index}
+                        img={item.img}
+                        name={item.name}
+                        price={item.price}
+                        quantity={item.qty}
+                        id={item.id}
+                      />
+                    );
+                  })}
+              </div>
+              <div className="cart__body-footer">
+                <Link to="/">
+                  <button className="cart__body-footer__continue">
+                    Tiếp tục mua hàng
                   </button>
                 </Link>
+
+                <div className="cart__body-footer__payment">
+                  <h6>
+                    Tổng thanh toán : <span>{priceSplitter(totalCart)}đ</span>
+                  </h6>
+                  <Link
+                    to="/payment"
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <button
+                      disabled={listCart?.length > 0 ? false : true}
+                      className={`payment ${
+                        listCart?.length > 0 ? "active" : ""
+                      }`}
+                    >
+                      Tiến hành thanh toán
+                    </button>
+                  </Link>
+                </div>
               </div>
             </div>
-          </div>
+          </Container>
         </div>
       </motion.div>
+      {/* </Container> */}
     </Helmet>
   );
 };

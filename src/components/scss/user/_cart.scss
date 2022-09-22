@@ -118,6 +118,7 @@
     &-footer {
       display: flex;
       justify-content: space-between;
+      flex-wrap: wrap;
       @include mobile {
         flex-direction: column-reverse;
       }
@@ -160,6 +161,9 @@
           text-align: center;
           opacity: 0.8;
           cursor: not-allowed;
+          @include maxResponsive(small-down) {
+            padding: 1rem 0;
+          }
           &.active {
             opacity: 1;
             cursor: pointer;

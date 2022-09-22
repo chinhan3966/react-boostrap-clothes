@@ -42,6 +42,32 @@ export const CustomNavbar = () => {
   useEffect(() => {
     disableScrollBody(open);
   }, [open]);
+
+  useEffect(() => {
+    const handleOnClickUser = (e) => {
+      let dropDownUserElement = document.querySelector("#user");
+      let activeElement = e.target;
+      if (!dropDownUserElement.contains(activeElement)) {
+        setLogout(false);
+      }
+    };
+    window.addEventListener("click", handleOnClickUser);
+
+    return () => window.removeEventListener("click", handleOnClickUser);
+  }, []);
+
+  const handleScroll = () => {
+    const currentScrollY = window.scrollY;
+    if (currentScrollY > 80) {
+      setSearch(false);
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
     <div className="py-2 position-relative padding-bottom">
       <Container>
@@ -286,6 +312,7 @@ export const CustomNavbar = () => {
                 {loginGG?.emailVerified ? (
                   <div
                     className="info__user"
+                    id="user"
                     onClick={() => setLogout(!logout)}
                   >
                     {loginGG?.displayName?.slice(0, 1)}

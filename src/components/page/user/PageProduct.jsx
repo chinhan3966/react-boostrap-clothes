@@ -83,18 +83,18 @@ const PageProduct = () => {
   return (
     <Helmet title={item.slug}>
       <motion.div
-        // initial={{ clipPath: "polygon(0 0, 0 0, 0 100%, 0% 100%)" }}
-        // animate={{ clipPath: "polygon(100% 0, 0 0, 0 100%, 100% 100%)" }}
-        // exit={{
-        //   clipPath: "polygon(0 0, 0 0, 0 100%, 0% 100%)",
-        //   transition: { duration: 0.1 },
-        // }}
-        initial={{ width: 0 }}
-        animate={{ width: "100%" }}
+        initial={{ clipPath: "polygon(0 0, 0 0, 0 100%, 0% 100%)" }}
+        animate={{ clipPath: "polygon(100% 0, 0 0, 0 100%, 100% 100%)" }}
         exit={{
-          x: window.innerWidth,
+          clipPath: "polygon(0 0, 0 0, 0 100%, 0% 100%)",
           transition: { duration: 0.1 },
         }}
+        // initial={{ width: 0 }}
+        // animate={{ width: "100%" }}
+        // exit={{
+        //   x: window.innerWidth,
+        //   transition: { duration: 0.1 },
+        // }}
       >
         <div>
           <Container className="mt-5">

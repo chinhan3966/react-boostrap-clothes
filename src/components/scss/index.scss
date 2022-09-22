@@ -131,3 +131,13 @@ html {
     font-size: 45%;
   }
 }
+
+.wrapper_maxWidth {
+  max-width: 1200px;
+  @include maxResponsive(large-down) {
+    max-width: 850px;
+  }
+  @include maxResponsive(small-down) {
+    max-width: 500px;
+  }
+}

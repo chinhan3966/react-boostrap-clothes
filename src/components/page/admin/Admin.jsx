@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, Outlet } from "react-router-dom";
 import { CgChanel } from "react-icons/cg";
 import { RiDashboardFill } from "react-icons/ri";
@@ -29,6 +29,32 @@ const Admin = () => {
     setIsDropDownUser(!isShowDropDownUser);
     setIsDropDownSetting(false);
   };
+
+  useEffect(() => {
+    const handleOnClickSetting = (e) => {
+      let dropDownSettingElement = document.querySelector("#setting");
+      let activeElement = e.target;
+      if (!dropDownSettingElement.contains(activeElement)) {
+        setIsDropDownSetting(false);
+      }
+    };
+    window.addEventListener("click", handleOnClickSetting);
+
+    return () => window.removeEventListener("click", handleOnClickSetting);
+  }, []);
+
+  useEffect(() => {
+    const handleOnClickUser = (e) => {
+      let dropDownUserElement = document.querySelector("#user-setting");
+      let activeElement = e.target;
+      if (!dropDownUserElement.contains(activeElement)) {
+        setIsDropDownUser(false);
+      }
+    };
+    window.addEventListener("click", handleOnClickUser);
+
+    return () => window.removeEventListener("click", handleOnClickUser);
+  }, []);
 
   return (
     <div className={`${darkMode ? "active" : ""} wrapper__admin`}>
@@ -77,7 +103,11 @@ const Admin = () => {
               )}
             </div>
             <div className="user">
-              <div className="setting" onClick={upDateStateDropDownSetting}>
+              <div
+                className="setting"
+                id="setting"
+                onClick={upDateStateDropDownSetting}
+              >
                 <MdOutlineSettingsSuggest size={20} />
                 <div
                   className={`dropdown-setting ${
@@ -127,7 +157,11 @@ const Admin = () => {
                   </div>
                 </div>
               </div>
-              <div className="userDropDown" onClick={upDateStateDropDownUser}>
+              <div
+                className="userDropDown"
+                id="user-setting"
+                onClick={upDateStateDropDownUser}
+              >
                 <FaUserAstronaut size={20} />
                 <AiFillCaretDown size={10} />
                 <div

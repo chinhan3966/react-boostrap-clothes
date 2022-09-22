@@ -17,7 +17,7 @@ const Home = () => {
   useEffect(() => {
     setTimeout(() => {
       setIsShowPopUp(true);
-    }, 10000);
+    }, 5000);
   }, []);
   return (
     <Helmet title="Home">
@@ -51,9 +51,11 @@ const Home = () => {
           <News />
         </div>
         <div className={`show__PopUp ${isShowPopUp ? "active" : ""}`}>
-          <img src={banner} alt="banner" />
-          <div className="closePopUp" onClick={() => setIsShowPopUp(false)}>
-            <IoIosClose size={25} />
+          <div className="banner-popup">
+            <img src={banner} alt="banner" />
+            <div className="closePopUp" onClick={() => setIsShowPopUp(false)}>
+              <IoIosClose size={25} />
+            </div>
           </div>
         </div>
       </motion.div>

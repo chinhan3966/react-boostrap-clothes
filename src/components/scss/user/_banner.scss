@@ -35,6 +35,9 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
   opacity: 0;
   visibility: hidden;
   transform: 0.25s all;
@@ -43,20 +46,25 @@
     visibility: visible;
     transform: 0.25s all;
   }
-  img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-  .closePopUp {
-    position: absolute;
-    top: 2px;
-    transition: all 0.25s;
-    right: 2px;
-    cursor: pointer;
-    &:hover {
-      transform: scale(1.5);
+  .banner-popup {
+    position: relative;
+    max-width: 550px;
+    aspect-ratio: 1/1;
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .closePopUp {
+      position: absolute;
+      top: 2px;
       transition: all 0.25s;
+      right: 2px;
+      cursor: pointer;
+      &:hover {
+        transform: scale(1.5);
+        transition: all 0.25s;
+      }
     }
   }
 }
