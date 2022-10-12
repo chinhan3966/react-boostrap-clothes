@@ -4,7 +4,7 @@ import { AiOutlineDelete } from "react-icons/ai";
 import { BiEditAlt } from "react-icons/bi";
 import { toast } from "react-toastify";
 
-const Bill = () => {
+const Color = () => {
   const handleUpdate = () => {
     console.log("update");
     toast.success("Update Success");
@@ -16,15 +16,15 @@ const Bill = () => {
   };
   const columns = [
     {
-      Header: "Mã Bill",
+      Header: "Id",
       accessor: "col1",
     },
     {
-      Header: "Tên khách hàng",
+      Header: "Tên màu",
       accessor: "col2",
     },
     {
-      Header: "Thông tin sản phẩm",
+      Header: "Hình ảnh",
       accessor: "col3",
     },
     {
@@ -36,7 +36,7 @@ const Bill = () => {
       accessor: "col5",
     },
     {
-      Header: "Tổng bill",
+      Header: "Trạng thái",
       accessor: "col6",
     },
     {
@@ -51,12 +51,12 @@ const Bill = () => {
 
   const contents = [
     {
-      col1: "#46838gb",
-      col2: "Chí Nhân",
-      col3: "Her Tee XXME",
+      col1: "1",
+      col2: "Blue",
+      col3: "https://bizweb.dktcdn.net/thumb/large/100/331/067/collections/5.png?v=1622924567753",
       col4: "Khoa",
       col5: "14/12/2002",
-      col6: "1900k",
+      col6: "Hoạt động",
       col7: (
         <div>
           <BiEditAlt size={18} onClick={handleUpdate} />
@@ -69,12 +69,12 @@ const Bill = () => {
       ),
     },
     {
-      col1: "#46nve8b",
-      col2: "Trúc Vệ",
-      col3: "Black Tee XXME",
+      col1: "1",
+      col2: "Blue",
+      col3: "https://bizweb.dktcdn.net/thumb/large/100/331/067/collections/5.png?v=1622924567753",
       col4: "Khoa",
       col5: "14/12/2002",
-      col6: "7900k",
+      col6: "Hoạt động",
       col7: (
         <div>
           <BiEditAlt size={18} onClick={handleUpdate} />
@@ -88,15 +88,15 @@ const Bill = () => {
     },
   ];
   return (
-    <div className="billAdmin">
-      <div className="billAdmin__header">
-        <h1>List Bill</h1>
+    <div className="colorAdmin">
+      <div className="colorAdmin__header">
+        <h1>List Màu</h1>
       </div>
-      <div className="billAdmin__table">
+      <div className="colorAdmin__table">
         <Table data={contents} columns={columns} />
       </div>
     </div>
   );
 };
 
-export default Bill;
+export default Color;

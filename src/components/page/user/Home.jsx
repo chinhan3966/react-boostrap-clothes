@@ -11,6 +11,7 @@ import NewtShirt from "../../NewtShirt";
 import News from "../../News";
 import Helmet from "../../common/Helmet";
 import banner from "../../../assets/banner/banner-popup.jpg";
+import axios from "axios";
 
 const Home = () => {
   const [isShowPopUp, setIsShowPopUp] = useState(false);
@@ -18,6 +19,22 @@ const Home = () => {
     setTimeout(() => {
       setIsShowPopUp(true);
     }, 5000);
+  }, []);
+
+  useEffect(async () => {
+    let data = await axios({
+      method: "get",
+      url: "/product/all",
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",
+      },
+      // data: {
+      //   firstName: "Fred",
+      //   lastName: "Flintstone",
+      // },
+    });
+    console.log("check respone :>>", data);
   }, []);
   return (
     <Helmet title="Home">

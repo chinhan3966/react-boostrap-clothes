@@ -1,0 +1,25 @@
+// .popUp {
+//   position: fixed;
+//   inset: 0;
+//   width: 100vw;
+//   height: 100vh;
+//   z-index: 10;
+//   background-color: rgba(0, 0, 0, 0.5);
+//   &__body {
+//     position: absolute;
+//     top: 50%;
+//     left: 50%;
+//     transform: translate(-50%, -50%);
+//     box-shadow: 0 1px 0 rgb(0 0 0 / 25%), inset 0 1px 0 rgb(255 255 255 / 16%);
+//     background-color: rgba(0, 0, 0, 0.4);
+//     border-radius: 10px;
+//     padding: 20px 40px;
+//     width: 500px;
+//     @include maxResponsive("large-down") {
+//       width: 400px;
+//     }
+//     @include mobile {
+//       width: 300px;
+//     }
+//   }
+// }

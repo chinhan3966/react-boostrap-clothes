@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet, useLocation } from "react-router-dom";
 import { CgChanel } from "react-icons/cg";
 import { RiDashboardFill } from "react-icons/ri";
 import { MdMenuOpen, MdOutlineSettingsSuggest } from "react-icons/md";
@@ -13,6 +13,7 @@ const Admin = () => {
   const [isShowDropDownSetting, setIsDropDownSetting] = useState(false);
   const [activeColorSideBar, setActiveColorSideBar] = useState("#2181f7");
   const [darkMode, setDarkMode] = useState(true);
+  const { pathname } = useLocation();
 
   const upDateStateShowNavBar = () => {
     setIsNavbar(!isShowNavbar);
@@ -74,21 +75,37 @@ const Admin = () => {
           </div>
           <div className="navbarAdmin">
             <ul style={{ background: activeColorSideBar }}>
-              <li>
-                <RiDashboardFill size={30} />
-                <span>Dashboard</span>
+              <li className={`${pathname.includes("product") ? "active" : ""}`}>
+                <Link to="product">
+                  <RiDashboardFill size={30} />
+                  <span>Product</span>
+                </Link>
               </li>
-              <li>
-                <RiDashboardFill size={30} />
-                <span>Dashboard</span>
+              <li
+                className={`${pathname.includes("collection") ? "active" : ""}`}
+              >
+                <Link to="collection">
+                  <RiDashboardFill size={30} />
+                  <span>Collection</span>
+                </Link>
               </li>
-              <li>
-                <RiDashboardFill size={30} />
-                <span>Dashboard</span>
+              <li className={`${pathname.includes("color") ? "active" : ""}`}>
+                <Link to="color">
+                  <RiDashboardFill size={30} />
+                  <span>Color</span>
+                </Link>
               </li>
-              <li>
-                <RiDashboardFill size={30} />
-                <span>Dashboard</span>
+              <li className={`${pathname.includes("size") ? "active" : ""}`}>
+                <Link to="size">
+                  <RiDashboardFill size={30} />
+                  <span>Size</span>
+                </Link>
+              </li>
+              <li className={`${pathname.includes("bill") ? "active" : ""}`}>
+                <Link to="bill">
+                  <RiDashboardFill size={30} />
+                  <span>Bill</span>
+                </Link>
               </li>
             </ul>
           </div>

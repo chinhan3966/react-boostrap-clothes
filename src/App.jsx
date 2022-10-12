@@ -69,7 +69,7 @@ function App() {
           ""
         )}
       </div>
-      <ToastContainer
+      {/* <ToastContainer
         position="top-right"
         autoClose={1000}
         hideProgressBar={false}
@@ -79,9 +79,7 @@ function App() {
         pauseOnFocusLoss
         draggable
         pauseOnHover
-      />
-      {/* Same as */}
-      <ToastContainer />
+      /> */}
     </div>
   );
 }

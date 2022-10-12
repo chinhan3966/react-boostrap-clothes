@@ -1,6 +1,11 @@
 @import "./helper/variable";
 @import "./helper/mixin";
 
+//common
+@import "./common//modal";
+
+//common
+
 //user
 @import "./user/newtshirt";
 @import "./user/custom-navbar";
@@ -22,6 +27,11 @@
 
 //admin
 @import "./admin/admin";
+@import "./admin/product-admin";
+@import "./admin/collection-admin";
+@import "./admin/color-admin";
+@import "./admin/size-admin";
+@import "./admin/bill-admin";
 //admin
 .w-full {
   width: 100%;

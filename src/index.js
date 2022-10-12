@@ -9,6 +9,10 @@ import "bootstrap/dist/js/bootstrap.min.js";
 import AnimatedRoute from "./components/AnimatedRoute";
 import { Provider } from "react-redux";
 import store from "./redux/store";
+import { ToastContainer } from "react-toastify";
+import axios from "axios";
+
+axios.defaults.baseURL = "https://clothingstorecn.herokuapp.com/api";
 
 ReactDOM.render(
   <React.StrictMode>
@@ -26,6 +30,19 @@ ReactDOM.render(
         </Route>
       </Routes> */}
         <AnimatedRoute />
+        <ToastContainer
+          position="top-right"
+          autoClose={1000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+        />
+        {/* Same as */}
+        <ToastContainer />
       </BrowserRouter>
     </Provider>
   </React.StrictMode>,

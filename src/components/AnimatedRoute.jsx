@@ -20,6 +20,9 @@ import NotFound from "./page/user/NotFound";
 import Admin from "./page/admin/Admin";
 import Product from "./page/admin/Product";
 import Bill from "./page/admin/Bill";
+import Collection from "./page/admin/Collection";
+import Color from "./page/admin/Color";
+import Size from "./page/admin/Size";
 //admin
 
 const AnimatedRoute = () => {
@@ -55,8 +58,11 @@ const AnimatedRoute = () => {
           <Route path="*" element={<NotFound />} />
         </Route>
         <Route path="/admin" element={<Admin />}>
-          {/* <Route index element={<Home />} /> */}
+          <Route index element={<Product />} />
           <Route path="product" element={<Product />} />
+          <Route path="collection" element={<Collection />} />
+          <Route path="color" element={<Color />} />
+          <Route path="size" element={<Size />} />
           <Route path="bill" element={<Bill />} />
         </Route>
       </Routes>
