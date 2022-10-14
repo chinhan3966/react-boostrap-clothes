@@ -12,6 +12,8 @@ import "swiper/css";
 import "swiper/css/pagination";
 import CardProductSlide from "../../common/CardProductSlide";
 import Helmet from "../../common/Helmet";
+import axios from "axios";
+import Loading from "../../common/loading/Loading";
 
 const description = [
   {
@@ -53,17 +55,16 @@ const description = [
 ];
 
 const Collections = () => {
-  const { categorySlug } = useParams();
-  console.log("check category :>>", categorySlug);
+  const { categorySlug, id } = useParams();
   const dataRedux = useSelector((state) => state.listProduct.value.listProduct);
 
   const [listProductClone, setListProductClone] = useState([]);
   const [listData, setListData] = useState([]);
-  console.log("check list data", listData);
 
   const [filterSize, setFilterSize] = useState([]);
   const [filterColor, setFilterColor] = useState([]);
-
+  console.log("check filter size :>>", filterSize);
+  console.log("chẹc filter color :>>", filterColor);
   const [size, setSize] = useState("");
   const [color, setColor] = useState("");
   console.log("check size", size);
@@ -72,72 +73,124 @@ const Collections = () => {
   const [activeSize, setActiveSize] = useState(null);
   const [activeColor, setActiveColor] = useState(null);
 
-  useEffect(() => {
-    const listCollections = dataRedux.filter(
-      (item) => item.categorySlug === categorySlug
-    );
-    setListData(listCollections);
-    setListProductClone(listCollections);
-  }, []);
+  const [loading, setLoading] = useState(true);
+
+  // useEffect(() => {
+  //   const listCollections = dataRedux.filter(
+  //     (item) => item.categorySlug === categorySlug
+  //   );
+  //   setListData(listCollections);
+  //   setListProductClone(listCollections);
+  // }, []);
 
   useEffect(() => {
     let filter = [];
-    if (Array.isArray(listProductClone)) {
-      listProductClone.forEach((item) => {
-        if (item && item.size && item.size.length > 0) {
-          item.size.forEach((item1) => {
-            if (!filter.includes(item1)) {
-              filter.push(item1);
+    if (Array.isArray(listData)) {
+      listData.forEach((item) => {
+        if (item && item.infoProduct && item.infoProduct.length > 0) {
+          item.infoProduct.forEach((item1) => {
+            if (!filter.includes(item1?.size?.sizeName)) {
+              filter.push(item1?.size?.sizeName);
             }
           });
         }
       });
     }
+
     setFilterSize(filter);
   }, [listData]);
 
   useEffect(() => {
     let filter = [];
-    if (Array.isArray(listProductClone)) {
-      listProductClone.forEach((item) => {
-        item.colors.forEach((item1) => {
-          if (!filter.includes(item1)) {
-            filter.push(item1);
-          }
-        });
+    if (Array.isArray(listData)) {
+      listData.forEach((item) => {
+        if (item && item.infoProduct && item.infoProduct.length > 0) {
+          item.infoProduct.forEach((item1) => {
+            if (!filter.includes(item1.color.colorName)) {
+              filter.push(item1.color.colorName);
+            }
+          });
+        }
       });
     }
     setFilterColor(filter);
   }, [listData]);
 
-  const handleFilterSize = (index, item1) => {
+  const handleFilterSize = (index, item) => {
     setActiveSize(index);
-    setSize(item1);
+    setSize(item);
     let cloneListData = [...listProductClone];
     let filter = [];
-    if (item1) {
-      filter = cloneListData.filter((item) => item.size.includes(item1));
+    if (item) {
+      // filter = cloneListData.filter((item) => item.size.includes(item1));
+      filter = cloneListData.filter((item1) => {
+        let arraySize = [];
+        item1.infoProduct.forEach((item2) => {
+          arraySize.push(item2.size.sizeName);
+        });
+        return arraySize.includes(item);
+      });
+
       if (color) {
-        filter = cloneListData.filter((item) => item.colors.includes(color));
+        // filter = cloneListData.filter((item) => item.colors.includes(color));
+        filter = cloneListData.filter((item1) => {
+          let arrayColor = [];
+          item1.infoProduct.forEach((item2) => {
+            arrayColor.push(item2.color.colorName);
+          });
+          return arrayColor.includes(color);
+        });
       }
     }
     setListData(filter);
-    console.log("check filter dynamic", filter);
+    console.log("check filter size", filter);
   };
-  const handleFilterColor = (index, item1) => {
+  const handleFilterColor = (index, item) => {
     setActiveColor(index);
-    setColor(item1);
+    setColor(item);
     let cloneListData = [...listProductClone];
     let filter = [];
-    if (item1) {
-      filter = cloneListData.filter((item) => item.colors.includes(item1));
+    if (item) {
+      filter = cloneListData.filter((item1) => {
+        let arrayColor = [];
+        item1.infoProduct.forEach((item2) => {
+          arrayColor.push(item2.color.colorName);
+        });
+        return arrayColor.includes(item);
+      });
       if (size) {
-        filter = cloneListData.filter((item) => item.colors.includes(color));
+        filter = cloneListData.filter((item1) => {
+          let arraySize = [];
+          item1.infoProduct.forEach((item2) => {
+            arraySize.push(item2.size.sizeName);
+          });
+          return arraySize.includes(size);
+        });
       }
     }
     setListData(filter);
     console.log("check filter dynamic", filter);
   };
+
+  useEffect(async () => {
+    // setTimeout(async () => {
+    try {
+      setLoading(true);
+      let response = await axios.get(`/product/?param=${id}`);
+      console.log("check response filter :>>", response.data);
+      if (response?.data?.length < 0) {
+        throw "Lỗi server";
+      }
+      setListData(response?.data);
+      setListProductClone(response?.data);
+      setLoading(false);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
+    // }, 2000);
+  }, [id]);
   return (
     <Helmet title="Collections">
       <motion.div
@@ -154,149 +207,157 @@ const Collections = () => {
         //   transition: { duration: 0.1 },
         // }}
       >
-        <div className="collections">
-          <Container fluid className="collections__introduce">
-            <h1>
-              {
-                description?.find((item) => item.categorySlug === categorySlug)
-                  .name
-              }
-            </h1>
-            <Container className="line-camp-3">
-              {
-                description.find((item) => item.categorySlug === categorySlug)
-                  .des
-              }
+        {loading ? (
+          <div style={{ width: "100%", height: "500px" }}>
+            <Loading />
+          </div>
+        ) : (
+          <div className="collections">
+            <Container fluid className="collections__introduce">
+              <h1>
+                {
+                  description?.find(
+                    (item) => item.categorySlug === categorySlug
+                  ).name
+                }
+              </h1>
+              <Container className="line-camp-3">
+                {
+                  description.find((item) => item.categorySlug === categorySlug)
+                    .des
+                }
+              </Container>
             </Container>
-          </Container>
-          <Container>
-            <div className="collections__filter">
-              <div className="collections__filter-header">
-                <BsFilter size={"24px"} />
-                <span>Bộ lọc</span>
-              </div>
-
-              {filterSize && filterSize.length > 0 && (
-                <div className="collections__filter-size">
-                  <span>Kích thước</span>
-                  <>
-                    <Swiper
-                      slidesPerView={3}
-                      spaceBetween={10}
-                      pagination={{
-                        clickable: true,
-                      }}
-                      breakpoints={{
-                        640: {
-                          slidesPerView: 4,
-                          spaceBetween: 20,
-                        },
-                        768: {
-                          slidesPerView: 8,
-                          spaceBetween: 40,
-                        },
-                        1024: {
-                          slidesPerView: 9,
-                          spaceBetween: 50,
-                        },
-                      }}
-                      // modules={[Pagination]}
-                      className="mySwiper"
-                    >
-                      {filterSize &&
-                        filterSize.length > 0 &&
-                        filterSize.map((item, index) => {
-                          return (
-                            <SwiperSlide
-                              key={index}
-                              className={
-                                index === activeSize
-                                  ? "border border-warning pointer"
-                                  : "pointer"
-                              }
-                              onClick={() => {
-                                handleFilterSize(index, item);
-                              }}
-                            >
-                              {item}
-                            </SwiperSlide>
-                          );
-                        })}
-                    </Swiper>
-                  </>
+            <Container>
+              <div className="collections__filter">
+                <div className="collections__filter-header">
+                  <BsFilter size={"24px"} />
+                  <span>Bộ lọc</span>
                 </div>
-              )}
 
-              <div className="collections__filter-size">
-                <span>Màu sắc</span>
-                <>
-                  <Swiper
-                    slidesPerView={3}
-                    spaceBetween={10}
-                    pagination={{
-                      clickable: true,
-                    }}
-                    breakpoints={{
-                      640: {
-                        slidesPerView: 5,
-                        spaceBetween: 20,
-                      },
-                      768: {
-                        slidesPerView: 6,
-                        spaceBetween: 40,
-                      },
-                      1024: {
-                        slidesPerView: 7,
-                        spaceBetween: 50,
-                      },
-                    }}
-                    // modules={[Pagination]}
-                    className="mySwiper"
-                  >
-                    {filterColor &&
-                      filterColor.length > 0 &&
-                      filterColor.map((item, index) => {
-                        return (
-                          <SwiperSlide
-                            key={index}
-                            className={
-                              index === activeColor
-                                ? "border border-warning pointer"
-                                : " pointer"
-                            }
-                            onClick={() => {
-                              handleFilterColor(index, item);
-                            }}
-                          >
-                            {item}
-                          </SwiperSlide>
-                        );
-                      })}
-                  </Swiper>
-                </>
+                {filterSize && filterSize.length > 1 && (
+                  <div className="collections__filter-size">
+                    <span>Kích thước</span>
+                    <>
+                      <Swiper
+                        slidesPerView={3}
+                        spaceBetween={10}
+                        pagination={{
+                          clickable: true,
+                        }}
+                        breakpoints={{
+                          640: {
+                            slidesPerView: 4,
+                            spaceBetween: 20,
+                          },
+                          768: {
+                            slidesPerView: 8,
+                            spaceBetween: 40,
+                          },
+                          1024: {
+                            slidesPerView: 9,
+                            spaceBetween: 50,
+                          },
+                        }}
+                        // modules={[Pagination]}
+                        className="mySwiper"
+                      >
+                        {filterSize &&
+                          filterSize.length > 0 &&
+                          filterSize.map((item, index) => {
+                            return (
+                              <SwiperSlide
+                                key={index}
+                                className={
+                                  index === activeSize
+                                    ? "border border-warning pointer"
+                                    : "pointer"
+                                }
+                                onClick={() => {
+                                  handleFilterSize(index, item);
+                                }}
+                              >
+                                {item}
+                              </SwiperSlide>
+                            );
+                          })}
+                      </Swiper>
+                    </>
+                  </div>
+                )}
+                {filterColor && filterColor?.length > 0 && (
+                  <div className="collections__filter-size">
+                    <span>Màu sắc</span>
+                    <>
+                      <Swiper
+                        slidesPerView={3}
+                        spaceBetween={10}
+                        pagination={{
+                          clickable: true,
+                        }}
+                        breakpoints={{
+                          640: {
+                            slidesPerView: 5,
+                            spaceBetween: 20,
+                          },
+                          768: {
+                            slidesPerView: 6,
+                            spaceBetween: 40,
+                          },
+                          1024: {
+                            slidesPerView: 7,
+                            spaceBetween: 50,
+                          },
+                        }}
+                        // modules={[Pagination]}
+                        className="mySwiper"
+                      >
+                        {filterColor &&
+                          filterColor.length > 0 &&
+                          filterColor.map((item, index) => {
+                            return (
+                              <SwiperSlide
+                                key={index}
+                                className={
+                                  index === activeColor
+                                    ? "border border-warning pointer"
+                                    : " pointer"
+                                }
+                                onClick={() => {
+                                  handleFilterColor(index, item);
+                                }}
+                              >
+                                {item}
+                              </SwiperSlide>
+                            );
+                          })}
+                      </Swiper>
+                    </>
+                  </div>
+                )}
               </div>
-            </div>
-            <div className="collections__product">
-              <Row>
-                {listData &&
-                  listData.length > 0 &&
-                  listData.map((item, index) => {
-                    return (
-                      <Col xl={3} lg={4} md={6} sm={6} xs={6} key={index}>
-                        <CardProductSlide
-                          name={item.title}
-                          price={item.price}
-                          img={item.img}
-                          slug={item.slug}
-                          id={item.id}
-                        />
-                      </Col>
-                    );
-                  })}
-              </Row>
-            </div>
-          </Container>
-        </div>
+              <div className="collections__product">
+                <Row>
+                  {listData &&
+                    listData.length > 0 &&
+                    listData.map((item, index) => {
+                      return (
+                        <Col xl={3} lg={4} md={6} sm={6} xs={6} key={index}>
+                          <CardProductSlide
+                            name={item.title}
+                            price={item.price}
+                            img={item.img}
+                            slug={item.slug}
+                            id={item.id}
+                          />
+                        </Col>
+                      );
+                    })}
+                </Row>
+              </div>
+            </Container>
+          </div>
+        )}
       </motion.div>
     </Helmet>
   );

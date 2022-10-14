@@ -14,17 +14,31 @@ import "swiper/css/scrollbar";
 import { Scrollbar } from "swiper";
 import { Container } from "react-bootstrap";
 import { useSelector } from "react-redux";
+import axios from "axios";
 
 const NewtShirt = () => {
   // const { data } = useContext(dataContext);
   const listRedux = useSelector((state) => state.listProduct.value.listProduct);
 
   const [tShirt, setTshirt] = useState([]);
-
-  useEffect(() => {
-    const filter = listRedux.filter((item) => item.categorySlug === "t-shirt");
-    setTshirt(filter);
+  // console.log("check tshirt :>", tShirt);
+  useEffect(async () => {
+    try {
+      let response = await axios.get("/product/?param=2");
+      // console.log("check tShirt :>>", response);
+      if (response?.data?.length < 0) {
+        throw "Lỗi server";
+      }
+      setTshirt(response?.data);
+    } catch (error) {
+      console.log(error);
+    }
   }, []);
+
+  // useEffect(() => {
+  //   const filter = listRedux.filter((item) => item.categorySlug === "t-shirt");
+  //   setTshirt(filter);
+  // }, []);
   // console.log(tShirt);
   return (
     <Container className="mb-5" id="customScrollBar">

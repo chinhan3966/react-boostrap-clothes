@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import { useSelector } from "react-redux";
@@ -7,10 +8,19 @@ const BestSeller = () => {
   const [data, setData] = useState([]);
   const listRedux = useSelector((state) => state.listProduct.value.listProduct);
   // console.log(data);
-  useEffect(() => {
-    const filter = listRedux.filter((item) => item.discount > 20);
-    const slice = filter.slice(0, 8);
-    setData(slice);
+  useEffect(async () => {
+    try {
+      let response = await axios.get("/product/all");
+      // console.log("check tShirt :>>", response);
+      if (response?.data?.length < 0) {
+        throw "Lỗi server";
+      }
+      const filter = response?.data.filter((item) => item.discount > 20);
+      const slice = filter.slice(8, 16);
+      setData(slice);
+    } catch (error) {
+      console.log(error);
+    }
   }, []);
   return (
     <Container>
@@ -21,8 +31,8 @@ const BestSeller = () => {
       </div>
       <Row>
         {data &&
-          data.length > 0 &&
-          data.map((item, index) => {
+          data?.length > 0 &&
+          data?.map((item, index) => {
             return (
               <Col xl={3} lg={4} md={6} sm={6} xs={6} key={index}>
                 <CardProductSlide

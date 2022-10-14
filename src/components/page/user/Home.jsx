@@ -15,27 +15,13 @@ import axios from "axios";
 
 const Home = () => {
   const [isShowPopUp, setIsShowPopUp] = useState(false);
+
   useEffect(() => {
     setTimeout(() => {
       setIsShowPopUp(true);
     }, 5000);
   }, []);
 
-  useEffect(async () => {
-    let data = await axios({
-      method: "get",
-      url: "/product/all",
-      headers: {
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",
-      },
-      // data: {
-      //   firstName: "Fred",
-      //   lastName: "Flintstone",
-      // },
-    });
-    console.log("check respone :>>", data);
-  }, []);
   return (
     <Helmet title="Home">
       <motion.div

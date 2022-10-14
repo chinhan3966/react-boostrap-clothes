@@ -1,42 +1,66 @@
+import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import CardProductSlide from "./common/CardProductSlide";
-
+import Loading from "../components/common/loading/Loading";
 const listCollections = [
   {
-    id: 1,
+    id: 3,
     categorySlug: "hoodie",
     name: "hoodie",
   },
   {
-    id: 2,
+    id: 1,
     categorySlug: "jacket",
     name: "jacket",
   },
   {
-    id: 3,
+    id: 6,
     categorySlug: "accessories",
     name: "accessories",
   },
 ];
 const NewArrival = () => {
   const listRedux = useSelector((state) => state.listProduct.value.listProduct);
+
   const [dataDynamic, setDataDynamic] = useState([]);
   const [imgDefault, setImageDefault] = useState("");
-  // console.log("check data dynamic", dataDynamic);
+
   const [activeCollection, setActiveCollection] = useState("hoodie");
-  const [activeColor, setActiveColor] = useState(1);
-  useEffect(() => {
-    if (Array.isArray(listRedux)) {
-      const filter = listRedux.filter(
-        (item) => item.categorySlug === activeCollection
-      );
-      const slice = filter.slice(1, 5);
-      setImageDefault(filter[0].img[0]);
+  const [activeColor, setActiveColor] = useState(3);
+  const [loading, setLoading] = useState(true);
+  // useEffect(() => {
+  //   if (Array.isArray(listRedux)) {
+  //     const filter = listRedux.filter(
+  //       (item) => item.categorySlug === activeCollection
+  //     );
+  //     const slice = filter.slice(1, 5);
+  //     setImageDefault(filter[0].img[0]);
+  //     setDataDynamic(slice);
+  //   }
+  // }, [activeCollection]);
+
+  useEffect(async () => {
+    // setTimeout(async () => {
+    try {
+      setLoading(true);
+      let response = await axios.get(`/product/?param=${activeColor}`);
+      // console.log("check response filter :>>", response);
+      if (response?.data?.length < 0) {
+        throw "Lỗi server";
+      }
+      const slice = response?.data?.slice(1, 5);
+      setImageDefault(response?.data[0].img[0]);
       setDataDynamic(slice);
+      setLoading(false);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
     }
-  }, [activeCollection]);
+    // }, 2000);
+  }, [activeColor]);
   return (
     <Container>
       <div className="newArrival-title">
@@ -61,34 +85,40 @@ const NewArrival = () => {
             })}
         </div>
       </div>
-      <Row className="newArrival">
-        <Col lg={6} className="newArrival__block1">
-          <div>
+      {loading ? (
+        <div style={{ width: "100%", height: "500px" }}>
+          <Loading />
+        </div>
+      ) : (
+        <Row className="newArrival">
+          <Col lg={6} className="newArrival__block1">
             <div>
-              {imgDefault && <img src={imgDefault} alt="default img" />}
+              <div>
+                {imgDefault && <img src={imgDefault} alt="default img" />}
+              </div>
             </div>
-          </div>
-        </Col>
-        <Col lg={6} className="newArrival__block2">
-          <Row>
-            {dataDynamic &&
-              dataDynamic.length > 0 &&
-              dataDynamic.map((item, index) => {
-                return (
-                  <Col sm={6} xs={6} key={index}>
-                    <CardProductSlide
-                      name={item.title}
-                      price={item.price}
-                      img={item.img}
-                      slug={item.slug}
-                      id={item.id}
-                    />
-                  </Col>
-                );
-              })}
-          </Row>
-        </Col>
-      </Row>
+          </Col>
+          <Col lg={6} className="newArrival__block2">
+            <Row>
+              {dataDynamic &&
+                dataDynamic.length > 0 &&
+                dataDynamic.map((item, index) => {
+                  return (
+                    <Col sm={6} xs={6} key={index}>
+                      <CardProductSlide
+                        name={item.title}
+                        price={item.price}
+                        img={item.img}
+                        slug={item.slug}
+                        id={item.id}
+                      />
+                    </Col>
+                  );
+                })}
+            </Row>
+          </Col>
+        </Row>
+      )}
     </Container>
   );
 };

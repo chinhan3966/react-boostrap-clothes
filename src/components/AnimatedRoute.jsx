@@ -50,7 +50,10 @@ const AnimatedRoute = () => {
         <Route path="/" element={<App />}>
           <Route index element={<Home />} />
           <Route path="product/:slug/:id" element={<PageProduct />} />
-          <Route path="collections/:categorySlug" element={<Collections />} />
+          <Route
+            path="collections/:categorySlug/:id"
+            element={<Collections />}
+          />
           <Route path="cart" element={<Cart />} />
           <Route path="sign-in" element={<SignIn />} />
           <Route path="sign-up" element={<SignUp />} />

@@ -2,6 +2,8 @@
   position: relative;
   .album--img {
     width: 100%;
+    aspect-ratio: 1/1;
+    object-fit: contain;
   }
   .album--quanlity {
     position: absolute;
@@ -16,7 +18,7 @@
     h6 {
       position: relative;
       font-size: 1.5rem;
-      span { 
+      span {
         position: absolute;
         top: -50%;
         right: -25%;
@@ -88,9 +90,7 @@
   transition: all 0.25s ease;
 }
 
-
 #album .swiper-button-next::after,
 #album .swiper-button-prev::after {
   font-size: 12px;
 }
-
