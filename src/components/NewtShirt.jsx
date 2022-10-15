@@ -16,7 +16,7 @@ import { Container } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import axios from "axios";
 
-const NewtShirt = () => {
+const NewtShirt = ({ setLoadingShirt }) => {
   // const { data } = useContext(dataContext);
   const listRedux = useSelector((state) => state.listProduct.value.listProduct);
 
@@ -24,12 +24,14 @@ const NewtShirt = () => {
   // console.log("check tshirt :>", tShirt);
   useEffect(async () => {
     try {
+      setLoadingShirt(true);
       let response = await axios.get("/product/?param=2");
       // console.log("check tShirt :>>", response);
       if (response?.data?.length < 0) {
         throw "Lỗi server";
       }
       setTshirt(response?.data);
+      setLoadingShirt(false);
     } catch (error) {
       console.log(error);
     }

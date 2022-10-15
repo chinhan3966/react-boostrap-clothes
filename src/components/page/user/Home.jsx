@@ -13,9 +13,22 @@ import Helmet from "../../common/Helmet";
 import banner from "../../../assets/banner/banner-popup.jpg";
 import axios from "axios";
 
+import Loading from "../../common/loading/Loading";
+
 const Home = () => {
   const [isShowPopUp, setIsShowPopUp] = useState(false);
 
+  const [loadingAlbum, setLoadingAlbum] = useState(true);
+  const [loadingShirt, setLoadingShirt] = useState(true);
+  const [loadingSeller, setLoadingSeller] = useState(true);
+  const [loadingArrival, setLoadingArrival] = useState(true);
+  // console.log(
+  //   "album load :>>",
+  //   loadingAlbum,
+  //   loadingShirt,
+  //   loadingSeller,
+  //   loadingArrival
+  // );
   useEffect(() => {
     setTimeout(() => {
       setIsShowPopUp(true);
@@ -40,8 +53,8 @@ const Home = () => {
       >
         <div className="mb-5">
           <Banner />
-          <Album />
-          <NewtShirt />
+          <Album setLoadingAlbum={setLoadingAlbum} />
+          <NewtShirt setLoadingShirt={setLoadingShirt} />
           <HotDeal />
           <div className="xxme">
             <img
@@ -49,8 +62,8 @@ const Home = () => {
               width={"100%"}
             />
           </div>
-          <BestSeller />
-          <NewArrival />
+          <BestSeller setLoadingSeller={setLoadingSeller} />
+          <NewArrival setLoadingArrival={setLoadingArrival} />
           <News />
         </div>
         <div className={`show__PopUp ${isShowPopUp ? "active" : ""}`}>
@@ -61,6 +74,11 @@ const Home = () => {
             </div>
           </div>
         </div>
+        {loadingAlbum && loadingShirt && loadingSeller && loadingArrival && (
+          <div className="loadingHome">
+            <Loading />
+          </div>
+        )}
       </motion.div>
     </Helmet>
   );

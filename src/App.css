@@ -57,3 +57,10 @@ body {
 body.disable-scroll {
   overflow-y: hidden;
 }
+
+.loadingHome {
+  position: fixed;
+  inset: 0;
+  z-index: 99999999;
+  background-color: #fff;
+}

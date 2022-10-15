@@ -15,7 +15,7 @@ import { useSelector } from "react-redux";
 import { useEffect } from "react";
 import axios from "axios";
 
-const Album = () => {
+const Album = ({ setLoadingAlbum }) => {
   const listAlbum = useSelector(
     (state) => state.listProduct.value.listCollections
   );
@@ -23,12 +23,14 @@ const Album = () => {
   // console.log("check category state :>>", category);
   useEffect(async () => {
     try {
+      setLoadingAlbum(true);
       let response = await axios.get("category/all");
       if (response?.data?.length < 0) {
         throw "Lỗi server";
       }
       setCategory(response?.data);
-      console.log("check category :>>", response);
+      setLoadingAlbum(false);
+      // console.log("check category :>>", response);
     } catch (error) {
       console.log(error);
     }

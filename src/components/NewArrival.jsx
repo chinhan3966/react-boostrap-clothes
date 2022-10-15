@@ -21,7 +21,7 @@ const listCollections = [
     name: "accessories",
   },
 ];
-const NewArrival = () => {
+const NewArrival = ({ setLoadingArrival }) => {
   const listRedux = useSelector((state) => state.listProduct.value.listProduct);
 
   const [dataDynamic, setDataDynamic] = useState([]);
@@ -44,6 +44,7 @@ const NewArrival = () => {
   useEffect(async () => {
     // setTimeout(async () => {
     try {
+      setLoadingArrival(true);
       setLoading(true);
       let response = await axios.get(`/product/?param=${activeColor}`);
       // console.log("check response filter :>>", response);
@@ -54,10 +55,12 @@ const NewArrival = () => {
       setImageDefault(response?.data[0].img[0]);
       setDataDynamic(slice);
       setLoading(false);
+      setLoadingArrival(false);
     } catch (error) {
       console.log(error);
     } finally {
       setLoading(false);
+      setLoadingArrival(false);
     }
     // }, 2000);
   }, [activeColor]);

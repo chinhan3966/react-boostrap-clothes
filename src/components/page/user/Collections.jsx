@@ -84,9 +84,10 @@ const Collections = () => {
   // }, []);
 
   useEffect(() => {
+    let cloneListData = [...listData];
     let filter = [];
-    if (Array.isArray(listData)) {
-      listData.forEach((item) => {
+    if (Array.isArray(cloneListData)) {
+      cloneListData.forEach((item) => {
         if (item && item.infoProduct && item.infoProduct.length > 0) {
           item.infoProduct.forEach((item1) => {
             if (!filter.includes(item1?.size?.sizeName)) {
@@ -101,9 +102,10 @@ const Collections = () => {
   }, [listData]);
 
   useEffect(() => {
+    let cloneListData = [...listData];
     let filter = [];
-    if (Array.isArray(listData)) {
-      listData.forEach((item) => {
+    if (Array.isArray(cloneListData)) {
+      cloneListData.forEach((item) => {
         if (item && item.infoProduct && item.infoProduct.length > 0) {
           item.infoProduct.forEach((item1) => {
             if (!filter.includes(item1.color.colorName)) {

@@ -1,7 +1,7 @@
 import data from "../../fakeData/data";
 
 const initialState = {
-  value: data,
+  value: "",
 };
 
 const listProductReducer = (state = initialState, action) => {

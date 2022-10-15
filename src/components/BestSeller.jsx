@@ -4,12 +4,13 @@ import { Col, Container, Row } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import CardProductSlide from "./common/CardProductSlide";
 
-const BestSeller = () => {
+const BestSeller = ({ setLoadingSeller }) => {
   const [data, setData] = useState([]);
   const listRedux = useSelector((state) => state.listProduct.value.listProduct);
   // console.log(data);
   useEffect(async () => {
     try {
+      setLoadingSeller(true);
       let response = await axios.get("/product/all");
       // console.log("check tShirt :>>", response);
       if (response?.data?.length < 0) {
@@ -18,6 +19,7 @@ const BestSeller = () => {
       const filter = response?.data.filter((item) => item.discount > 20);
       const slice = filter.slice(8, 16);
       setData(slice);
+      setLoadingSeller(false);
     } catch (error) {
       console.log(error);
     }

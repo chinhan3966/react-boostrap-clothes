@@ -11,6 +11,8 @@ import { Pagination } from "swiper";
 
 import { Container } from "react-bootstrap";
 import { AiTwotoneSetting, AiTwotoneFire } from "react-icons/ai";
+import axios from "axios";
+import { Link } from "react-router-dom";
 const listHotDeal = [
   {
     name: "pencil icon tee",
@@ -33,6 +35,38 @@ const HotDeal = () => {
   const minRef1 = useRef(null);
   const secRef1 = useRef(null);
   const timeRef1 = useRef(null);
+  const [productSale1, setProductSale1] = useState({});
+  const [productSale2, setProductSale2] = useState({});
+
+  console.log("check product :>>", productSale1);
+
+  useEffect(async () => {
+    try {
+      let response = await axios.get(`/product/detail?id=56`);
+
+      if (!response?.data) {
+        throw "Lỗi server";
+      }
+
+      setProductSale1(response?.data);
+    } catch (error) {
+      console.log(error);
+    }
+  }, []);
+
+  useEffect(async () => {
+    try {
+      let response = await axios.get(`/product/detail?id=58`);
+
+      if (!response?.data) {
+        throw "Lỗi server";
+      }
+
+      setProductSale2(response?.data);
+    } catch (error) {
+      console.log(error);
+    }
+  }, []);
 
   useEffect(() => {
     const timeRef = setInterval(() => {
@@ -117,6 +151,9 @@ const HotDeal = () => {
       clearInterval(timeRef1);
     };
   }, []);
+
+  const priceSplitter = (number) =>
+    number && number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
   return (
     <>
       <div className="hotdeal__title">
@@ -160,8 +197,12 @@ const HotDeal = () => {
               <div className="hotdeal__container-item">
                 {/* block1.1 */}
                 <div className="hotdeal__container-item__block">
-                  <h2>pencil icon tee</h2>
-                  <span>300.000đ</span>
+                  <Link
+                    to={`/product/${productSale1?.object?.slug}/${productSale1?.object?.id}`}
+                  >
+                    <h2>{productSale1?.object?.title}</h2>
+                  </Link>
+                  <span>{priceSplitter(productSale1?.object?.price)}đ</span>
                   <h4>Thời gian còn lại</h4>
                   <div className="hotdeal__container-item__block-countdown">
                     <div className="hotdeal__container-item__block-countdown__hour">
@@ -185,7 +226,7 @@ const HotDeal = () => {
                 {/* block1.1 */}
                 {/* block1.2 */}
                 <div className="hotdeal__container-item__block1">
-                  <img src="https://bizweb.dktcdn.net/thumb/large/100/331/067/products/273941106-2169617879860549-1912609576777828820-n.jpg?v=1644817688000" />
+                  <img src={productSale1?.object?.img[0]} />
                 </div>
                 {/* block1.2 */}
               </div>
@@ -195,8 +236,12 @@ const HotDeal = () => {
               <div className="hotdeal__container-item">
                 {/* block1.1 */}
                 <div className="hotdeal__container-item__block">
-                  <h2>roc dream club t-shirt</h2>
-                  <span>400.000đ</span>
+                  <Link
+                    to={`/product/${productSale2?.object?.slug}/${productSale2?.object?.id}`}
+                  >
+                    <h2>{productSale2?.object?.title}</h2>
+                  </Link>
+                  <span>{priceSplitter(productSale2?.object?.price)}đ</span>
                   <h4>Thời gian còn lại</h4>
                   <div className="hotdeal__container-item__block-countdown">
                     <div className="hotdeal__container-item__block-countdown__hour">
@@ -220,7 +265,7 @@ const HotDeal = () => {
                 {/* block1.1 */}
                 {/* block1.2 */}
                 <div className="hotdeal__container-item__block1">
-                  <img src="https://bizweb.dktcdn.net/thumb/large/100/331/067/products/273903192-4838173302957479-7710589796559519658-n.jpg?v=1644818030000" />
+                  <img src={productSale2?.object?.img[0]} />
                 </div>
                 {/* block1.2 */}
               </div>
