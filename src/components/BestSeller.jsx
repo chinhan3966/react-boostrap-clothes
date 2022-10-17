@@ -16,7 +16,9 @@ const BestSeller = ({ setLoadingSeller }) => {
       if (response?.data?.length < 0) {
         throw "Lỗi server";
       }
-      const filter = response?.data.filter((item) => item.discount > 20);
+      const filter = response?.data?.object.filter(
+        (item) => item.discount > 20
+      );
       const slice = filter.slice(8, 16);
       setData(slice);
       setLoadingSeller(false);

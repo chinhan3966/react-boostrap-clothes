@@ -28,7 +28,7 @@ const Album = ({ setLoadingAlbum }) => {
       if (response?.data?.length < 0) {
         throw "Lỗi server";
       }
-      setCategory(response?.data);
+      setCategory(response?.data?.object);
       setLoadingAlbum(false);
       // console.log("check category :>>", response);
     } catch (error) {

@@ -26,11 +26,11 @@ const NewtShirt = ({ setLoadingShirt }) => {
     try {
       setLoadingShirt(true);
       let response = await axios.get("/product/?param=2");
-      // console.log("check tShirt :>>", response);
+      // console.log("check response tShirt :>>", response);
       if (response?.data?.length < 0) {
         throw "Lỗi server";
       }
-      setTshirt(response?.data);
+      setTshirt(response?.data?.object);
       setLoadingShirt(false);
     } catch (error) {
       console.log(error);

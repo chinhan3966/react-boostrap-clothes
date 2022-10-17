@@ -183,8 +183,8 @@ const Collections = () => {
       if (response?.data?.length < 0) {
         throw "Lỗi server";
       }
-      setListData(response?.data);
-      setListProductClone(response?.data);
+      setListData(response?.data?.object);
+      setListProductClone(response?.data?.object);
       setLoading(false);
     } catch (error) {
       console.log(error);

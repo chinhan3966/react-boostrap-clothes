@@ -38,7 +38,7 @@ const HotDeal = () => {
   const [productSale1, setProductSale1] = useState({});
   const [productSale2, setProductSale2] = useState({});
 
-  console.log("check product :>>", productSale1);
+  // console.log("check product :>>", productSale1);
 
   useEffect(async () => {
     try {

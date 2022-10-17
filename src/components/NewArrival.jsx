@@ -51,8 +51,8 @@ const NewArrival = ({ setLoadingArrival }) => {
       if (response?.data?.length < 0) {
         throw "Lỗi server";
       }
-      const slice = response?.data?.slice(1, 5);
-      setImageDefault(response?.data[0].img[0]);
+      const slice = response?.data?.object?.slice(1, 5);
+      setImageDefault(response?.data?.object[0].img[0]);
       setDataDynamic(slice);
       setLoading(false);
       setLoadingArrival(false);
