@@ -1,143 +1,228 @@
-import React, { useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import Table from "../../common/table/Table";
 import { AiOutlineDelete, AiOutlineAppstoreAdd } from "react-icons/ai";
 import { BiEditAlt } from "react-icons/bi";
 import { toast } from "react-toastify";
 import Modal from "../../common/modal/Modal";
-import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
+import axios from "axios";
+import Pagination from "../../common/pagination/Pagination";
+import FormPostProduct from "../../common/form-admin/product/FormPostProduct";
 
-// const DEFAULT_OPTION = {
-//   autoClose: 1000,
-//   closeOnClick: true,
-//   pauseOnHover: false,
-//   hideProgressBar: false,
-//   position: toast.POSITION.TOP_LEFT,
-// };
+import Loading from "../../common/loading/Loading";
+import FormPutProduct from "../../common/form-admin/product/FormPutProduct";
+
 const Product = () => {
-  const [isOpenModalAdd, setIsOpenModalAdd] = useState(false);
+  const [isOpenModalPost, setIsOpenModalPost] = useState(false);
+  const [isOpenModalPut, setIsOpenModalPut] = useState(false);
+  const [dataPut, setDataPut] = useState({});
 
-  const handleCloseModal = () => {
-    setIsOpenModalAdd(false);
+  const [tableData, setTableData] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const [refeshTableData, setRefeshTableData] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  const handleCloseModalPost = () => {
+    setIsOpenModalPost(false);
   };
 
-  const handleOpenModal = () => {
-    setIsOpenModalAdd(true);
+  const handleOpenModalPost = () => {
+    setIsOpenModalPost(true);
   };
 
-  const handleUpdate = () => {
-    console.log("update");
-    toast.success("Update Success");
+  const handleCloseModalPut = () => {
+    setIsOpenModalPut(false);
   };
 
-  const handleDelete = () => {
-    console.log("Delete");
-    toast.success("Delete Success");
+  const handleOpenModalPut = () => {
+    setIsOpenModalPut(true);
   };
-  const columns = [
-    {
-      Header: "Tên sản phẩm",
-      accessor: "col1",
-    },
-    {
-      Header: "Giá sản phẩm",
-      accessor: "col2",
-    },
-    {
-      Header: "Size",
-      accessor: "col3",
-    },
-    {
-      Header: "Color",
-      accessor: "col4",
-    },
-    {
-      Header: "Số Lượng",
-      accessor: "col5",
-    },
-    {
-      Header: "Cập nhật",
-      accessor: "col6",
-    },
-    {
-      Header: "Xóa",
-      accessor: "col7",
-    },
-  ];
 
-  const contents = [
-    {
-      col1: "Xxme",
-      col2: "500k",
-      col3: "S,M,L",
-      col4: "Black, White, Blue",
-      col5: "50",
-      col6: (
-        <div>
-          <BiEditAlt size={18} onClick={handleUpdate} />
-        </div>
-      ),
-      col7: (
-        <div>
-          <AiOutlineDelete size={18} onClick={handleDelete} />
-        </div>
-      ),
-    },
-    {
-      col1: "Xxme",
-      col2: "500k",
-      col3: "S,M,L",
-      col4: "Black, White, Blue",
-      col5: "50",
-      col6: (
-        <div>
-          <BiEditAlt size={18} onClick={handleUpdate} />
-        </div>
-      ),
-      col7: (
-        <div>
-          <AiOutlineDelete size={18} onClick={handleDelete} />
-        </div>
-      ),
-    },
-  ];
+  const handleUpdate = (table) => {
+    handleOpenModalPut();
+    setDataPut(table);
+  };
 
+  const handleDelete = async (id) => {
+    const data = [id];
+    // console.log("delete id :>>", data);
+    try {
+      let response = await axios.delete("/product", { data: data });
+      console.log("check response delete product :>>", response);
+      if (response?.data?.code === 200) {
+        toast.success(response?.data?.message);
+        setRefeshTableData(Math.random() * 99999);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleUpdateCurrentPage = (page) => {
+    setCurrentPage(page);
+  };
+
+  const columns = useMemo(() => {
+    return [
+      {
+        Header: "Id",
+        accessor: "col8",
+      },
+      {
+        Header: "Tên sản phẩm",
+        accessor: "col1",
+      },
+      {
+        Header: "Hình ảnh",
+        accessor: "col9",
+      },
+      {
+        Header: "Giá sản phẩm",
+        accessor: "col2",
+      },
+      {
+        Header: "Size",
+        accessor: "col3",
+      },
+      {
+        Header: "Color",
+        accessor: "col4",
+      },
+      {
+        Header: "Số Lượng",
+        accessor: "col5",
+      },
+      {
+        Header: "Cập nhật",
+        accessor: "col6",
+      },
+      {
+        Header: "Xóa",
+        accessor: "col7",
+      },
+    ];
+  }, []);
+
+  const contents = useMemo(() => {
+    return tableData?.object?.map((table) => {
+      return {
+        col8: table.id,
+        col1: table.title,
+        col9: (
+          <div>
+            <img width="50px" height="50px" src={table.img[0]} />
+          </div>
+        ),
+        col2: table.price,
+        // col3: "S,M",
+        col3: (function () {
+          let filter = [];
+          table?.infoProduct?.forEach((item) => {
+            if (!filter.includes(item?.size?.sizeName)) {
+              filter.push(item?.size?.sizeName);
+            }
+          });
+          return filter.sort((a, b) => a.localeCompare(b)).toString();
+        })(),
+        col4: (function () {
+          let filter = [];
+          table?.infoProduct?.forEach((item) => {
+            if (!filter.includes(item?.color?.colorName)) {
+              filter.push(item?.color?.colorName);
+            }
+          });
+          return filter.sort((a, b) => a.localeCompare(b)).toString();
+        })(),
+        col5: (function () {
+          let totalAmount = 0;
+          table?.infoProduct?.forEach((item) => {
+            totalAmount += item.amount;
+          });
+          return totalAmount;
+        })(),
+        col6: (
+          <div>
+            <BiEditAlt size={18} onClick={() => handleUpdate(table)} />
+          </div>
+        ),
+        col7: (
+          <div>
+            <AiOutlineDelete size={18} onClick={() => handleDelete(table.id)} />
+          </div>
+        ),
+      };
+    });
+  }, [tableData]);
+
+  useEffect(async () => {
+    try {
+      setLoading(true);
+      let response = await axios.get(
+        `/product/all?page=${currentPage}&size=10`
+      );
+      // console.log("check data product :>>", response);
+      if (response?.data?.object) {
+        setTableData(response?.data);
+        setLoading(false);
+      }
+    } catch (error) {
+      console.log(error);
+      setLoading(false);
+    }
+  }, [currentPage, refeshTableData]);
   return (
     <>
       <div className="productAdmin">
         <div className="productAdmin__header">
           <h1>List Sản Phẩm</h1>
-          <div className="header__add" onClick={handleOpenModal}>
+          <div className="header__add" onClick={handleOpenModalPost}>
             <AiOutlineAppstoreAdd size={20} />
             <h6>Thêm sản phẩm</h6>
           </div>
         </div>
-        <div className="productAdmin__table">
-          <Table data={contents} columns={columns} />
-        </div>
+        <>
+          {loading ? (
+            <div style={{ height: "300px" }}>
+              <Loading />
+            </div>
+          ) : (
+            <>
+              {" "}
+              {tableData?.object?.length > 0 && (
+                <div className="productAdmin__table">
+                  <Table data={contents} columns={columns} />
+                </div>
+              )}
+              <div className="productAdmin__pagination">
+                <Pagination
+                  total={tableData?.totalReturn}
+                  currentPage={currentPage}
+                  handleUpdateCurrentPage={handleUpdateCurrentPage}
+                />
+              </div>
+            </>
+          )}
+        </>
       </div>
-      {isOpenModalAdd && (
-        <Modal closeModal={handleCloseModal} openModal={handleOpenModal}>
-          <Form>
-            <Form.Group className="mb-3" controlId="formBasicEmail">
-              <Form.Label>Email address</Form.Label>
-              <Form.Control type="email" placeholder="Enter email" />
-              {/* <Form.Text className="text-muted">
-                We'll never share your email with anyone else.
-              </Form.Text> */}
-            </Form.Group>
+      {isOpenModalPost && (
+        <Modal
+          closeModal={handleCloseModalPost}
+          openModal={handleOpenModalPost}
+        >
+          <FormPostProduct
+            handleCloseModal={handleCloseModalPost}
+            setRefeshTableData={setRefeshTableData}
+          />
+        </Modal>
+      )}
 
-            <Form.Group className="mb-3" controlId="formBasicPassword">
-              <Form.Label>Password</Form.Label>
-              <Form.Control type="password" placeholder="Password" />
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="formBasicCheckbox">
-              <Form.Check type="checkbox" label="Check me out" />
-            </Form.Group>
-            <Button variant="primary" type="submit">
-              Submit
-            </Button>
-          </Form>
+      {isOpenModalPut && (
+        <Modal closeModal={handleCloseModalPut} openModal={handleOpenModalPut}>
+          <FormPutProduct
+            handleCloseModal={handleCloseModalPut}
+            setRefeshTableData={setRefeshTableData}
+            dataPut={dataPut}
+          />
         </Modal>
       )}
     </>

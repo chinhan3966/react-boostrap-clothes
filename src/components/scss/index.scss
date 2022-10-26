@@ -3,6 +3,7 @@
 
 //common
 @import "./common//modal";
+@import "./common/pagination";
 
 //common
 
@@ -32,6 +33,8 @@
 @import "./admin/color-admin";
 @import "./admin/size-admin";
 @import "./admin/bill-admin";
+
+@import "./admin/form-product";
 //admin
 .w-full {
   width: 100%;

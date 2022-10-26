@@ -3,6 +3,13 @@ import { IoIosClose } from "react-icons/io";
 // import "./modal.scss";
 
 const Modal = ({ children, closeModal, openModal }) => {
+  // const handleOpenModal = (e) => {
+  //   setTimeout(() => {
+  //     openModal();
+  //     e.stopPropagation();
+  //   }, 500);
+  // };
+
   return (
     <div className="popUp" onClick={closeModal}>
       <div
@@ -11,6 +18,7 @@ const Modal = ({ children, closeModal, openModal }) => {
           openModal();
           e.stopPropagation();
         }}
+        // onClick={handleOpenModal}
       >
         {children}
         <div

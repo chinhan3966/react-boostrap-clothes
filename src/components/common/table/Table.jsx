@@ -2,12 +2,12 @@ import { forwardRef } from "react";
 import classnames from "classnames";
 import { useTable } from "react-table";
 
-import style from "./table.scss";
+import "./table.scss";
 
 const Table = forwardRef(({ className, data, columns, ...props }, ref) => {
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
     useTable({ columns, data });
-
+  // console.log("check data table :>>", data);
   return (
     <table
       ref={ref}

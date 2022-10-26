@@ -91,10 +91,8 @@ const PageProduct = () => {
   };
 
   useEffect(async () => {
-    // setTimeout(async () => {
     if (id) {
       try {
-        // setLoading({ ...loading, productLoading: true });
         setProductLoading(true);
         let response = await axios.get(`/product/detail?id=${id}`);
 
@@ -103,16 +101,14 @@ const PageProduct = () => {
         }
 
         setProductOne(response?.data);
-        // setLoading({ ...loading, productLoading: false });
+
         setProductLoading(false);
       } catch (error) {
         console.log(error);
       } finally {
-        // setLoading({ ...loading, productLoading: false });
         setProductLoading(false);
       }
     }
-    // }, 2000);
   }, [id]);
 
   useEffect(async () => {
@@ -126,7 +122,7 @@ const PageProduct = () => {
         if (response?.data?.length < 0) {
           throw "Lỗi server";
         }
-        setMoreProduct(response?.data);
+        setMoreProduct(response?.data?.object);
         // setLoading({ ...loading, productMore: false });
         setMoreLoading(false);
       } catch (error) {

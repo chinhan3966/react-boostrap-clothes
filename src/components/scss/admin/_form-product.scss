@@ -1,0 +1,111 @@
+.formPostProduct {
+  label {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 14px;
+    color: #fff;
+  }
+  input {
+    width: 100%;
+    padding: 5px 10px;
+    font-size: 14px;
+    outline: none;
+  }
+  &__title {
+    margin-bottom: 20px;
+  }
+  &__price {
+    margin-bottom: 20px;
+  }
+  &__discount {
+    margin-bottom: 20px;
+  }
+  &__img {
+    margin-bottom: 20px;
+    &-add {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+      label {
+        margin-bottom: unset;
+      }
+      svg {
+        &:hover {
+          opacity: 0.5;
+        }
+      }
+      button {
+        padding: 2px 5px !important;
+      }
+    }
+    &-render {
+      div {
+        // margin: 15px 0;
+        margin-top: 15px;
+      }
+    }
+  }
+  &__category {
+    font-size: 14px;
+    color: #000;
+    text-transform: capitalize;
+    margin-bottom: 20px;
+  }
+  &__infoProduct {
+    font-size: 10px;
+    color: #000;
+    text-transform: capitalize;
+    margin-bottom: 20px;
+    &-select {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      // text-transform: capitalize;
+      .size,
+      .color {
+        width: 35%;
+
+        // @include mobile {
+        //   width: 40%;
+        // }
+      }
+      .amount {
+        width: 20%;
+
+        // @include mobile {
+        //   width: 15%;
+        // }
+        input {
+          border-radius: 3px;
+          outline: 0;
+          border: none;
+          font-size: 10px;
+        }
+      }
+    }
+  }
+  button {
+    padding: 7px 40px;
+    background-color: #ff8400;
+    font-size: 16px;
+    border-radius: 5px;
+    display: block;
+    margin: 0 auto;
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+}
+
+.buttonActive {
+  cursor: pointer;
+  opacity: 1;
+}
+
+.buttonUnActive {
+  cursor: not-allowed !important;
+  opacity: 0.5;
+  pointer-events: none;
+}
