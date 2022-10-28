@@ -1,24 +1,62 @@
 import React, { useState, useEffect, useMemo } from "react";
 import Table from "../../common/table/Table";
-import { AiOutlineDelete } from "react-icons/ai";
+import { AiOutlineDelete, AiOutlineAppstoreAdd } from "react-icons/ai";
+
 import { BiEditAlt } from "react-icons/bi";
 import { toast } from "react-toastify";
 import axios from "axios";
 import Pagination from "../../common/pagination/Pagination";
 import { formatDate } from "../../../libs/formatDate";
+import Loading from "../../common/loading/Loading";
+import Modal from "../../common/modal/Modal";
+import FormPostColor from "../../common/form-admin/color/FormPostColor";
+import FormPutColor from "../../common/form-admin/color/FormPutColor";
 
 const Color = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [tableData, setTableData] = useState([]);
 
-  const handleUpdate = () => {
-    console.log("update");
-    toast.success("Update Success");
+  const [isOpenModalPost, setIsOpenModalPost] = useState(false);
+  const [isOpenModalPut, setIsOpenModalPut] = useState(false);
+  const [dataPut, setDataPut] = useState({});
+
+  const [refeshTableData, setRefeshTableData] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  const handleCloseModalPost = () => {
+    setIsOpenModalPost(false);
   };
 
-  const handleDelete = () => {
-    console.log("Delete");
-    toast.success("Delete Success");
+  const handleOpenModalPost = () => {
+    setIsOpenModalPost(true);
+  };
+
+  const handleCloseModalPut = () => {
+    setIsOpenModalPut(false);
+  };
+
+  const handleOpenModalPut = () => {
+    setIsOpenModalPut(true);
+  };
+
+  const handleUpdate = (table) => {
+    handleOpenModalPut();
+    setDataPut(table);
+  };
+
+  const handleDelete = async (id) => {
+    const data = [id];
+    // console.log("delete id :>>", data);
+    try {
+      let response = await axios.delete("/color", { data: data });
+      console.log("check response delete color :>>", response);
+      if (response?.data?.code === 200) {
+        toast.success(response?.data?.message);
+        setRefeshTableData(Math.random() * 99999);
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const handleUpdateCurrentPage = (page) => {
@@ -79,12 +117,12 @@ const Color = () => {
         col6: table.isActive ? "Hoạt động" : "Đã xóa",
         col7: (
           <div>
-            <BiEditAlt size={18} onClick={handleUpdate} />
+            <BiEditAlt size={18} onClick={() => handleUpdate(table)} />
           </div>
         ),
         col8: (
           <div>
-            <AiOutlineDelete size={18} onClick={handleDelete} />
+            <AiOutlineDelete size={18} onClick={() => handleDelete(table.id)} />
           </div>
         ),
       };
@@ -93,32 +131,70 @@ const Color = () => {
 
   useEffect(async () => {
     try {
+      setLoading(true);
       let response = await axios.get(`/color/all?page=${currentPage}&size=10`);
       console.log("check data color :>>", response);
       setTableData(response?.data);
+      setLoading(false);
     } catch (error) {
       console.log(error);
+      setLoading(false);
     }
-  }, [currentPage]);
+  }, [currentPage, refeshTableData]);
   return (
-    <div className="colorAdmin">
-      <div className="colorAdmin__header">
-        <h1>List Màu</h1>
-      </div>
-      {tableData?.object?.length > 0 && (
-        <div className="colorAdmin__table">
-          <Table data={contents} columns={columns} />
+    <>
+      <div className="colorAdmin">
+        <div className="colorAdmin__header">
+          <h1>List Màu</h1>
+          <div className="header__add" onClick={handleOpenModalPost}>
+            <AiOutlineAppstoreAdd size={20} />
+            <h6>Thêm màu</h6>
+          </div>
         </div>
+        {loading ? (
+          <div style={{ height: "300px" }}>
+            <Loading />
+          </div>
+        ) : (
+          <>
+            {tableData?.object?.length > 0 && (
+              <div className="colorAdmin__table">
+                <Table data={contents} columns={columns} />
+              </div>
+            )}
+
+            <div className="productAdmin__pagination">
+              <Pagination
+                total={tableData?.totalReturn}
+                currentPage={currentPage}
+                handleUpdateCurrentPage={handleUpdateCurrentPage}
+              />
+            </div>
+          </>
+        )}
+      </div>
+      {isOpenModalPost && (
+        <Modal
+          closeModal={handleCloseModalPost}
+          openModal={handleOpenModalPost}
+        >
+          <FormPostColor
+            handleCloseModal={handleCloseModalPost}
+            setRefeshTableData={setRefeshTableData}
+          />
+        </Modal>
       )}
 
-      <div className="productAdmin__pagination">
-        <Pagination
-          total={tableData?.totalReturn}
-          currentPage={currentPage}
-          handleUpdateCurrentPage={handleUpdateCurrentPage}
-        />
-      </div>
-    </div>
+      {isOpenModalPut && (
+        <Modal closeModal={handleCloseModalPut} openModal={handleOpenModalPut}>
+          <FormPutColor
+            handleCloseModal={handleCloseModalPut}
+            setRefeshTableData={setRefeshTableData}
+            dataPut={dataPut}
+          />
+        </Modal>
+      )}
+    </>
   );
 };
 

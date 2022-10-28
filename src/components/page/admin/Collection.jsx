@@ -1,24 +1,62 @@
 import React, { useEffect, useMemo, useState } from "react";
 import Table from "../../common/table/Table";
-import { AiOutlineDelete } from "react-icons/ai";
+import { AiOutlineDelete, AiOutlineAppstoreAdd } from "react-icons/ai";
+
 import { BiEditAlt } from "react-icons/bi";
 import { toast } from "react-toastify";
 import axios from "axios";
 import Pagination from "../../common/pagination/Pagination";
 import { formatDate } from "../../../libs/formatDate";
+import Loading from "../../common/loading/Loading";
+import Modal from "../../common/modal/Modal";
+import FormPostCategory from "../../common/form-admin/category/FormPostCategory";
+import FormPutCategory from "../../common/form-admin/category/FormPutCategory";
 
 const Collection = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [tableData, setTableData] = useState([]);
 
-  const handleUpdate = () => {
-    console.log("update");
-    toast.success("Update Success");
+  const [isOpenModalPost, setIsOpenModalPost] = useState(false);
+  const [isOpenModalPut, setIsOpenModalPut] = useState(false);
+  const [dataPut, setDataPut] = useState({});
+
+  const [refeshTableData, setRefeshTableData] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  const handleCloseModalPost = () => {
+    setIsOpenModalPost(false);
   };
 
-  const handleDelete = () => {
-    console.log("Delete");
-    toast.success("Delete Success");
+  const handleOpenModalPost = () => {
+    setIsOpenModalPost(true);
+  };
+
+  const handleCloseModalPut = () => {
+    setIsOpenModalPut(false);
+  };
+
+  const handleOpenModalPut = () => {
+    setIsOpenModalPut(true);
+  };
+
+  const handleUpdate = (table) => {
+    handleOpenModalPut();
+    setDataPut(table);
+  };
+
+  const handleDelete = async (id) => {
+    const data = [id];
+    // console.log("delete id :>>", data);
+    try {
+      let response = await axios.delete("/category", { data: data });
+      console.log("check response delete category :>>", response);
+      if (response?.data?.code === 200) {
+        toast.success(response?.data?.message);
+        setRefeshTableData(Math.random() * 99999);
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const handleUpdateCurrentPage = (page) => {
@@ -75,12 +113,12 @@ const Collection = () => {
         col6: table.isActive ? "Hoạt động" : "Đã xóa",
         col7: (
           <div>
-            <BiEditAlt size={18} onClick={handleUpdate} />
+            <BiEditAlt size={18} onClick={() => handleUpdate(table)} />
           </div>
         ),
         col8: (
           <div>
-            <AiOutlineDelete size={18} onClick={handleDelete} />
+            <AiOutlineDelete size={18} onClick={() => handleDelete(table.id)} />
           </div>
         ),
       };
@@ -89,35 +127,76 @@ const Collection = () => {
 
   useEffect(async () => {
     try {
+      setLoading(true);
       let response = await axios.get(
         `/category/all?page=${currentPage}&size=10`
       );
       console.log("check data category :>>", response);
       setTableData(response?.data);
+      setLoading(false);
     } catch (error) {
       console.log(error);
+      setLoading(false);
     }
-  }, [currentPage]);
+  }, [currentPage, refeshTableData]);
 
   return (
-    <div className="collectionAdmin">
-      <div className="collectionAdmin__header">
-        <h1>List Loại Sản Phẩm</h1>
-      </div>
-      {tableData?.object?.length > 0 && (
-        <div className="collectionAdmin__table">
-          <Table data={contents} columns={columns} />
+    <>
+      <div className="collectionAdmin">
+        <div className="collectionAdmin__header">
+          <h1>List Loại Sản Phẩm</h1>
+          <div className="header__add" onClick={handleOpenModalPost}>
+            <AiOutlineAppstoreAdd size={20} />
+            <h6>Thêm loại sp</h6>
+          </div>
         </div>
+
+        <>
+          {loading ? (
+            <div style={{ height: "300px" }}>
+              <Loading />
+            </div>
+          ) : (
+            <>
+              {tableData?.object?.length > 0 && (
+                <div className="collectionAdmin__table">
+                  <Table data={contents} columns={columns} />
+                </div>
+              )}
+
+              <div className="productAdmin__pagination">
+                <Pagination
+                  total={tableData?.totalReturn}
+                  currentPage={currentPage}
+                  handleUpdateCurrentPage={handleUpdateCurrentPage}
+                />
+              </div>
+            </>
+          )}
+        </>
+      </div>
+      {isOpenModalPost && (
+        <Modal
+          closeModal={handleCloseModalPost}
+          openModal={handleOpenModalPost}
+        >
+          <FormPostCategory
+            handleCloseModal={handleCloseModalPost}
+            setRefeshTableData={setRefeshTableData}
+          />
+        </Modal>
       )}
 
-      <div className="productAdmin__pagination">
-        <Pagination
-          total={tableData?.totalReturn}
-          currentPage={currentPage}
-          handleUpdateCurrentPage={handleUpdateCurrentPage}
-        />
-      </div>
-    </div>
+      {isOpenModalPut && (
+        <Modal closeModal={handleCloseModalPut} openModal={handleOpenModalPut}>
+          <FormPutCategory
+            handleCloseModal={handleCloseModalPut}
+            setRefeshTableData={setRefeshTableData}
+            dataPut={dataPut}
+          />
+        </Modal>
+      )}
+    </>
   );
 };
 

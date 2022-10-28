@@ -15,10 +15,11 @@ const Admin = () => {
   const [darkMode, setDarkMode] = useState(true);
   const { pathname } = useLocation();
 
-  const upDateStateShowNavBar = () => {
+  const upDateStateShowNavBar = (e) => {
     setIsNavbar(!isShowNavbar);
     setIsDropDownUser(false);
     setIsDropDownSetting(false);
+    e.stopPropagation();
   };
 
   const upDateStateDropDownSetting = () => {
@@ -42,6 +43,20 @@ const Admin = () => {
     window.addEventListener("click", handleOnClickSetting);
 
     return () => window.removeEventListener("click", handleOnClickSetting);
+  }, []);
+
+  useEffect(() => {
+    const handleOnClickNavbar = (e) => {
+      let dropDownSettingElement = document.querySelector("#navbar-admin");
+      let activeElement = e.target;
+      if (!dropDownSettingElement.contains(activeElement)) {
+        setIsNavbar(false);
+        console.log("active close navbar");
+      }
+    };
+    window.addEventListener("click", handleOnClickNavbar);
+
+    return () => window.removeEventListener("click", handleOnClickNavbar);
   }, []);
 
   useEffect(() => {
@@ -73,7 +88,7 @@ const Admin = () => {
               <BsChevronDoubleLeft size={20} onClick={upDateStateShowNavBar} />
             </div>
           </div>
-          <div className="navbarAdmin">
+          <div className="navbarAdmin" id="navbar-admin">
             <ul style={{ background: activeColorSideBar }}>
               <li className={`${pathname.includes("product") ? "active" : ""}`}>
                 <Link to="product">

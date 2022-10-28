@@ -122,7 +122,8 @@ const Product = () => {
               filter.push(item?.size?.sizeName);
             }
           });
-          return filter.sort((a, b) => a.localeCompare(b)).toString();
+          // return filter.sort((a, b) => a?.localeCompare(b)).toString();
+          return filter?.map((item, index) => <span key={index}>{item} </span>);
         })(),
         col4: (function () {
           let filter = [];
@@ -131,7 +132,8 @@ const Product = () => {
               filter.push(item?.color?.colorName);
             }
           });
-          return filter.sort((a, b) => a.localeCompare(b)).toString();
+          // return filter.sort((a, b) => a?.localeCompare(b)).toString();
+          return filter?.map((item, index) => <span key={index}>{item} </span>);
         })(),
         col5: (function () {
           let totalAmount = 0;
@@ -177,7 +179,7 @@ const Product = () => {
           <h1>List Sản Phẩm</h1>
           <div className="header__add" onClick={handleOpenModalPost}>
             <AiOutlineAppstoreAdd size={20} />
-            <h6>Thêm sản phẩm</h6>
+            <h6>Thêm sp</h6>
           </div>
         </div>
         <>
@@ -187,7 +189,6 @@ const Product = () => {
             </div>
           ) : (
             <>
-              {" "}
               {tableData?.object?.length > 0 && (
                 <div className="productAdmin__table">
                   <Table data={contents} columns={columns} />

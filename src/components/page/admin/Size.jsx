@@ -1,24 +1,62 @@
 import React, { useEffect, useMemo, useState } from "react";
 import Table from "../../common/table/Table";
-import { AiOutlineDelete } from "react-icons/ai";
+import { AiOutlineDelete, AiOutlineAppstoreAdd } from "react-icons/ai";
+
 import { BiEditAlt } from "react-icons/bi";
 import { toast } from "react-toastify";
 import axios from "axios";
 import { formatDate } from "../../../libs/formatDate";
 import Pagination from "../../common/pagination/Pagination";
+import Loading from "../../common/loading/Loading";
+import Modal from "../../common/modal/Modal";
+import FormPostSize from "../../common/form-admin/size/FormPostSize";
+import FormPutSize from "../../common/form-admin/size/FormPutSize";
 
 const Size = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [tableData, setTableData] = useState([]);
 
-  const handleUpdate = () => {
-    console.log("update");
-    toast.success("Update Success");
+  const [isOpenModalPost, setIsOpenModalPost] = useState(false);
+  const [isOpenModalPut, setIsOpenModalPut] = useState(false);
+  const [dataPut, setDataPut] = useState({});
+
+  const [refeshTableData, setRefeshTableData] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  const handleCloseModalPost = () => {
+    setIsOpenModalPost(false);
   };
 
-  const handleDelete = () => {
-    console.log("Delete");
-    toast.success("Delete Success");
+  const handleOpenModalPost = () => {
+    setIsOpenModalPost(true);
+  };
+
+  const handleCloseModalPut = () => {
+    setIsOpenModalPut(false);
+  };
+
+  const handleOpenModalPut = () => {
+    setIsOpenModalPut(true);
+  };
+
+  const handleUpdate = (table) => {
+    handleOpenModalPut();
+    setDataPut(table);
+  };
+
+  const handleDelete = async (id) => {
+    const data = [id];
+    // console.log("delete id :>>", data);
+    try {
+      let response = await axios.delete("/size", { data: data });
+      console.log("check response delete size :>>", response);
+      if (response?.data?.code === 200) {
+        toast.success(response?.data?.message);
+        setRefeshTableData(Math.random() * 99999);
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const handleUpdateCurrentPage = (page) => {
@@ -70,12 +108,12 @@ const Size = () => {
         col6: table.isActive ? "Hoạt động" : "Đã xóa",
         col7: (
           <div>
-            <BiEditAlt size={18} onClick={handleUpdate} />
+            <BiEditAlt size={18} onClick={() => handleUpdate(table)} />
           </div>
         ),
         col8: (
           <div>
-            <AiOutlineDelete size={18} onClick={handleDelete} />
+            <AiOutlineDelete size={18} onClick={() => handleDelete(table.id)} />
           </div>
         ),
       };
@@ -84,30 +122,68 @@ const Size = () => {
 
   useEffect(async () => {
     try {
+      setLoading(true);
       let response = await axios.get(`/size/all?page=${currentPage}&size=10`);
       console.log("check data size :>>", response);
       setTableData(response?.data);
+      setLoading(false);
     } catch (error) {
       console.log(error);
+      setLoading(false);
     }
-  }, [currentPage]);
+  }, [currentPage, refeshTableData]);
   return (
-    <div className="sizeAdmin">
-      <div className="sizeAdmin__header">
-        <h1>List Size</h1>
-      </div>
-      {tableData?.object?.length > 0 && (
-        <div className="sizeAdmin__table">
-          <Table data={contents} columns={columns} />
+    <>
+      <div className="sizeAdmin">
+        <div className="sizeAdmin__header">
+          <h1>List Size</h1>
+          <div className="header__add" onClick={handleOpenModalPost}>
+            <AiOutlineAppstoreAdd size={20} />
+            <h6>Thêm size</h6>
+          </div>
         </div>
+
+        {loading ? (
+          <div style={{ height: "300px" }}>
+            <Loading />
+          </div>
+        ) : (
+          <>
+            {tableData?.object?.length > 0 && (
+              <div className="sizeAdmin__table">
+                <Table data={contents} columns={columns} />
+              </div>
+            )}
+            <Pagination
+              total={tableData?.totalReturn}
+              currentPage={currentPage}
+              handleUpdateCurrentPage={handleUpdateCurrentPage}
+            />
+          </>
+        )}
+      </div>
+      {isOpenModalPost && (
+        <Modal
+          closeModal={handleCloseModalPost}
+          openModal={handleOpenModalPost}
+        >
+          <FormPostSize
+            handleCloseModal={handleCloseModalPost}
+            setRefeshTableData={setRefeshTableData}
+          />
+        </Modal>
       )}
 
-      <Pagination
-        total={tableData?.totalReturn}
-        currentPage={currentPage}
-        handleUpdateCurrentPage={handleUpdateCurrentPage}
-      />
-    </div>
+      {isOpenModalPut && (
+        <Modal closeModal={handleCloseModalPut} openModal={handleOpenModalPut}>
+          <FormPutSize
+            handleCloseModal={handleCloseModalPut}
+            setRefeshTableData={setRefeshTableData}
+            dataPut={dataPut}
+          />
+        </Modal>
+      )}
+    </>
   );
 };
 
