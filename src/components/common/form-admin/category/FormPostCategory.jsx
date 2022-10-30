@@ -6,12 +6,15 @@ import Select from "react-select";
 import { AiOutlinePlus, AiOutlineDelete } from "react-icons/ai";
 import { CgArrowsExchangeAltV } from "react-icons/cg";
 import { toast } from "react-toastify";
+import { useSelector } from "react-redux";
 
 const FormPostCategory = ({ handleCloseModal, setRefeshTableData }) => {
   const [linkImg, setLinkImg] = useState("");
   const [indexChangeLinkImg, setIndexChangeLinkImg] = useState(null);
   const [blockButtonUpdateImg, setBlockButtonUpdateImg] = useState(false);
   console.log("state img :>>", linkImg, indexChangeLinkImg);
+
+  const { token } = useSelector((state) => state.auth);
 
   const formik = useFormik({
     initialValues: {
@@ -42,7 +45,9 @@ const FormPostCategory = ({ handleCloseModal, setRefeshTableData }) => {
       };
       console.log("check custom Data :>>", customData);
       try {
-        let response = await axios.post("/category", customData);
+        let response = await axios.post("/category", customData, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
         console.log("check response post category :>>", response);
         if (response?.data?.object) {
           toast.success(response?.data?.message);
@@ -51,6 +56,7 @@ const FormPostCategory = ({ handleCloseModal, setRefeshTableData }) => {
         }
       } catch (error) {
         console.log(error);
+        toast.warn("Add Category Fail");
       }
     },
   });

@@ -6,9 +6,11 @@ import Select from "react-select";
 import { AiOutlinePlus, AiOutlineDelete } from "react-icons/ai";
 import { CgArrowsExchangeAltV } from "react-icons/cg";
 import { toast } from "react-toastify";
+import { useSelector } from "react-redux";
 
 const FormPutSize = ({ handleCloseModal, setRefeshTableData, dataPut }) => {
   console.log("check size:>>", dataPut);
+  const { token } = useSelector((state) => state.auth);
 
   const formik = useFormik({
     initialValues: {
@@ -27,7 +29,9 @@ const FormPutSize = ({ handleCloseModal, setRefeshTableData, dataPut }) => {
       };
       console.log("check custom Data :>>", customData);
       try {
-        let response = await axios.put("/size", customData);
+        let response = await axios.put("/size", customData, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
         console.log("check response put size :>>", response);
         if (response?.data?.object) {
           toast.success(response?.data?.message);
@@ -36,6 +40,7 @@ const FormPutSize = ({ handleCloseModal, setRefeshTableData, dataPut }) => {
         }
       } catch (error) {
         console.log(error);
+        toast.warn("Update Size Fail");
       }
     },
   });

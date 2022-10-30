@@ -6,6 +6,7 @@ import Select from "react-select";
 import { AiOutlinePlus, AiOutlineDelete } from "react-icons/ai";
 import { CgArrowsExchangeAltV } from "react-icons/cg";
 import { toast } from "react-toastify";
+import { useSelector } from "react-redux";
 
 const FormPostProduct = ({ handleCloseModal, setRefeshTableData }) => {
   const [listCategory, setListCategory] = useState([]);
@@ -22,6 +23,8 @@ const FormPostProduct = ({ handleCloseModal, setRefeshTableData }) => {
   const [amount, setAmount] = useState(0);
   const [blockButtonUpdateInfo, setBlockButtonUpdateInfo] = useState(false);
   const [indexChangeInfo, setIndexChangeInfo] = useState(null);
+
+  const { token } = useSelector((state) => state.auth);
 
   // console.log("list size", listSize);
   // console.log("list category", listCategory);
@@ -126,7 +129,9 @@ const FormPostProduct = ({ handleCloseModal, setRefeshTableData }) => {
       };
       console.log("check custom Data :>>", customData);
       try {
-        let response = await axios.post("/product", customData);
+        let response = await axios.post("/product", customData, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
         console.log("check response post product :>>", response);
         if (response?.data?.object) {
           toast.success(response?.data?.message);
@@ -135,6 +140,7 @@ const FormPostProduct = ({ handleCloseModal, setRefeshTableData }) => {
         }
       } catch (error) {
         console.log(error);
+        toast.warn("Add Product Fail");
       }
     },
   });

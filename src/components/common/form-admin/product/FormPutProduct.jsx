@@ -6,6 +6,7 @@ import Select from "react-select";
 import { AiOutlinePlus, AiOutlineDelete } from "react-icons/ai";
 import { CgArrowsExchangeAltV } from "react-icons/cg";
 import { toast } from "react-toastify";
+import { useSelector } from "react-redux";
 
 const FormPutProduct = ({ handleCloseModal, setRefeshTableData, dataPut }) => {
   const [listCategory, setListCategory] = useState([]);
@@ -25,6 +26,8 @@ const FormPutProduct = ({ handleCloseModal, setRefeshTableData, dataPut }) => {
 
   // console.log("list size", listSize);
   // console.log("list category", listCategory);
+
+  const { token } = useSelector((state) => state.auth);
 
   const handleChangeCategory = (e) => {
     formik.setFieldValue("category", e.value);
@@ -68,8 +71,8 @@ const FormPutProduct = ({ handleCloseModal, setRefeshTableData, dataPut }) => {
         dataPut?.infoProduct?.map((item, index) => {
           return {
             ...item,
-            size: item.size.id,
-            color: item.color.id,
+            size: item?.size?.id,
+            color: item?.color?.id,
           };
         }) || [],
       category: dataPut?.categorySlug?.id || null,
@@ -140,7 +143,9 @@ const FormPutProduct = ({ handleCloseModal, setRefeshTableData, dataPut }) => {
       };
       console.log("check custom Data :>>", customData);
       try {
-        let response = await axios.put("/product", customData);
+        let response = await axios.put("/product", customData, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
         console.log("check response put product :>>", response);
         if (response?.data?.object) {
           toast.success(response?.data?.message);
@@ -149,6 +154,7 @@ const FormPutProduct = ({ handleCloseModal, setRefeshTableData, dataPut }) => {
         }
       } catch (error) {
         console.log(error);
+        toast.warn("Update Product Fail");
       }
     },
   });

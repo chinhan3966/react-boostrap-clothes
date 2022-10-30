@@ -11,6 +11,7 @@ import Loading from "../../common/loading/Loading";
 import Modal from "../../common/modal/Modal";
 import FormPostSize from "../../common/form-admin/size/FormPostSize";
 import FormPutSize from "../../common/form-admin/size/FormPutSize";
+import { useSelector } from "react-redux";
 
 const Size = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -22,6 +23,8 @@ const Size = () => {
 
   const [refeshTableData, setRefeshTableData] = useState(null);
   const [loading, setLoading] = useState(true);
+
+  const { token } = useSelector((state) => state.auth);
 
   const handleCloseModalPost = () => {
     setIsOpenModalPost(false);
@@ -48,7 +51,21 @@ const Size = () => {
     const data = [id];
     // console.log("delete id :>>", data);
     try {
-      let response = await axios.delete("/size", { data: data });
+      // let response = await axios.delete(
+      //   "/size",
+      //   { data: data },
+      //   {
+      //     headers: { Authorization: `Bearer ${token}` },
+      //   }
+      // );
+      let response = await axios({
+        method: "DELETE",
+        url: "/size",
+        data: data,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       console.log("check response delete size :>>", response);
       if (response?.data?.code === 200) {
         toast.success(response?.data?.message);
@@ -56,6 +73,7 @@ const Size = () => {
       }
     } catch (error) {
       console.log(error);
+      toast.warn("Delete fail");
     }
   };
 

@@ -11,6 +11,7 @@ import Loading from "../../common/loading/Loading";
 import Modal from "../../common/modal/Modal";
 import FormPostColor from "../../common/form-admin/color/FormPostColor";
 import FormPutColor from "../../common/form-admin/color/FormPutColor";
+import { useSelector } from "react-redux";
 
 const Color = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -22,6 +23,8 @@ const Color = () => {
 
   const [refeshTableData, setRefeshTableData] = useState(null);
   const [loading, setLoading] = useState(true);
+
+  const { token } = useSelector((state) => state.auth);
 
   const handleCloseModalPost = () => {
     setIsOpenModalPost(false);
@@ -48,7 +51,21 @@ const Color = () => {
     const data = [id];
     // console.log("delete id :>>", data);
     try {
-      let response = await axios.delete("/color", { data: data });
+      // let response = await axios.delete(
+      //   "/color",
+      //   { data: data },
+      //   {
+      //     headers: { Authorization: `Bearer ${token}` },
+      //   }
+      // );
+      let response = await axios({
+        method: "DELETE",
+        url: "/color",
+        data: data,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       console.log("check response delete color :>>", response);
       if (response?.data?.code === 200) {
         toast.success(response?.data?.message);
@@ -56,6 +73,7 @@ const Color = () => {
       }
     } catch (error) {
       console.log(error);
+      toast.warn("Delete fail");
     }
   };
 

@@ -1,3 +1,4 @@
+import jwt_decode from "jwt-decode";
 import React, { useEffect, useState } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import { Navigate, Redirect } from "react-router-dom";
@@ -27,6 +28,7 @@ import Size from "./page/admin/Size";
 
 const AnimatedRoute = () => {
   const location = useLocation();
+  const { loginDB } = useSelector((state) => state.auth);
 
   // const { loginGG } = useSelector((state) => state.auth);
   // console.log("check route login :>>", loginGG);
@@ -60,14 +62,24 @@ const AnimatedRoute = () => {
           <Route path="payment" element={<Payment />} />
           <Route path="*" element={<NotFound />} />
         </Route>
-        <Route path="/admin" element={<Admin />}>
+        {loginDB && loginDB.role && loginDB?.role[0]?.authority === "ADMIN" && (
+          <Route path="/admin" element={<Admin />}>
+            <Route index element={<Product />} />
+            <Route path="product" element={<Product />} />
+            <Route path="collection" element={<Collection />} />
+            <Route path="color" element={<Color />} />
+            <Route path="size" element={<Size />} />
+            <Route path="bill" element={<Bill />} />
+          </Route>
+        )}
+        {/* <Route path="/admin" element={<Admin />}>
           <Route index element={<Product />} />
           <Route path="product" element={<Product />} />
           <Route path="collection" element={<Collection />} />
           <Route path="color" element={<Color />} />
           <Route path="size" element={<Size />} />
           <Route path="bill" element={<Bill />} />
-        </Route>
+        </Route> */}
       </Routes>
     </AnimatePresence>
   );

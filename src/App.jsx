@@ -12,32 +12,35 @@ import { BsChevronUp } from "react-icons/bs";
 import Footer from "./components/common/Footer";
 import { ToastContainer } from "react-toastify";
 import { useSelector } from "react-redux";
-import { setUserGg } from "./redux/actions";
+import { setUserDb, setUserGg } from "./redux/actions";
 function App() {
   const [isTop, setIsTop] = useState(0);
   // const location = useLocation();
   const dispatch = useDispatch();
   const { pathname } = useLocation();
   const navigate = useNavigate();
+  console.log(pathname);
+  let isSignInPathName = pathname === "/sign-in";
+  let isSignUpPathName = pathname === "/sign-up";
+  const { loginGG, loginDB, auth } = useSelector((state) => state.auth);
 
-  let isSignInPathName = pathname == "/sign-in";
-  let isSignUpPathName = pathname == "/sign-up";
-  const { loginGG, loginDB } = useSelector((state) => state.auth);
+  // useEffect(() => {
+  //   if (!loginGG?.uid) {
+  //     dispatch(setUserGg());
+  //   }
+  //   if (!loginDB?.userName) {
+  //     dispatch(setUserDb());
+  //   }
+  // }, [auth]);
 
   useEffect(() => {
-    if (!loginGG?.uid) {
-      dispatch(setUserGg());
-    }
-  }, []);
-
-  useEffect(() => {
-    const hasLogin = loginGG && loginGG?.uid;
+    const hasLogin = (loginGG && loginGG?.uid) || (loginDB && loginDB?.email);
     //  const isRequiredAuth = routesConfig[pathname]?.requiresAuth || false;
 
     if ((isSignInPathName && hasLogin) || (isSignUpPathName && hasLogin)) {
       navigate("/");
     }
-  }, [loginGG, pathname]);
+  }, [pathname]);
 
   useEffect(() => {
     const handleScrollY = (e) => {

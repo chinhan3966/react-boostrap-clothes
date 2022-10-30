@@ -26,6 +26,19 @@ export const addInformationGG = (item) => {
   };
 };
 
+export const addInformationDB = (item) => {
+  return {
+    type: "add-information-user-database",
+    payload: item,
+  };
+};
+
+export const addTokenLogin = (token) => {
+  return {
+    type: "add-token-login",
+    payload: token,
+  };
+};
 export const removeInformationGG = () => {
   return {
     type: "remove-information-user",
@@ -35,6 +48,12 @@ export const removeInformationGG = () => {
 export const setUserGg = () => {
   return {
     type: "set-user-gg",
+  };
+};
+
+export const setUserDb = () => {
+  return {
+    type: "set-user-db",
   };
 };
 

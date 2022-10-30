@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
+import jwt_decode from "jwt-decode";
 
 import { Container } from "react-bootstrap";
+import { BiShowAlt } from "react-icons/bi";
+import { GrFormViewHide } from "react-icons/gr";
 import { FcGoogle } from "react-icons/fc";
 import { Link, useNavigate } from "react-router-dom";
 import { FastField, Form, Formik, useFormik } from "formik";
@@ -16,15 +19,21 @@ import {
   onAuthStateChanged,
 } from "firebase/auth";
 import { useDispatch } from "react-redux";
-import { addInformationGG, removeInformationGG } from "../../../redux/actions";
+import {
+  addInformationDB,
+  addInformationGG,
+  addTokenLogin,
+  removeInformationGG,
+} from "../../../redux/actions";
 import Helmet from "../../common/Helmet";
 import { toast } from "react-toastify";
+import axios from "axios";
 
 const SignIn = () => {
   // const [user, setUser] = useState({});
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
+  const [showPass, setShowPass] = useState(false);
   // onAuthStateChanged(authentication, (currentUser) => {
   //   setUser(currentUser);
   // });
@@ -37,11 +46,34 @@ const SignIn = () => {
       if (!respone?.user?.accessToken) {
         throw "Đăng nhập thất bại";
       }
-      dispatch(addInformationGG(respone?.user));
-      navigate("/");
+      // dispatch(addInformationGG(respone?.user));
+      const { uid, email, displayName } = respone?.user;
+      const customData = {
+        displayName: displayName,
+        email: email,
+        uId: uid,
+      };
+      const resGg = await axios.post("/account/login-gg", customData);
+      console.log("check res gg to server ::>", resGg);
+      if (resGg?.data?.object) {
+        let token = resGg?.data?.object;
+        var decoded = jwt_decode(token);
+        console.log("converrt decode :>>", decoded);
+        dispatch(addInformationDB(decoded));
+        dispatch(addTokenLogin(token));
+        toast.success(resGg?.data?.message);
+
+        if (decoded?.role[0]?.authority === "ADMIN") {
+          navigate("/admin");
+          return;
+        }
+        navigate("/");
+      }
+      // navigate("/");
       // toast.success("Login Success");
     } catch (error) {
       console.log(error);
+      toast.warn("Login Fail");
     }
     // .then((res) => {
     //   console.log(res.user.email);
@@ -52,23 +84,23 @@ const SignIn = () => {
     // });
   };
 
-  const handleSignOut = async () => {
-    // signOut(authentication)
-    //   .then((res) => {
-    //     console.log("Sign out successfully");
-    //     setEmail("");
-    //   })
-    //   .catch((err) => {
-    //     console.log("fail signOut");
-    //   });
-    try {
-      let response = await signOut(authentication);
-      dispatch(removeInformationGG());
-      // console.log("check response logout :>>", response);
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  // const handleSignOut = async () => {
+  //   // signOut(authentication)
+  //   //   .then((res) => {
+  //   //     console.log("Sign out successfully");
+  //   //     setEmail("");
+  //   //   })
+  //   //   .catch((err) => {
+  //   //     console.log("fail signOut");
+  //   //   });
+  //   try {
+  //     let response = await signOut(authentication);
+  //     dispatch(removeInformationGG());
+  //     // console.log("check response logout :>>", response);
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
 
   const formik = useFormik({
     initialValues: {
@@ -89,47 +121,54 @@ const SignIn = () => {
         ),
     }),
 
-    // onSubmit: async (values) => {
-    //   const { email, passWord } = values;
+    onSubmit: async (values) => {
+      const { email, passWord } = values;
 
-    //   const data = new FormData();
-    //   data.append("username", email);
-    //   data.append("password", passWord);
-
-    //   try {
-    //     let res = await axios({
-    //       method: "POST",
-    //       url: "http://localhost:8085/api/v1/user/login",
-    //       data: data,
-    //       headers: {
-    //         Authorization: `Bearer ${token}`,
-    //       },
-    //     });
-    //     if (res && res.data && res.data.data) {
-    //       dispatch(blockSignUp(false));
-    //       dispatch(blockLogin(false));
-    //       let tokenJWT = res.data.data.token;
-    //       sessionStorage.setItem("informationUser", JSON.stringify(tokenJWT));
-    //       if (isChecked) {
-    //         Cookies.set("token", tokenJWT, { expires: 30 });
-    //       }
-    //       if (res.data.data.role.name === "ADMIN") {
-    //         navigation("/admin");
-    //       }
-    //       if (res.data.data.role.name === "USER") {
-    //         navigation("/");
-    //       }
-    //       window.scrollTo({
-    //         top: 0,
-    //         left: 0,
-    //         behavior: "smooth",
-    //       });
-    //     }
-    //   } catch (e) {
-    //     console.log("fail login server", e.message);
-    //     toast.warn("Login fail");
-    //   }
-    // },
+      const data = { userName: email, password: passWord };
+      console.log("check custom value :>>", data);
+      try {
+        let res = await axios.post("account/login", data);
+        console.log(res);
+        if (res && res?.data && res?.data?.object) {
+          let token = res?.data?.object;
+          var decoded = jwt_decode(token);
+          console.log("check decode :>>", decoded);
+          dispatch(addInformationDB(decoded));
+          dispatch(addTokenLogin(token));
+          toast.success(res?.data?.message);
+          if (decoded?.role[0]?.authority === "ADMIN") {
+            navigate("/admin");
+            return;
+          }
+          navigate("/");
+        }
+        // const covertRes = JSON.parse(res?.data);
+        // console.log("check result login database :>>", covertRes);
+        // if (res && res.data && res.data.data) {
+        //   dispatch(blockSignUp(false));
+        //   dispatch(blockLogin(false));
+        //   let tokenJWT = res.data.data.token;
+        //   sessionStorage.setItem("informationUser", JSON.stringify(tokenJWT));
+        //   if (isChecked) {
+        //     Cookies.set("token", tokenJWT, { expires: 30 });
+        //   }
+        //   if (res.data.data.role.name === "ADMIN") {
+        //     navigation("/admin");
+        //   }
+        //   if (res.data.data.role.name === "USER") {
+        //     navigation("/");
+        //   }
+        //   window.scrollTo({
+        //     top: 0,
+        //     left: 0,
+        //     behavior: "smooth",
+        //   });
+        // }
+      } catch (e) {
+        console.log("fail login server", e.message);
+        toast.warn("Login Fail");
+      }
+    },
   });
   return (
     <Helmet title="Đăng nhập">
@@ -171,14 +210,26 @@ const SignIn = () => {
                   </div>
                   <div className="signin__container-body__form-password">
                     <label>Password</label>
-                    <input
-                      id="passWord"
-                      name="passWord"
-                      onChange={formik.handleChange}
-                      value={formik.values.passWord}
-                      type={"password"}
-                      placeholder="Enter your password"
-                    />
+                    <div className="passWord__showIcon">
+                      <input
+                        id="passWord"
+                        name="passWord"
+                        onChange={formik.handleChange}
+                        value={formik.values.passWord}
+                        type={showPass ? "text" : "password"}
+                        placeholder="Enter your password"
+                      />
+                      <div
+                        className="icon__Password"
+                        onClick={() => setShowPass(!showPass)}
+                      >
+                        {showPass ? (
+                          <GrFormViewHide size={18} />
+                        ) : (
+                          <BiShowAlt size={18} />
+                        )}
+                      </div>
+                    </div>
                     <span className="errorMessage">
                       {formik.errors.passWord}
                     </span>
@@ -192,7 +243,10 @@ const SignIn = () => {
                       <span>Forgot password</span>
                     </div>
                   </div>
-                  <button className="signin__container-body__form-submit">
+                  <button
+                    type="submit"
+                    className="signin__container-body__form-submit"
+                  >
                     Sign in
                   </button>
                 </form>

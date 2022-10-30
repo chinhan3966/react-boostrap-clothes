@@ -6,8 +6,10 @@ import Select from "react-select";
 import { AiOutlinePlus, AiOutlineDelete } from "react-icons/ai";
 import { CgArrowsExchangeAltV } from "react-icons/cg";
 import { toast } from "react-toastify";
+import { useSelector } from "react-redux";
 
 const FormPostColor = ({ handleCloseModal, setRefeshTableData }) => {
+  const { token } = useSelector((state) => state.auth);
   const formik = useFormik({
     initialValues: {
       title: "",
@@ -23,8 +25,11 @@ const FormPostColor = ({ handleCloseModal, setRefeshTableData }) => {
         colorName: title,
       };
       console.log("check custom Data :>>", customData);
+      console.log("check token :>>", token);
       try {
-        let response = await axios.post("/color", customData);
+        let response = await axios.post("/color", customData, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
         console.log("check response post color :>>", response);
         if (response?.data?.object) {
           toast.success(response?.data?.message);
@@ -33,6 +38,7 @@ const FormPostColor = ({ handleCloseModal, setRefeshTableData }) => {
         }
       } catch (error) {
         console.log(error);
+        toast.warn("Post Color Fail");
       }
     },
   });

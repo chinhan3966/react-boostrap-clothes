@@ -390,6 +390,7 @@ li {
   justify-content: center;
   font-size: 15px;
   font-weight: 500;
+  text-transform: capitalize;
   cursor: pointer;
   @include mobile {
     width: 20px;

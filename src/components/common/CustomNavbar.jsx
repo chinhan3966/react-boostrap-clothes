@@ -26,7 +26,7 @@ export const CustomNavbar = () => {
   const [search, setSearch] = useState(false);
   const [qtyCart, setQtyCart] = useState(0);
   const qtyCartRedux = useSelector((state) => state.cart);
-  const { loginGG } = useSelector((state) => state.auth);
+  const { loginGG, loginDB } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   // console.log("check home gg :>>", loginGG);
 
@@ -34,6 +34,7 @@ export const CustomNavbar = () => {
     toast.success("Logout Success");
     dispatch(logOut());
   };
+
   useEffect(() => {
     let qty = qtyCartRedux.length;
     setQtyCart(qty);
@@ -47,7 +48,7 @@ export const CustomNavbar = () => {
     const handleOnClickUser = (e) => {
       let dropDownUserElement = document.querySelector("#user");
       let activeElement = e.target;
-      if (!dropDownUserElement.contains(activeElement)) {
+      if (!dropDownUserElement?.contains(activeElement)) {
         setLogout(false);
       }
     };
@@ -57,7 +58,7 @@ export const CustomNavbar = () => {
   }, []);
 
   const handleScroll = () => {
-    const currentScrollY = window.scrollY;
+    const currentScrollY = window?.scrollY;
     if (currentScrollY > 80) {
       setSearch(false);
     }
@@ -309,18 +310,27 @@ export const CustomNavbar = () => {
                 />
               </div>
               <div>
-                {loginGG?.emailVerified ? (
+                {loginGG?.emailVerified || loginDB?.email ? (
                   <div
                     className="info__user"
                     id="user"
                     onClick={() => setLogout(!logout)}
                   >
-                    {loginGG?.displayName?.slice(0, 1)}
+                    {loginGG?.displayName?.slice(0, 1) ||
+                      loginDB?.email?.slice(0, 1)}
                     <div
                       className={`${logout ? "active" : ""} dropdown__logout`}
                     >
                       <span onClick={handleLogout}>Đăng xuất</span>
                       <span>Thông tin user</span>
+
+                      {loginDB &&
+                        loginDB?.role &&
+                        loginDB?.role[0]?.authority === "ADMIN" && (
+                          <span>
+                            <Link to="/admin">Quản Lí Admin</Link>
+                          </span>
+                        )}
                     </div>
                   </div>
                 ) : (

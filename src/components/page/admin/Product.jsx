@@ -10,6 +10,7 @@ import FormPostProduct from "../../common/form-admin/product/FormPostProduct";
 
 import Loading from "../../common/loading/Loading";
 import FormPutProduct from "../../common/form-admin/product/FormPutProduct";
+import { useSelector } from "react-redux";
 
 const Product = () => {
   const [isOpenModalPost, setIsOpenModalPost] = useState(false);
@@ -21,6 +22,8 @@ const Product = () => {
 
   const [refeshTableData, setRefeshTableData] = useState(null);
   const [loading, setLoading] = useState(true);
+
+  const { token } = useSelector((state) => state.auth);
 
   const handleCloseModalPost = () => {
     setIsOpenModalPost(false);
@@ -47,7 +50,14 @@ const Product = () => {
     const data = [id];
     // console.log("delete id :>>", data);
     try {
-      let response = await axios.delete("/product", { data: data });
+      let response = await axios({
+        method: "DELETE",
+        url: "/product",
+        data: data,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       console.log("check response delete product :>>", response);
       if (response?.data?.code === 200) {
         toast.success(response?.data?.message);
@@ -55,6 +65,7 @@ const Product = () => {
       }
     } catch (error) {
       console.log(error);
+      toast.warn("Delete fail");
     }
   };
 

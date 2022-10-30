@@ -13,7 +13,10 @@ import { ToastContainer } from "react-toastify";
 import axios from "axios";
 
 axios.defaults.baseURL = "https://clothingstorecn.herokuapp.com/api";
-
+// axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+// axios.defaults.headers.post["Authorization"] = `Bearer ${localStorage.getItem(
+//   "token"
+// )}`;
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>

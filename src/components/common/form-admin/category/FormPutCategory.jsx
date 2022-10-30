@@ -6,6 +6,7 @@ import Select from "react-select";
 import { AiOutlinePlus, AiOutlineDelete } from "react-icons/ai";
 import { CgArrowsExchangeAltV } from "react-icons/cg";
 import { toast } from "react-toastify";
+import { useSelector } from "react-redux";
 
 const FormPutCategory = ({ handleCloseModal, setRefeshTableData, dataPut }) => {
   console.log("check category :>>", dataPut);
@@ -13,6 +14,8 @@ const FormPutCategory = ({ handleCloseModal, setRefeshTableData, dataPut }) => {
   const [indexChangeLinkImg, setIndexChangeLinkImg] = useState(null);
   const [blockButtonUpdateImg, setBlockButtonUpdateImg] = useState(false);
   console.log("state img :>>", linkImg, indexChangeLinkImg);
+
+  const { token } = useSelector((state) => state.auth);
 
   const formik = useFormik({
     initialValues: {
@@ -44,7 +47,9 @@ const FormPutCategory = ({ handleCloseModal, setRefeshTableData, dataPut }) => {
       };
       console.log("check custom Data :>>", customData);
       try {
-        let response = await axios.put("/category", customData);
+        let response = await axios.put("/category", customData, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
         console.log("check response put category :>>", response);
         if (response?.data?.object) {
           toast.success(response?.data?.message);
@@ -53,6 +58,7 @@ const FormPutCategory = ({ handleCloseModal, setRefeshTableData, dataPut }) => {
         }
       } catch (error) {
         console.log(error);
+        toast.warn("Update Category Fail");
       }
     },
   });

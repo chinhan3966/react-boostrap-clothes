@@ -11,6 +11,7 @@ import Loading from "../../common/loading/Loading";
 import Modal from "../../common/modal/Modal";
 import FormPostCategory from "../../common/form-admin/category/FormPostCategory";
 import FormPutCategory from "../../common/form-admin/category/FormPutCategory";
+import { useSelector } from "react-redux";
 
 const Collection = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -22,6 +23,8 @@ const Collection = () => {
 
   const [refeshTableData, setRefeshTableData] = useState(null);
   const [loading, setLoading] = useState(true);
+
+  const { token } = useSelector((state) => state.auth);
 
   const handleCloseModalPost = () => {
     setIsOpenModalPost(false);
@@ -48,7 +51,14 @@ const Collection = () => {
     const data = [id];
     // console.log("delete id :>>", data);
     try {
-      let response = await axios.delete("/category", { data: data });
+      let response = await axios({
+        method: "DELETE",
+        url: "/category",
+        data: data,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       console.log("check response delete category :>>", response);
       if (response?.data?.code === 200) {
         toast.success(response?.data?.message);
@@ -56,6 +66,7 @@ const Collection = () => {
       }
     } catch (error) {
       console.log(error);
+      toast.warn("Delete fail");
     }
   };
 

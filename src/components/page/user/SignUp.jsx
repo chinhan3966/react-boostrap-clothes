@@ -1,13 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 import { FcGoogle } from "react-icons/fc";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
+
+import { BiShowAlt } from "react-icons/bi";
+import { GrFormViewHide } from "react-icons/gr";
 
 import { FastField, Form, Formik, useFormik } from "formik";
 import * as Yup from "yup";
 import Helmet from "../../common/Helmet";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 const SignUp = () => {
+  const navigate = useNavigate();
+  const [showPass, setShowPass] = useState(false);
+
   const formik = useFormik({
     initialValues: {
       firstName: "",
@@ -35,46 +43,28 @@ const SignUp = () => {
     }),
 
     onSubmit: async (values) => {
-      const { firstName, lastName, phone, city, district, ward, address } =
-        values;
-
-      // toast.success("Create account success");
-
-      const customAddress = `${address} ${city} ${district} ${ward}`;
-      // const customCart = listCart?.map((item) => {
-      //   return {
-      //     quantity: item.qty,
-      //     product: {
-      //       id: item.id,
-      //     },
-      //   };
-      // });
-      // const data = {
-      //   customer: {
-      //     firstName: firstName,
-      //     lastName: lastName,
-      //     phoneNumber: phone,
-      //     address: customAddress,
-      //   },
-      //   payment: payment,
-      //   item: customCart,
-      //   // code: code,
-      // };
-
-      //   let res = await axios({
-      //     method: "POST",
-      //     url: "http://localhost:8085/api/v1/bill/insert",
-      //     data: data,
-      //     headers: {
-      //       Authorization: `Bearer ${token}`,
-      //     },
-      //   });
-
-      //   if (res && res.data && res.data.data) {
-      //     if (res.data.status === 200) {
-      //       navigation("/");
-      //     }
-      //   }
+      const { email, firstName, lastName, passWord } = values;
+      const data = {
+        email: email,
+        firstName: firstName,
+        lastName: lastName,
+        password: passWord,
+      };
+      console.log("check data signup :>>", data);
+      try {
+        let res = await axios.post("account/register", data);
+        console.log(res);
+        if (res && res?.data && res?.data?.object) {
+          // let token = res?.data?.object;
+          // var decoded = jwt_decode(token);
+          // console.log("check decode :>>", decoded);
+          toast.success(res?.data?.message);
+          navigate("/sign-in");
+        }
+      } catch (e) {
+        console.log("fail login server", e.message);
+        toast.warn("SignUp Fail");
+      }
     },
   });
   return (
@@ -145,14 +135,27 @@ const SignUp = () => {
                   </div>
                   <div className="signin__container-body__form-password">
                     <label>Password</label>
-                    <input
-                      type="password"
-                      id="passWord"
-                      name="passWord"
-                      onChange={formik.handleChange}
-                      value={formik.values.passWord}
-                      placeholder="Enter your password"
-                    />
+                    <div className="passWord__showIcon">
+                      <input
+                        type={showPass ? "text" : "password"}
+                        id="passWord"
+                        name="passWord"
+                        onChange={formik.handleChange}
+                        value={formik.values.passWord}
+                        placeholder="Enter your password"
+                      />
+                      <div
+                        className="icon__Password"
+                        onClick={() => setShowPass(!showPass)}
+                      >
+                        {showPass ? (
+                          <GrFormViewHide size={18} />
+                        ) : (
+                          <BiShowAlt size={18} />
+                        )}
+                      </div>
+                    </div>
+
                     <span className="errorMessage">
                       {formik.errors.passWord}
                     </span>
