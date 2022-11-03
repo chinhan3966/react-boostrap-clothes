@@ -252,7 +252,7 @@ const SignIn = () => {
                 </form>
               </div>
               <div className="signin__container-body__signup">
-                Don't have an account?{" "}
+                Don't have an account?
                 <span>
                   <Link
                     to="/sign-up"

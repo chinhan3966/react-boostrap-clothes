@@ -24,6 +24,7 @@ import Bill from "./page/admin/Bill";
 import Collection from "./page/admin/Collection";
 import Color from "./page/admin/Color";
 import Size from "./page/admin/Size";
+import Account from "./page/admin/Account";
 //admin
 
 const AnimatedRoute = () => {
@@ -70,6 +71,7 @@ const AnimatedRoute = () => {
             <Route path="color" element={<Color />} />
             <Route path="size" element={<Size />} />
             <Route path="bill" element={<Bill />} />
+            <Route path="account" element={<Account />} />
           </Route>
         )}
         {/* <Route path="/admin" element={<Admin />}>

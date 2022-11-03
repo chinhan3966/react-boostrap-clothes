@@ -175,7 +175,7 @@ const SignUp = () => {
                 </form>
               </div>
               <div className="signin__container-body__signup">
-                Have an account?{" "}
+                Have an account?
                 <span>
                   <Link
                     to="/sign-in"

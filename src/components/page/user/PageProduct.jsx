@@ -463,12 +463,12 @@ const PageProduct = () => {
                           <div>
                             - Hà Nội: Hoàn Kiếm, Ba Đình, Hai Bà Trưng, Đống Đa,
                             Cầu Giấy, Hoàng Mai, Tây Hồ, Từ Liêm, Thanh Xuân, Hà
-                            Đông :{" "}
+                            Đông :
                             <span style={{ fontWeight: 600 }}>50.000k</span>
                           </div>
                           <div>
                             - Tp. Hồ Chí Minh: Q.1, Q.3, Q.4, Q.5, Q.6, Q.11,
-                            Tân Phú, Tân Bình, Bình Thạnh, Gò Vấp, Phú Nhuận :{" "}
+                            Tân Phú, Tân Bình, Bình Thạnh, Gò Vấp, Phú Nhuận :
                             <span style={{ fontWeight: 600 }}>30.000k</span>
                           </div>
                         </Accordion.Body>
@@ -777,12 +777,12 @@ const PageProduct = () => {
                         <div>
                           - Hà Nội: Hoàn Kiếm, Ba Đình, Hai Bà Trưng, Đống Đa,
                           Cầu Giấy, Hoàng Mai, Tây Hồ, Từ Liêm, Thanh Xuân, Hà
-                          Đông :{" "}
+                          Đông :
                           <span style={{ fontWeight: 600 }}>50.000k</span>
                         </div>
                         <div>
                           - Tp. Hồ Chí Minh: Q.1, Q.3, Q.4, Q.5, Q.6, Q.11, Tân
-                          Phú, Tân Bình, Bình Thạnh, Gò Vấp, Phú Nhuận :{" "}
+                          Phú, Tân Bình, Bình Thạnh, Gò Vấp, Phú Nhuận :
                           <span style={{ fontWeight: 600 }}>30.000k</span>
                         </div>
                       </Accordion.Body>

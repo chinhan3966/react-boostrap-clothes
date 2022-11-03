@@ -122,6 +122,12 @@ const Admin = () => {
                   <span>Bill</span>
                 </Link>
               </li>
+              <li className={`${pathname.includes("account") ? "active" : ""}`}>
+                <Link to="account">
+                  <RiDashboardFill size={30} />
+                  <span>Account</span>
+                </Link>
+              </li>
             </ul>
           </div>
         </div>

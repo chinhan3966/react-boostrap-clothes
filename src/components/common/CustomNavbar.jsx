@@ -102,7 +102,7 @@ export const CustomNavbar = () => {
                   className="nav--link d-xl-flex align-items-center "
                   onClick={() => setOpenSubMenu1(!openSubMenu1)}
                 >
-                  sản phẩm{" "}
+                  sản phẩm
                   <BiChevronDown size={"20px"} className="hoverActive" />
                 </a>
                 <div
@@ -145,7 +145,7 @@ export const CustomNavbar = () => {
                     </li>
                     <li className="more-menu">
                       <a onClick={() => setOpenMoreMenu2(!openMoreMenu2)}>
-                        Quần{" "}
+                        Quần
                         <BiChevronRight
                           size={"20px"}
                           className="hoverActive1"
@@ -221,7 +221,7 @@ export const CustomNavbar = () => {
                   className="nav--link d-xl-flex align-items-center"
                   onClick={() => setOpenSubMenu2(!openSubMenu2)}
                 >
-                  bộ sưu tập{" "}
+                  bộ sưu tập
                   <BiChevronDown size={"20px"} className="hoverActive" />
                 </a>
                 <div
@@ -265,7 +265,7 @@ export const CustomNavbar = () => {
                   className="nav--link d-xl-flex align-items-center"
                   onClick={() => setOpenSubMenu3(!openSubMenu3)}
                 >
-                  chính sách hướng dẫn{" "}
+                  chính sách hướng dẫn
                   <BiChevronDown size={"20px"} className="hoverActive" />
                 </a>
                 <div

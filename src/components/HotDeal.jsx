@@ -159,7 +159,7 @@ const HotDeal = () => {
       <div className="hotdeal__title">
         <div className="hotdeal__title-header">
           <AiTwotoneFire />
-          <h2>hot deal</h2>
+          <h2>hot deals</h2>
         </div>
         <div className="hotdeal__title-des">
           Sản phẩm đang được khuyến mãi cực hot
@@ -193,7 +193,6 @@ const HotDeal = () => {
             className="mySwiper"
           >
             <SwiperSlide>
-              {" "}
               <div className="hotdeal__container-item">
                 {/* block1.1 */}
                 <div className="hotdeal__container-item__block">
@@ -232,7 +231,6 @@ const HotDeal = () => {
               </div>
             </SwiperSlide>
             <SwiperSlide>
-              {" "}
               <div className="hotdeal__container-item">
                 {/* block1.1 */}
                 <div className="hotdeal__container-item__block">
