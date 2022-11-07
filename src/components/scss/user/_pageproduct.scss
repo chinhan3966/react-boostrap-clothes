@@ -115,6 +115,15 @@
           align-items: center;
         }
       }
+      .box__qty {
+        width: 36px;
+        input {
+          width: 100%;
+          border: none;
+          outline: none;
+          text-align: center;
+        }
+      }
     }
 
     &-cart {

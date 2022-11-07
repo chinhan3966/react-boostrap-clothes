@@ -19,6 +19,19 @@ export const changeQty = (value) => {
   };
 };
 
+export const handleUpdateListCart = (list) => {
+  return {
+    type: "update-list-cart",
+    payload: list,
+  };
+};
+
+export const handleDeleteListCart = () => {
+  return {
+    type: "clear-list-cart",
+  };
+};
+
 export const addInformationGG = (item) => {
   return {
     type: "add-information-user",

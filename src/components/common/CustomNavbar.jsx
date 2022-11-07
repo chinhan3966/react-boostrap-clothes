@@ -11,7 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 // import "./scss/CustomNavBar.scss";
 import { Link } from "react-router-dom";
 import { disableScrollBody } from "../helper/options/body-class";
-import { logOut } from "../../redux/actions";
+import { handleDeleteListCart, logOut } from "../../redux/actions";
 import { toast } from "react-toastify";
 
 export const CustomNavbar = () => {
@@ -31,8 +31,17 @@ export const CustomNavbar = () => {
   // console.log("check home gg :>>", loginGG);
 
   const handleLogout = () => {
-    toast.success("Logout Success");
+    toast.success("Logout Success", {
+      position: "top-right",
+      autoClose: 1000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
     dispatch(logOut());
+    dispatch(handleDeleteListCart());
   };
 
   useEffect(() => {

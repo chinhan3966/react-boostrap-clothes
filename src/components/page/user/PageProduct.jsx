@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Container } from "react-bootstrap";
 import Accordion from "react-bootstrap/Accordion";
@@ -21,7 +21,7 @@ import "swiper/css/effect-coverflow";
 // import required modules
 import { FreeMode, Navigation, Thumbs, EffectCoverflow } from "swiper";
 import Helmet from "../../common/Helmet";
-import { addCart } from "../../../redux/actions";
+import { addCart, handleUpdateListCart } from "../../../redux/actions";
 import { toast } from "react-toastify";
 import axios from "axios";
 
@@ -32,6 +32,7 @@ const PageProduct = () => {
   // console.log("check item", item);
 
   const [productOne, setProductOne] = useState({});
+
   const [listSize, setListSize] = useState([]);
   const [listColor, setListColor] = useState([]);
 
@@ -43,20 +44,50 @@ const PageProduct = () => {
   const [moreProduct, setMoreProduct] = useState([]);
 
   const [qty, setQty] = useState(1);
-
+  console.log("check qty :>>", qty);
   const [mount, setMount] = useState({});
+
+  console.log("check filter mount :>>", mount);
 
   const [color, setColor] = useState(listColor[0]);
   const [size, setSize] = useState(listSize[0]);
-  // console.log("color :>>", color);
-  // console.log("size :>>", size);
+
   const [productLoading, setProductLoading] = useState(true);
   const [moreLoading, setMoreLoading] = useState(true);
 
   const dispatch = useDispatch();
-
+  const { token, loginDB } = useSelector((state) => state.auth);
+  const navigate = useNavigate();
   const priceSplitter = (number) =>
     number && number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+
+  const getAllCart = async () => {
+    let result = await axios.get("/cart/find-cart", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    if (result?.data?.code !== 200) {
+      toast.success("Fail get all cart", {
+        position: "top-right",
+        autoClose: 1000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    }
+    console.log("check all cart :>>", result);
+    const customListCart = result?.data?.object?.cartDetail?.map(
+      (item, index) => {
+        return { ...item, isActive: false };
+      }
+    );
+    // dispatch(handleUpdateListCart(result?.data?.object?.cartDetail));
+    dispatch(handleUpdateListCart(customListCart));
+  };
+
   const handleDecreaseQty = () => {
     if (qty === 1) {
       setQty(1);
@@ -66,28 +97,73 @@ const PageProduct = () => {
   };
 
   const handleIncreaseQty = () => {
+    if (qty >= mount?.amount) {
+      return;
+    }
     setQty(qty + 1);
   };
 
-  const addItem = () => {
-    dispatch(
-      addCart({
-        id: productOne?.object?.id,
-        img: productOne?.object?.img[0],
-        name: productOne?.object?.title,
-        price: productOne?.object?.price,
-        qty: qty,
-      })
-    );
-    toast.success("add product success", {
-      position: "top-right",
-      autoClose: 1000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-    });
+  const handleChangeQty = (e) => {
+    console.log(e.target.value);
+    if (e?.target?.value >= mount?.amount) {
+      setQty(Number(mount?.amount));
+      return;
+    }
+    if (e?.target?.value <= 0) {
+      setQty(Number(1));
+      return;
+    }
+    setQty(Number(e?.target?.value));
+  };
+
+  const addItem = async () => {
+    if (loginDB?.email) {
+      // dispatch(
+      //   addCart({
+      //     id: productOne?.object?.id,
+      //     img: productOne?.object?.img[0],
+      //     name: productOne?.object?.title,
+      //     price: productOne?.object?.price,
+      //     qty: qty,
+      //   })
+      // );
+      const customData = {
+        idColor: mount?.color?.id,
+        idProduct: id,
+        idSize: mount?.size?.id,
+        quantity: qty,
+      };
+
+      let result = await axios.post("/cart/add-product", customData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      if (result?.data?.code !== 200) {
+        toast.warn("Fail add product ", {
+          position: "top-right",
+          autoClose: 1000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+      }
+      console.log("check result post product cart:>>", result);
+      toast.success(result?.data?.message, {
+        position: "top-right",
+        autoClose: 1000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+      getAllCart();
+    } else {
+      navigate("/sign-in");
+    }
   };
 
   useEffect(async () => {
@@ -178,16 +254,17 @@ const PageProduct = () => {
 
   useEffect(() => {
     let cloneProductOne = { ...productOne };
+
     if (cloneProductOne) {
       let find = cloneProductOne?.object?.infoProduct?.find(
         (item) =>
-          item?.color.colorName == (color || listColor[0]) &&
-          item?.size?.sizeName == (size || listSize[0])
+          item?.color.colorName === (color || listColor[0]) &&
+          item?.size?.sizeName === (size || listSize[0])
       );
       setMount(find);
-      console.log("check find amount:>>", find);
+      // console.log("check find amount:>>", find);
     }
-  }, [size, color]);
+  }, [size, color, productOne, listColor, listSize]);
 
   return (
     <Helmet title={productOne?.object?.slug || "Page Product"}>
@@ -371,7 +448,7 @@ const PageProduct = () => {
                     Thương hiệu : <span>CN SHOP</span>
                   </div>
                   <div className="product__des-brand">
-                    Tình trạng : <span>Còn {mount?.amount || 16} sản phẩm</span>
+                    Tình trạng : <span>Còn {mount?.amount} sản phẩm</span>
                   </div>
                   <div className="product__des-qty">
                     <h4>Số lượng</h4>
@@ -379,7 +456,16 @@ const PageProduct = () => {
                       <div onClick={handleDecreaseQty} className="pointer">
                         -
                       </div>
-                      <div>{qty}</div>
+                      <div className="box__qty">
+                        {/* {qty} */}
+                        <input
+                          type="number"
+                          value={qty}
+                          // min={1}
+                          // max={mount?.amount}
+                          onChange={(e) => handleChangeQty(e)}
+                        />
+                      </div>
                       <div onClick={handleIncreaseQty} className="pointer">
                         +
                       </div>

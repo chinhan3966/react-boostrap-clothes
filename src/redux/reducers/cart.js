@@ -38,6 +38,10 @@ const cartItem = (state = initialState, action) => {
       localStorage.setItem("cartG4", JSON.stringify(updateQty));
 
       return [...updateQty];
+    case "update-list-cart":
+      return action.payload;
+    case "clear-list-cart":
+      return [];
     default:
       return state;
   }

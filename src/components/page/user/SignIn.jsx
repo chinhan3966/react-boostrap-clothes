@@ -61,13 +61,22 @@ const SignIn = () => {
         console.log("converrt decode :>>", decoded);
         dispatch(addInformationDB(decoded));
         dispatch(addTokenLogin(token));
-        toast.success(resGg?.data?.message);
+        toast.success(resGg?.data?.message, {
+          position: "top-right",
+          autoClose: 1000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
 
         if (decoded?.role[0]?.authority === "ADMIN") {
           navigate("/admin");
           return;
         }
-        navigate("/");
+        // navigate("/");
+        window.history.go(-1);
       }
       // navigate("/");
       // toast.success("Login Success");
@@ -135,12 +144,21 @@ const SignIn = () => {
           console.log("check decode :>>", decoded);
           dispatch(addInformationDB(decoded));
           dispatch(addTokenLogin(token));
-          toast.success(res?.data?.message);
+          toast.success(res?.data?.message, {
+            position: "top-right",
+            autoClose: 1000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
           if (decoded?.role[0]?.authority === "ADMIN") {
             navigate("/admin");
             return;
           }
-          navigate("/");
+          // navigate("/");
+          window.history.go(-1);
         }
         // const covertRes = JSON.parse(res?.data);
         // console.log("check result login database :>>", covertRes);

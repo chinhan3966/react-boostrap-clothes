@@ -1,22 +1,64 @@
 import React, { useEffect, useState } from "react";
 import { Container } from "react-bootstrap";
 import { AiOutlineRight } from "react-icons/ai";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { motion } from "framer-motion";
 
 import ItemCart from "../../common/ItemCart";
 import Helmet from "../../common/Helmet";
 import { Link } from "react-router-dom";
+import axios from "axios";
+import { toast } from "react-toastify";
+import { handleUpdateListCart } from "../../../redux/actions";
 const loop = [0, 1, 2, 3];
 const Cart = () => {
   const [totalCart, setTotalCart] = useState(null);
   const listCart = useSelector((state) => state.cart);
+  const { token } = useSelector((state) => state.auth);
+
+  const dispatch = useDispatch();
+
   console.log("check list cart", listCart);
+  console.log("check token cart :>>", token);
+
+  // const getAllCart = async () => {
+  //   let result = await axios.get("/cart/find-cart", {
+  //     headers: {
+  //       Authorization: `Bearer ${token}`,
+  //     },
+  //   });
+  //   if (result?.data?.code !== 200) {
+  //     toast.success("Fail get all cart", {
+  //       position: "top-right",
+  //       autoClose: 1000,
+  //       hideProgressBar: false,
+  //       closeOnClick: true,
+  //       pauseOnHover: true,
+  //       draggable: true,
+  //       progress: undefined,
+  //     });
+  //   }
+  //   console.log("check all cart :>>", result);
+  //   const customListCart = result?.data?.object?.cartDetail?.map(
+  //     (item, index) => {
+  //       return { ...item, isActive: false };
+  //     }
+  //   );
+  //   // dispatch(handleUpdateListCart(result?.data?.object?.cartDetail));
+  //   dispatch(handleUpdateListCart(customListCart));
+  // };
 
   useEffect(() => {
-    let total = listCart.reduce((sum, item) => sum + item.price * item.qty, 0);
+    let total = listCart.reduce(
+      (sum, item) => sum + item.price * item.quantity,
+      0
+    );
     setTotalCart(total);
   }, [listCart]);
+
+  // useEffect(() => {
+  //   getAllCart();
+  // }, []);
 
   const priceSplitter = (number) =>
     number && number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
@@ -50,20 +92,19 @@ const Cart = () => {
               <div className="cart__body-title">Giỏ hàng của bạn</div>
 
               <div className="cart__body-listCart">
-                {/* {loop.map((item, index) => {
-            return <ItemCart index={index} />;
-          })} */}
                 {listCart &&
                   listCart.length > 0 &&
                   listCart.map((item, index) => {
                     return (
                       <ItemCart
+                        // key={item?.idCartdetail}
                         index={index}
-                        img={item.img}
-                        name={item.name}
-                        price={item.price}
-                        quantity={item.qty}
-                        id={item.id}
+                        img={item?.imgs[0]}
+                        name={item?.titleProduct}
+                        price={item?.price}
+                        quantity={item?.quantity}
+                        amount={item?.amountProduct}
+                        id={item?.idCartdetail}
                       />
                     );
                   })}

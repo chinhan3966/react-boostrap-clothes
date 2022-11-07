@@ -14,6 +14,9 @@ import banner from "../../../assets/banner/banner-popup.jpg";
 import axios from "axios";
 
 import Loading from "../../common/loading/Loading";
+import { useDispatch, useSelector } from "react-redux";
+import { toast } from "react-toastify";
+import { handleUpdateListCart } from "../../../redux/actions";
 
 const Home = () => {
   const [isShowPopUp, setIsShowPopUp] = useState(false);
@@ -22,13 +25,41 @@ const Home = () => {
   const [loadingShirt, setLoadingShirt] = useState(true);
   const [loadingSeller, setLoadingSeller] = useState(true);
   const [loadingArrival, setLoadingArrival] = useState(true);
-  // console.log(
-  //   "album load :>>",
-  //   loadingAlbum,
-  //   loadingShirt,
-  //   loadingSeller,
-  //   loadingArrival
-  // );
+
+  const { token } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+
+  const getAllCart = async () => {
+    let result = await axios.get("/cart/find-cart", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    if (result?.data?.code !== 200) {
+      toast.success("Fail get all cart", {
+        position: "top-right",
+        autoClose: 1000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    }
+    console.log("check all cart :>>", result);
+    const customListCart = result?.data?.object?.cartDetail?.map(
+      (item, index) => {
+        return { ...item, isActive: false };
+      }
+    );
+    // dispatch(handleUpdateListCart(result?.data?.object?.cartDetail));
+    dispatch(handleUpdateListCart(customListCart));
+  };
+
+  useEffect(() => {
+    getAllCart();
+  }, []);
+
   useEffect(() => {
     setTimeout(() => {
       setIsShowPopUp(true);
