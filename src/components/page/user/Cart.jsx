@@ -16,49 +16,85 @@ const Cart = () => {
   const listCart = useSelector((state) => state.cart);
   const { token } = useSelector((state) => state.auth);
 
+  const [activeCheckbox, setActiveCheckbox] = useState(null);
+
   const dispatch = useDispatch();
 
-  console.log("check list cart", listCart);
-  console.log("check token cart :>>", token);
+  // console.log("check list cart", listCart);
+  // console.log("check token cart :>>", token);
 
-  // const getAllCart = async () => {
-  //   let result = await axios.get("/cart/find-cart", {
-  //     headers: {
-  //       Authorization: `Bearer ${token}`,
-  //     },
-  //   });
-  //   if (result?.data?.code !== 200) {
-  //     toast.success("Fail get all cart", {
-  //       position: "top-right",
-  //       autoClose: 1000,
-  //       hideProgressBar: false,
-  //       closeOnClick: true,
-  //       pauseOnHover: true,
-  //       draggable: true,
-  //       progress: undefined,
-  //     });
-  //   }
-  //   console.log("check all cart :>>", result);
-  //   const customListCart = result?.data?.object?.cartDetail?.map(
-  //     (item, index) => {
-  //       return { ...item, isActive: false };
-  //     }
-  //   );
-  //   // dispatch(handleUpdateListCart(result?.data?.object?.cartDetail));
-  //   dispatch(handleUpdateListCart(customListCart));
-  // };
+  const getAllCart = async () => {
+    let result = await axios.get("/cart/find-cart", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    if (result?.data?.code !== 200) {
+      toast.success("Fail get all cart", {
+        position: "top-right",
+        autoClose: 1000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    }
+    // console.log("check all cart :>>", result);
+    // const customListCart = result?.data?.object?.cartDetail?.map(
+    //   (item, index) => {
+    //     return { ...item, isActive: false };
+    //   }
+    // );
+    dispatch(handleUpdateListCart(result?.data?.object?.cartDetail));
+    // dispatch(handleUpdateListCart(customListCart));
+  };
 
   useEffect(() => {
-    let total = listCart.reduce(
+    let filterActiveCart = listCart?.filter((item) => item.isActive);
+    console.log("check filter cart :>>", filterActiveCart);
+    let total = filterActiveCart?.reduce(
       (sum, item) => sum + item.price * item.quantity,
       0
     );
     setTotalCart(total);
   }, [listCart]);
 
-  // useEffect(() => {
-  //   getAllCart();
-  // }, []);
+  useEffect(() => {
+    getAllCart();
+  }, []);
+
+  const handleChangeInputActive = async (e) => {
+    console.log("check active :>>", e.target.checked);
+
+    try {
+      let result = await axios({
+        method: "PUT",
+        url: "/cart/update-checkall",
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      console.log("check result check all:>> ", result);
+      if (result?.data?.code !== 200) {
+        toast.warn(result?.data?.message, {
+          position: "top-right",
+          autoClose: 1000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+      }
+      if (result?.data?.object?.checkAll) {
+        setActiveCheckbox(true);
+      } else {
+        setActiveCheckbox(false);
+      }
+      dispatch(handleUpdateListCart(result?.data?.object?.cartDetail));
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const priceSplitter = (number) =>
     number && number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
@@ -90,7 +126,14 @@ const Cart = () => {
           <Container>
             <div className="cart__body">
               <div className="cart__body-title">Giỏ hàng của bạn</div>
-
+              <div className="cart__body-activeAll">
+                <input
+                  type="checkbox"
+                  checked={activeCheckbox}
+                  onChange={handleChangeInputActive}
+                />
+                <span>Chọn tất cả</span>
+              </div>
               <div className="cart__body-listCart">
                 {listCart &&
                   listCart.length > 0 &&
@@ -98,13 +141,17 @@ const Cart = () => {
                     return (
                       <ItemCart
                         // key={item?.idCartdetail}
-                        index={index}
+                        key={item?.idCartdetail}
                         img={item?.imgs[0]}
                         name={item?.titleProduct}
+                        size={item?.nameSize}
+                        color={item?.nameColor}
                         price={item?.price}
                         quantity={item?.quantity}
                         amount={item?.amountProduct}
                         id={item?.idCartdetail}
+                        activeProduct={item?.isActive}
+                        handleUpdateStateCheckAll={setActiveCheckbox}
                       />
                     );
                   })}

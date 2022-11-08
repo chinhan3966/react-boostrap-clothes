@@ -23,7 +23,7 @@ const currency = "USD";
 
 export default function Paypal() {
   const [payment, setPayment] = useState(false);
-  // const [total, setTotal] = useState(0);
+  const [total, setTotal] = useState(0);
   const [data, setData] = useState([]);
   const [citys, setCitys] = useState([]);
   const listCart = useSelector((state) => state.cart);
@@ -44,8 +44,8 @@ export default function Paypal() {
   //   const code = useSelector((state) => state.token.codeVoucher);
   //   const total1 = useSelector((state) => state.token.totalCart);
 
-  // const priceSplitter = (number) =>
-  //   number && number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+  const priceSplitter = (number) =>
+    number && number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 
   const handleHome = () => {
     setPayment(false);
@@ -54,6 +54,16 @@ export default function Paypal() {
   const handlePayment = () => {
     setPayment(true);
   };
+
+  useEffect(() => {
+    let filterActiveCart = listCart?.filter((item) => item.isActive);
+    console.log("check filter cart :>>", filterActiveCart);
+    let total = filterActiveCart?.reduce(
+      (sum, item) => sum + item.price * item.quantity,
+      0
+    );
+    setTotal(total);
+  }, [listCart]);
 
   useEffect(async () => {
     let res = await axios.get("https://provinces.open-api.vn/api/?depth=3");
@@ -253,7 +263,7 @@ export default function Paypal() {
                     <div className="flex items-center cart__total">
                       <h5 className="text-base">Thành tiền : </h5>
                       <span className="text-[#1435c3] text-sm ml-1 font-medium">
-                        {/* {priceSplitter(total1)}đ */}1000đ
+                        {priceSplitter(total)}đ
                       </span>
                     </div>
                   </div>

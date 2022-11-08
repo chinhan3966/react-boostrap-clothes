@@ -130,7 +130,7 @@ const PageProduct = () => {
       const customData = {
         idColor: mount?.color?.id,
         idProduct: id,
-        idSize: mount?.size?.id,
+        idSize: mount?.size?.id || null,
         quantity: qty,
       };
 

@@ -11,8 +11,13 @@ import { useDispatch, useSelector } from "react-redux";
 // import "./scss/CustomNavBar.scss";
 import { Link } from "react-router-dom";
 import { disableScrollBody } from "../helper/options/body-class";
-import { handleDeleteListCart, logOut } from "../../redux/actions";
+import {
+  handleDeleteListCart,
+  handleUpdateListCart,
+  logOut,
+} from "../../redux/actions";
 import { toast } from "react-toastify";
+import axios from "axios";
 
 export const CustomNavbar = () => {
   const [logout, setLogout] = useState(false);
@@ -26,7 +31,7 @@ export const CustomNavbar = () => {
   const [search, setSearch] = useState(false);
   const [qtyCart, setQtyCart] = useState(0);
   const qtyCartRedux = useSelector((state) => state.cart);
-  const { loginGG, loginDB } = useSelector((state) => state.auth);
+  const { loginGG, loginDB, token } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   // console.log("check home gg :>>", loginGG);
 
@@ -45,7 +50,7 @@ export const CustomNavbar = () => {
   };
 
   useEffect(() => {
-    let qty = qtyCartRedux.length;
+    let qty = qtyCartRedux?.length;
     setQtyCart(qty);
   }, [qtyCartRedux]);
 
@@ -76,6 +81,37 @@ export const CustomNavbar = () => {
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const getAllCart = async () => {
+    let result = await axios.get("/cart/find-cart", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    if (result?.data?.code !== 200) {
+      toast.success("Fail get all cart", {
+        position: "top-right",
+        autoClose: 1000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    }
+    // console.log("check all cart :>>", result);
+    // const customListCart = result?.data?.object?.cartDetail?.map(
+    //   (item, index) => {
+    //     return { ...item, isActive: false };
+    //   }
+    // );
+    dispatch(handleUpdateListCart(result?.data?.object?.cartDetail));
+    // dispatch(handleUpdateListCart(customListCart));
+  };
+
+  useEffect(() => {
+    getAllCart();
   }, []);
 
   return (

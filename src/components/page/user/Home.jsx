@@ -29,36 +29,36 @@ const Home = () => {
   const { token } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
-  const getAllCart = async () => {
-    let result = await axios.get("/cart/find-cart", {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    if (result?.data?.code !== 200) {
-      toast.success("Fail get all cart", {
-        position: "top-right",
-        autoClose: 1000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
-    }
-    console.log("check all cart :>>", result);
-    const customListCart = result?.data?.object?.cartDetail?.map(
-      (item, index) => {
-        return { ...item, isActive: false };
-      }
-    );
-    // dispatch(handleUpdateListCart(result?.data?.object?.cartDetail));
-    dispatch(handleUpdateListCart(customListCart));
-  };
+  // const getAllCart = async () => {
+  //   let result = await axios.get("/cart/find-cart", {
+  //     headers: {
+  //       Authorization: `Bearer ${token}`,
+  //     },
+  //   });
+  //   if (result?.data?.code !== 200) {
+  //     toast.success("Fail get all cart", {
+  //       position: "top-right",
+  //       autoClose: 1000,
+  //       hideProgressBar: false,
+  //       closeOnClick: true,
+  //       pauseOnHover: true,
+  //       draggable: true,
+  //       progress: undefined,
+  //     });
+  //   }
+  //   // console.log("check all cart :>>", result);
+  //   // const customListCart = result?.data?.object?.cartDetail?.map(
+  //   //   (item, index) => {
+  //   //     return { ...item, isActive: false };
+  //   //   }
+  //   // );
+  //   dispatch(handleUpdateListCart(result?.data?.object?.cartDetail));
+  //   // dispatch(handleUpdateListCart(customListCart));
+  // };
 
-  useEffect(() => {
-    getAllCart();
-  }, []);
+  // useEffect(() => {
+  //   getAllCart();
+  // }, []);
 
   useEffect(() => {
     setTimeout(() => {

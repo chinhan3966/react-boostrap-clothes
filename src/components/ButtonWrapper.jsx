@@ -41,7 +41,7 @@ const ButtonWrapper = ({ currency, showSpinner }) => {
                 {
                   amount: {
                     currency_code: currency,
-                    value: 10,
+                    value: 3,
                   },
                 },
               ],
