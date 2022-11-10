@@ -134,13 +134,37 @@ const PageProduct = () => {
         quantity: qty,
       };
 
-      let result = await axios.post("/cart/add-product", customData, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      if (result?.data?.code !== 200) {
-        toast.warn("Fail add product ", {
+      try {
+        let result = await axios.post("/cart/add-product", customData, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        if (result?.data?.code !== 200) {
+          toast.warn("Fail add product ", {
+            position: "top-right",
+            autoClose: 1000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
+        }
+        console.log("check result post product cart:>>", result);
+        toast.success(result?.data?.message, {
+          position: "top-right",
+          autoClose: 1000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+        getAllCart();
+      } catch (error) {
+        console.log(error);
+        toast.warn("Info product incorrect ", {
           position: "top-right",
           autoClose: 1000,
           hideProgressBar: false,
@@ -150,17 +174,6 @@ const PageProduct = () => {
           progress: undefined,
         });
       }
-      console.log("check result post product cart:>>", result);
-      toast.success(result?.data?.message, {
-        position: "top-right",
-        autoClose: 1000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
-      getAllCart();
     } else {
       navigate("/sign-in");
     }
