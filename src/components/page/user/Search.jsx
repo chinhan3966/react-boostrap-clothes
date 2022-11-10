@@ -54,8 +54,8 @@ const description = [
   },
 ];
 
-const Collections = () => {
-  const { categorySlug, id } = useParams();
+const Search = () => {
+  const { categorySlug, id, search } = useParams();
   const dataRedux = useSelector((state) => state.listProduct.value.listProduct);
 
   const [listProductClone, setListProductClone] = useState([]);
@@ -179,7 +179,7 @@ const Collections = () => {
     // setTimeout(async () => {
     try {
       setLoading(true);
-      let response = await axios.get(`/product/?param=${id}`);
+      let response = await axios.get(`product/search?titleProduct=${search}`);
       console.log("check response filter :>>", response.data);
       if (response?.data?.length < 0) {
         throw "Lỗi server";
@@ -193,7 +193,7 @@ const Collections = () => {
       setLoading(false);
     }
     // }, 2000);
-  }, [id]);
+  }, [search]);
 
   return (
     <Helmet title="Collections">
@@ -217,21 +217,6 @@ const Collections = () => {
           </div>
         ) : (
           <div className="collections">
-            <Container fluid className="collections__introduce">
-              <h1>
-                {
-                  description?.find(
-                    (item) => item.categorySlug === categorySlug
-                  ).name
-                }
-              </h1>
-              <Container className="line-camp-3">
-                {
-                  description.find((item) => item.categorySlug === categorySlug)
-                    .des
-                }
-              </Container>
-            </Container>
             <Container>
               <div className="collections__filter">
                 <div className="collections__filter-header">
@@ -367,4 +352,4 @@ const Collections = () => {
   );
 };
 
-export default Collections;
+export default Search;

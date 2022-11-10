@@ -10,6 +10,7 @@ import App from "../App";
 import Home from "./page/user/Home";
 import PageProduct from "./page/user/PageProduct";
 import Collections from "./page/user/Collections";
+import Search from "./page/user/Search";
 import Cart from "./page/user/Cart";
 import SignIn from "./page/user/SignIn";
 import SignUp from "./page/user/SignUp";
@@ -57,6 +58,7 @@ const AnimatedRoute = () => {
             path="collections/:categorySlug/:id"
             element={<Collections />}
           />
+          <Route path="collections/:search" element={<Search />} />
           <Route path="cart" element={<Cart />} />
           <Route path="sign-in" element={<SignIn />} />
           <Route path="sign-up" element={<SignUp />} />

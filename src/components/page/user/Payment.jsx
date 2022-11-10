@@ -14,6 +14,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { motion } from "framer-motion";
 import Helmet from "../../common/Helmet";
 import { Container } from "react-bootstrap";
+import Modal from "../../common/modal/Modal";
 // import jwt_decode from "jwt-decode";
 // import priceSplitter from "../helper/options/format-money";
 
@@ -26,13 +27,18 @@ export default function Paypal() {
   const [total, setTotal] = useState(0);
   const [data, setData] = useState([]);
   const [citys, setCitys] = useState([]);
+  const { token, loginDB } = useSelector((state) => state.auth);
   const listCart = useSelector((state) => state.cart);
+
   //   const token = useSelector((state) => state.token.tokenDefault);
   //   const informationUser = JSON.parse(sessionStorage.getItem("informationUser"));
   //   const [firstName, setFirstName] = useState("");
   //   const [lastName, setLastName] = useState("");
 
   const navigation = useNavigate();
+
+  const [isModalPaypal, setIsModalPaypal] = useState(false);
+  const [valuePaypal, setValuePaypal] = useState({});
   // console.log("check cart", listCart);
   // console.log("check data: >>", data);
   // console.log("check city: >>", citys);
@@ -53,6 +59,14 @@ export default function Paypal() {
 
   const handlePayment = () => {
     setPayment(true);
+  };
+
+  const handleOpenModal = () => {
+    setIsModalPaypal(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalPaypal(false);
   };
 
   useEffect(() => {
@@ -89,6 +103,16 @@ export default function Paypal() {
   //       behavior: "smooth",
   //     });
   //   }, []);
+
+  const handleTransDataForPaypal = (value) => {
+    console.log("handleTransDataForPaypal :>>", value);
+    if (value) {
+      setValuePaypal(value);
+    }
+  };
+  // const callApiforPaypal = (value) => {
+  //   console.log("check value api paypal :>>", value);
+  // };
 
   const formik = useFormik({
     initialValues: {
@@ -127,30 +151,68 @@ export default function Paypal() {
     onSubmit: async (values) => {
       const { firstName, lastName, phone, city, district, ward, address } =
         values;
-
-      toast.success("Create account success");
+      let idCart = [];
 
       const customAddress = `${address} ${city} ${district} ${ward}`;
-      const customCart = listCart?.map((item) => {
-        return {
-          quantity: item.qty,
-          product: {
-            id: item.id,
-          },
-        };
+      const customCart = listCart?.filter((item) => item?.isActive);
+      const customIdCart = customCart?.forEach((item) => {
+        idCart.push(item?.idCartdetail);
       });
+      console.log("check filter cart :>>", customCart);
       const data = {
-        customer: {
-          firstName: firstName,
-          lastName: lastName,
-          phoneNumber: phone,
-          address: customAddress,
-        },
-        payment: payment,
-        item: customCart,
-        // code: code,
+        firstName: firstName,
+        lastName: lastName,
+        address: customAddress,
+        email: loginDB?.email,
+        idCartDetail: idCart,
+        isOnline: payment,
+        phoneNumber: phone,
+        totalPriceOrder: total,
       };
-      console.log("check data :>>", data);
+
+      console.log("check data post bill :>>", data);
+      if (payment) {
+        handleTransDataForPaypal(data);
+        handleOpenModal();
+      } else {
+        try {
+          let result = await axios({
+            method: "POST",
+            url: "/order",
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+            data: data,
+          });
+          if (result?.data?.code !== 200) {
+            throw result?.data?.message;
+          }
+          navigation("/");
+          toast.success(result?.data?.message, {
+            position: "top-right",
+            autoClose: 1000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
+          console.log("check post bill payment false :>>", result);
+        } catch (error) {
+          console.log(error);
+          toast.warn("Order Bill Fail", {
+            position: "top-right",
+            autoClose: 1000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
+          navigation("/cart");
+        }
+        console.log("check data post bill :>>", data);
+      }
       //   let res = await axios({
       //     method: "POST",
       //     url: "http://localhost:8085/api/v1/bill/insert",
@@ -442,7 +504,7 @@ export default function Paypal() {
                     </div>
                     {/* option choose paymnet */}
 
-                    <div
+                    {/* <div
                       className={`paypal ${payment ? "active" : ""}`}
                       style={{
                         width: "100%",
@@ -464,7 +526,41 @@ export default function Paypal() {
                           showSpinner={false}
                         />
                       </PayPalScriptProvider>
-                    </div>
+                    </div> */}
+                    {isModalPaypal && (
+                      <Modal
+                        closeModal={handleCloseModal}
+                        openModal={handleOpenModal}
+                      >
+                        <div
+                          className={`paypal ${payment ? "active" : ""}`}
+                          style={{
+                            width: "80%",
+                            margin: "0 auto",
+                            // minHeight: "200px",
+                            zIndex: "100",
+                            textAlign: "center",
+                          }}
+                        >
+                          <PayPalScriptProvider
+                            options={{
+                              "client-id":
+                                "Acb4LyPCgYLfo5jeL3VioKCa33WiHIZ-Selm29Dlir5zrW-hRpeIo7SjXK0Zm2RXUPZ3-ZchIYFQSCPz",
+                              components: "buttons",
+                              currency: "USD",
+                            }}
+                          >
+                            <ButtonWrapper
+                              currency={currency}
+                              showSpinner={false}
+                              value={valuePaypal}
+                            />
+                          </PayPalScriptProvider>
+                        </div>
+                      </Modal>
+                    )}
+
+                    {/* option choose paymnet */}
 
                     <div className="button__order">
                       <button type="submit">Đặt hàng</button>

@@ -28,15 +28,49 @@ import {
 import Helmet from "../../common/Helmet";
 import { toast } from "react-toastify";
 import axios from "axios";
+import Modal from "../../common/modal/Modal";
+import FormEmail from "../../common/form-forgot/FormEmail";
+import FormCodeAuth from "../../common/form-forgot/FormCodeAuth";
+import FormUpdatePassWord from "../../common/form-forgot/FormUpdatePassWord";
 
 const SignIn = () => {
   // const [user, setUser] = useState({});
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [showPass, setShowPass] = useState(false);
+
+  const [codeToken, setCodeToken] = useState("");
+
+  const [isModalForgotPassWord, setIsForgotPassWord] = useState(false);
+  const [isModalAuthCode, setIsModalAuthCode] = useState(false);
+  const [isModalUpdatePassWord, setIsModalUpdatePassWord] = useState(false);
+
   // onAuthStateChanged(authentication, (currentUser) => {
   //   setUser(currentUser);
   // });
+  const handleCloseModalForgot = () => {
+    setIsForgotPassWord(false);
+  };
+
+  const handleOpenModalForgot = () => {
+    setIsForgotPassWord(true);
+  };
+
+  const handleCloseModalAuthCode = () => {
+    setIsModalAuthCode(false);
+  };
+
+  const handleOpenModalAuthCode = () => {
+    setIsModalAuthCode(true);
+  };
+
+  const handleCloseModalPassWord = () => {
+    setIsModalUpdatePassWord(false);
+  };
+
+  const handleOpenModalPassWord = () => {
+    setIsModalUpdatePassWord(true);
+  };
 
   const handleLoginGg = async () => {
     const provider = new GoogleAuthProvider();
@@ -160,28 +194,6 @@ const SignIn = () => {
           // navigate("/");
           window.history.go(-1);
         }
-        // const covertRes = JSON.parse(res?.data);
-        // console.log("check result login database :>>", covertRes);
-        // if (res && res.data && res.data.data) {
-        //   dispatch(blockSignUp(false));
-        //   dispatch(blockLogin(false));
-        //   let tokenJWT = res.data.data.token;
-        //   sessionStorage.setItem("informationUser", JSON.stringify(tokenJWT));
-        //   if (isChecked) {
-        //     Cookies.set("token", tokenJWT, { expires: 30 });
-        //   }
-        //   if (res.data.data.role.name === "ADMIN") {
-        //     navigation("/admin");
-        //   }
-        //   if (res.data.data.role.name === "USER") {
-        //     navigation("/");
-        //   }
-        //   window.scrollTo({
-        //     top: 0,
-        //     left: 0,
-        //     behavior: "smooth",
-        //   });
-        // }
       } catch (e) {
         console.log("fail login server", e.message);
         toast.warn("Login Fail");
@@ -257,7 +269,10 @@ const SignIn = () => {
                       <input type="checkbox" />
                       <span>Remember for 30 days</span>
                     </div>
-                    <div className="signin__container-body__form-problem__forgot">
+                    <div
+                      className="signin__container-body__form-problem__forgot"
+                      onClick={handleOpenModalForgot}
+                    >
                       <span>Forgot password</span>
                     </div>
                   </div>
@@ -301,6 +316,43 @@ const SignIn = () => {
             </div>
           </div>
         </div>
+
+        {isModalForgotPassWord && (
+          <Modal
+            closeModal={handleCloseModalForgot}
+            openModal={handleOpenModalForgot}
+          >
+            <FormEmail
+              handleCloseModalForgot={handleCloseModalForgot}
+              handleOpenModalAuthCode={handleOpenModalAuthCode}
+            />
+          </Modal>
+        )}
+
+        {isModalAuthCode && (
+          <Modal
+            closeModal={handleCloseModalAuthCode}
+            openModal={handleOpenModalAuthCode}
+          >
+            <FormCodeAuth
+              handleCloseModalAuthCode={handleCloseModalAuthCode}
+              handleOpenModalPassWord={handleOpenModalPassWord}
+              setCodeToken={setCodeToken}
+            />
+          </Modal>
+        )}
+
+        {isModalUpdatePassWord && (
+          <Modal
+            closeModal={handleCloseModalPassWord}
+            openModal={handleOpenModalPassWord}
+          >
+            <FormUpdatePassWord
+              handleCloseModalPassWord={handleCloseModalPassWord}
+              codeToken={codeToken}
+            />
+          </Modal>
+        )}
       </motion.div>
     </Helmet>
   );

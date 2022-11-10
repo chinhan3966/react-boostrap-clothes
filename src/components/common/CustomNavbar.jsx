@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import { CgChanel } from "react-icons/cg";
 import { AiOutlineSearch, AiOutlineMenu } from "react-icons/ai";
@@ -9,7 +9,7 @@ import { VscClose } from "react-icons/vsc";
 import { BiChevronDown, BiChevronRight } from "react-icons/bi";
 import { useDispatch, useSelector } from "react-redux";
 // import "./scss/CustomNavBar.scss";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { disableScrollBody } from "../helper/options/body-class";
 import {
   handleDeleteListCart,
@@ -33,7 +33,24 @@ export const CustomNavbar = () => {
   const qtyCartRedux = useSelector((state) => state.cart);
   const { loginGG, loginDB, token } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
+  const inputRef = useRef("");
+  const navigation = useNavigate();
+
   // console.log("check home gg :>>", loginGG);
+
+  const onKeyDown = (event) => {
+    // 'keypress' event misbehaves on mobile so we track 'Enter' key via 'keydown' event
+    if (event.key === "Enter") {
+      event.preventDefault();
+      event.stopPropagation();
+      console.log("check search", inputRef.current.value);
+      navigation(`/collections/${inputRef.current.value}`);
+    }
+  };
+
+  const handleSearch = () => {
+    navigation(`/collections/${inputRef.current.value}`);
+  };
 
   const handleLogout = () => {
     toast.success("Logout Success", {
@@ -157,77 +174,113 @@ export const CustomNavbar = () => {
                 >
                   <ul className="sub-list">
                     <li className="more-menu">
-                      <a onClick={() => setOpenMoreMenu1(!openMoreMenu1)}>
+                      <Link
+                        to="collections/jacket/1"
+                        onClick={() => setOpenMoreMenu1(!openMoreMenu1)}
+                      >
                         Áo
                         <BiChevronRight
                           size={"20px"}
                           className="hoverActive1"
                         />
-                      </a>
+                      </Link>
                       <div
                         className={`more-menu-list shadow-sm ${
                           openMoreMenu1 ? "active" : "nonActive"
                         } `}
                       >
                         <ul className="more-menu-list1">
-                          <li className="more-menu-item">
+                          <Link
+                            to="/collections/t-shirt/2"
+                            className="more-menu-item"
+                          >
                             <a>Ao Thun</a>
-                          </li>
-                          <li className="more-menu-item">
+                          </Link>
+                          <Link
+                            to="/collections/t-shirt/2"
+                            className="more-menu-item"
+                          >
                             <a>Ao Polo</a>
-                          </li>
-                          <li className="more-menu-item">
+                          </Link>
+                          <Link
+                            to="/collections/shirt/5"
+                            className="more-menu-item"
+                          >
                             <a>Ao SoMi</a>
-                          </li>
-                          <li className="more-menu-item">
+                          </Link>
+                          <Link
+                            to="/collections/hoodie/3"
+                            className="more-menu-item"
+                          >
                             <a>Hoodie</a>
-                          </li>
-                          <li className="more-menu-item">
+                          </Link>
+                          <Link
+                            to="/collections/t-shirt/2"
+                            className="more-menu-item"
+                          >
                             <a>Ao Tet Nham Dan</a>
-                          </li>
+                          </Link>
                         </ul>
                       </div>
                     </li>
                     <li className="more-menu">
-                      <a onClick={() => setOpenMoreMenu2(!openMoreMenu2)}>
+                      <Link
+                        to="collections/pant/4"
+                        onClick={() => setOpenMoreMenu2(!openMoreMenu2)}
+                      >
                         Quần
                         <BiChevronRight
                           size={"20px"}
                           className="hoverActive1"
                         />
-                      </a>
+                      </Link>
                       <div
                         className={`more-menu-list shadow-sm  ${
                           openMoreMenu2 ? "active" : "nonActive"
                         }  `}
                       >
                         <ul className="more-menu-list1">
-                          <li className="more-menu-item">
+                          <Link
+                            to="collections/pant/4"
+                            className="more-menu-item"
+                          >
                             <a>Quần Jean</a>
-                          </li>
-                          <li className="more-menu-item">
+                          </Link>
+                          <Link
+                            to="collections/pant/4"
+                            className="more-menu-item"
+                          >
                             <a>Quần Short</a>
-                          </li>
-                          <li className="more-menu-item">
+                          </Link>
+                          <Link
+                            to="collections/pant/4"
+                            className="more-menu-item"
+                          >
                             <a>Quần Jogger</a>
-                          </li>
+                          </Link>
                           <li className="more-menu-item">
                             <a>Quần Tây</a>
                           </li>
-                          <li className="more-menu-item">
+                          <Link
+                            to="collections/pant/4"
+                            className="more-menu-item"
+                          >
                             <a>Quần Kaki & Chino</a>
-                          </li>
+                          </Link>
                         </ul>
                       </div>
                     </li>
                     <li className="more-menu">
-                      <a onClick={() => setOpenMoreMenu3(!openMoreMenu3)}>
+                      <Link
+                        to="/collections/accessories/6"
+                        onClick={() => setOpenMoreMenu3(!openMoreMenu3)}
+                      >
                         Giày & Phụ Kiện
                         <BiChevronRight
                           size={"20px"}
                           className="hoverActive1"
                         />
-                      </a>
+                      </Link>
                       <div
                         className={`more-menu-list shadow-sm  ${
                           openMoreMenu3 ? "active" : "nonActive"
@@ -417,8 +470,13 @@ export const CustomNavbar = () => {
           <CgChanel size={"60px"} />
         </div>
         <div className="formInput">
-          <input type="text" placeholder="Tìm Kiếm..." />
-          <button>
+          <input
+            type="text"
+            placeholder="Tìm Kiếm..."
+            onKeyDown={onKeyDown}
+            ref={inputRef}
+          />
+          <button onClick={handleSearch}>
             <AiOutlineSearch size={"23px"} />
           </button>
         </div>

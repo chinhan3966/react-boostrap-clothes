@@ -1,101 +1,126 @@
-import React from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import Table from "../../common/table/Table";
-import { AiOutlineDelete } from "react-icons/ai";
-import { BiEditAlt } from "react-icons/bi";
-import { toast } from "react-toastify";
+
+import axios from "axios";
+import { formatDate } from "../../../libs/formatDate";
+import Pagination from "../../common/pagination/Pagination";
+import Loading from "../../common/loading/Loading";
+
+import { useSelector } from "react-redux";
 
 const Bill = () => {
-  const handleUpdate = () => {
-    console.log("update");
-    toast.success("Update Success");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [tableData, setTableData] = useState([]);
+
+  const [refeshTableData, setRefeshTableData] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  const { token } = useSelector((state) => state.auth);
+
+  const priceSplitter = (number) =>
+    number && number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+
+  const handleUpdateCurrentPage = (page) => {
+    setCurrentPage(page);
   };
 
-  const handleDelete = () => {
-    console.log("Delete");
-    toast.success("Delete Success");
-  };
   const columns = [
     {
-      Header: "Mã Bill",
+      Header: "Code",
       accessor: "col1",
     },
     {
-      Header: "Tên khách hàng",
+      Header: "Email",
       accessor: "col2",
     },
+    // {
+    //   Header: "Hình ảnh",
+    //   accessor: "col3",
+    // },
     {
-      Header: "Thông tin sản phẩm",
-      accessor: "col3",
-    },
-    {
-      Header: "Người tạo",
+      Header: "Name",
       accessor: "col4",
     },
     {
-      Header: "Ngày tạo",
+      Header: "Phone",
       accessor: "col5",
     },
     {
-      Header: "Tổng bill",
+      Header: "Order Date",
       accessor: "col6",
     },
     {
-      Header: "Cập nhật",
+      Header: "Method Payment",
       accessor: "col7",
     },
     {
-      Header: "Xóa",
+      Header: "Price",
       accessor: "col8",
     },
   ];
 
-  const contents = [
-    {
-      col1: "#46838gb",
-      col2: "Chí Nhân",
-      col3: "Her Tee XXME",
-      col4: "Khoa",
-      col5: "14/12/2002",
-      col6: "1900k",
-      col7: (
-        <div>
-          <BiEditAlt size={18} onClick={handleUpdate} />
-        </div>
-      ),
-      col8: (
-        <div>
-          <AiOutlineDelete size={18} onClick={handleDelete} />
-        </div>
-      ),
-    },
-    {
-      col1: "#46nve8b",
-      col2: "Trúc Vệ",
-      col3: "Black Tee XXME",
-      col4: "Khoa",
-      col5: "14/12/2002",
-      col6: "7900k",
-      col7: (
-        <div>
-          <BiEditAlt size={18} onClick={handleUpdate} />
-        </div>
-      ),
-      col8: (
-        <div>
-          <AiOutlineDelete size={18} onClick={handleDelete} />
-        </div>
-      ),
-    },
-  ];
+  const contents = useMemo(() => {
+    return tableData?.object?.map((table) => {
+      return {
+        col1: table?.code,
+        col2: `${table?.email}`,
+        col4: `${table?.firstName} ${table?.lastName}`,
+        col5: table?.phoneNumber,
+        col6: formatDate(table?.orderDate),
+        col7: table?.isOnline ? "Thanh toán Online" : "Thanh toán tại nhà",
+        col8: priceSplitter(table?.totalPriceOrder),
+      };
+    });
+  }, [tableData]);
+
+  useEffect(async () => {
+    try {
+      setLoading(true);
+
+      let response = await axios({
+        method: "GET",
+        url: `/order/admin/get-all-order?page=${currentPage}&size=10`,
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      console.log("check data bill :>>", response);
+      setTableData(response?.data);
+      setLoading(false);
+    } catch (error) {
+      console.log(error);
+      setLoading(false);
+    }
+  }, [currentPage, refeshTableData]);
   return (
-    <div className="billAdmin">
-      <div className="billAdmin__header">
-        <h1>List Bill</h1>
+    <>
+      <div className="sizeAdmin">
+        <div className="sizeAdmin__header">
+          <h1>List Bill</h1>
+          {/* <div className="header__add" onClick={handleOpenModalPost}>
+            <AiOutlineAppstoreAdd size={20} />
+            <h6>Thêm size</h6>
+          </div> */}
+        </div>
+
+        {loading ? (
+          <div style={{ height: "300px" }}>
+            <Loading />
+          </div>
+        ) : (
+          <>
+            {tableData?.object?.length > 0 && (
+              <div className="sizeAdmin__table">
+                <Table data={contents} columns={columns} />
+              </div>
+            )}
+            <Pagination
+              total={tableData?.totalReturn}
+              currentPage={currentPage}
+              handleUpdateCurrentPage={handleUpdateCurrentPage}
+            />
+          </>
+        )}
       </div>
-      <div className="billAdmin__table">
-        <Table data={contents} columns={columns} />
-      </div>
-    </div>
+    </>
   );
 };
 
