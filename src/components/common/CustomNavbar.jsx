@@ -258,9 +258,12 @@ export const CustomNavbar = () => {
                           >
                             <a>Quần Jogger</a>
                           </Link>
-                          <li className="more-menu-item">
+                          <Link
+                            to="collections/pant/4"
+                            className="more-menu-item"
+                          >
                             <a>Quần Tây</a>
-                          </li>
+                          </Link>
                           <Link
                             to="collections/pant/4"
                             className="more-menu-item"
@@ -287,33 +290,51 @@ export const CustomNavbar = () => {
                         }`}
                       >
                         <ul className="more-menu-list1">
-                          <li className="more-menu-item">
+                          <Link
+                            to="/collections/accessories/6"
+                            className="more-menu-item"
+                          >
                             <a>Giày</a>
-                          </li>
-                          <li className="more-menu-item">
+                          </Link>
+                          <Link
+                            to="/collections/accessories/6"
+                            className="more-menu-item"
+                          >
                             <a>Balo & Túi</a>
-                          </li>
-                          <li className="more-menu-item">
+                          </Link>
+                          <Link
+                            to="/collections/accessories/6"
+                            className="more-menu-item"
+                          >
                             <a>Nón</a>
-                          </li>
-                          <li className="more-menu-item">
+                          </Link>
+                          <Link
+                            to="/collections/accessories/6"
+                            className="more-menu-item"
+                          >
                             <a>Thắt Lưng</a>
-                          </li>
-                          <li className="more-menu-item">
+                          </Link>
+                          <Link
+                            to="/collections/accessories/6"
+                            className="more-menu-item"
+                          >
                             <a>Mắt Kinh</a>
-                          </li>
+                          </Link>
                         </ul>
                       </div>
                     </li>
-                    <li className="more-menu">
+                    <Link to="/collections/jacket/1" className="more-menu">
                       <a>OutLet_Sale 30% - 70%</a>
-                    </li>
+                    </Link>
                   </ul>
                 </div>
               </li>
-              <li className=" nav--item mx-3 fs-6 text-uppercase fw-normal borderBottom ">
+              <Link
+                to="/collections/accessories/6"
+                className=" nav--item mx-3 fs-6 text-uppercase fw-normal borderBottom "
+              >
                 <a className="nav--link">hàng mới về</a>
-              </li>
+              </Link>
               <li className="nav--item mx-3 fs-6 text-uppercase fw-normal borderBottom ">
                 <a
                   className="nav--link d-xl-flex align-items-center"

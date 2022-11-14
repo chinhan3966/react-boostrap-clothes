@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { BsFilter } from "react-icons/bs";
 
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -74,6 +74,8 @@ const Collections = () => {
   const [activeColor, setActiveColor] = useState(null);
 
   const [loading, setLoading] = useState(true);
+
+  const navigate = useNavigate();
 
   // useEffect(() => {
   //   const listCollections = dataRedux.filter(
@@ -222,13 +224,13 @@ const Collections = () => {
                 {
                   description?.find(
                     (item) => item.categorySlug === categorySlug
-                  ).name
+                  )?.name
                 }
               </h1>
               <Container className="line-camp-3">
                 {
                   description.find((item) => item.categorySlug === categorySlug)
-                    .des
+                    ?.des
                 }
               </Container>
             </Container>
@@ -341,7 +343,38 @@ const Collections = () => {
                 )}
               </div>
               <div className="collections__product">
-                <Row>
+                {listData && listData?.length > 0 ? (
+                  <Row>
+                    {listData &&
+                      listData.length > 0 &&
+                      listData.map((item, index) => {
+                        return (
+                          <Col xl={3} lg={4} md={6} sm={6} xs={6} key={index}>
+                            <CardProductSlide
+                              name={item.title}
+                              price={item.price}
+                              img={item.img}
+                              slug={item.slug}
+                              id={item.id}
+                            />
+                          </Col>
+                        );
+                      })}
+                  </Row>
+                ) : (
+                  <div className="notFound">
+                    <div className="notFound__wrapper">
+                      <div className="notFound__img">
+                        <img src="https://lh3.googleusercontent.com/XgEwa2HvKXekl8B_ZtYa45fM17dXbHLeQpUS9DP9wLzVNuVry88JZt00ZcVTGdIXG9c-2EpW1OYG1FOTgA=rw" />
+                      </div>
+                      <h1>Sản phẩm bạn tìm kiếm không tồn tại</h1>
+                      <button onClick={() => navigate("/")}>
+                        Quay về trang chủ
+                      </button>
+                    </div>
+                  </div>
+                )}
+                {/* <Row>
                   {listData &&
                     listData.length > 0 &&
                     listData.map((item, index) => {
@@ -357,7 +390,7 @@ const Collections = () => {
                         </Col>
                       );
                     })}
-                </Row>
+                </Row> */}
               </div>
             </Container>
           </div>

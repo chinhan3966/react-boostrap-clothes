@@ -168,7 +168,7 @@ const FormPostCategory = ({ handleCloseModal, setRefeshTableData }) => {
         </div>
       </div>
 
-      <button type="submit">Thêm sản phẩm</button>
+      <button type="submit">Thêm loại sản phẩm</button>
     </form>
   );
 };

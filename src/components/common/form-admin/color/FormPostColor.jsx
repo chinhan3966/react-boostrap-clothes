@@ -58,7 +58,7 @@ const FormPostColor = ({ handleCloseModal, setRefeshTableData }) => {
         <span className="errorMessage">{formik.errors.title}</span>
       </div>
 
-      <button type="submit">Thêm sản phẩm</button>
+      <button type="submit">Thêm màu</button>
     </form>
   );
 };

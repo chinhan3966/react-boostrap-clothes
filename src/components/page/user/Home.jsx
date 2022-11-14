@@ -17,6 +17,7 @@ import Loading from "../../common/loading/Loading";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { handleUpdateListCart } from "../../../redux/actions";
+import { Link } from "react-router-dom";
 
 const Home = () => {
   const [isShowPopUp, setIsShowPopUp] = useState(false);
@@ -99,7 +100,9 @@ const Home = () => {
         </div>
         <div className={`show__PopUp ${isShowPopUp ? "active" : ""}`}>
           <div className="banner-popup">
-            <img src={banner} alt="banner" />
+            <Link to="/collections/t-shirt/2">
+              <img src={banner} alt="banner" />
+            </Link>
             <div className="closePopUp" onClick={() => setIsShowPopUp(false)}>
               <IoIosClose size={25} />
             </div>

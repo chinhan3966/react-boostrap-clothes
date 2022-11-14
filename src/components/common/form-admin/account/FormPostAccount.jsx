@@ -165,7 +165,7 @@ const FormPostAccount = ({ handleCloseModal, setRefeshTableData }) => {
         <span className="errorMessage">{formik.errors.passWord}</span>
       </div>
 
-      <button type="submit">Thêm sản phẩm</button>
+      <button type="submit">Thêm tài khoản</button>
     </form>
   );
 };

@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { Link, Outlet, useLocation } from "react-router-dom";
+import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import { CgChanel } from "react-icons/cg";
 import { RiDashboardFill } from "react-icons/ri";
 import { MdMenuOpen, MdOutlineSettingsSuggest } from "react-icons/md";
 import { FaUserAstronaut } from "react-icons/fa";
 import { AiOutlineDoubleRight, AiFillCaretDown } from "react-icons/ai";
 import { BsChevronDoubleLeft } from "react-icons/bs";
+import { toast } from "react-toastify";
+import { useDispatch } from "react-redux";
+import { handleDeleteListCart, logOut } from "../../../redux/actions";
 
 const Admin = () => {
   const [isShowNavbar, setIsNavbar] = useState(false);
@@ -14,6 +17,23 @@ const Admin = () => {
   const [activeColorSideBar, setActiveColorSideBar] = useState("#2181f7");
   const [darkMode, setDarkMode] = useState(true);
   const { pathname } = useLocation();
+  const dispatch = useDispatch();
+  const navigation = useNavigate();
+
+  const handleLogout = () => {
+    toast.success("Logout Success", {
+      position: "top-right",
+      autoClose: 1000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+    dispatch(logOut());
+    dispatch(handleDeleteListCart());
+    navigation("/");
+  };
 
   const upDateStateShowNavBar = (e) => {
     setIsNavbar(!isShowNavbar);
@@ -209,7 +229,7 @@ const Admin = () => {
                 >
                   <ul>
                     <li>profile</li>
-                    <li>Log out</li>
+                    <li onClick={handleLogout}>Log out</li>
                   </ul>
                 </div>
               </div>
