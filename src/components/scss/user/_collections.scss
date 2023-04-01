@@ -56,11 +56,8 @@
           padding: 0.5rem 1rem;
           border-radius: 20px;
           background-color: #fff;
+          width: auto !important;
         }
-      }
-
-      .collections__filter-size .swiper .swiper-slide {
-        width: auto !important;
       }
     }
   }
