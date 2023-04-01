@@ -182,7 +182,7 @@ const Search = () => {
     try {
       setLoading(true);
       let response = await axios.get(`product/search?titleProduct=${search}`);
-      console.log("check response filter :>>", response.data);
+      console.log("check response search :>>", response.data);
       if (response?.data?.length < 0) {
         throw "Lỗi server";
       }

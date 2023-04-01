@@ -312,7 +312,7 @@ const SignIn = () => {
               {/* <button onClick={handleSignOut}>SignOut</button> */}
             </div>
             <div className="signin__container-img">
-              <img src="https://file.hstatic.net/1000360022/collection/dsc03238_713b806b9bb5414bad483f5a15cc5ab9_master.jpg" />
+              <img src="https://file.hstatic.net/1000383583/file/emptyname_20_s_638eaaab856c4b4bb6d16d9ae655b5bf.jpg" />
             </div>
           </div>
         </div>
