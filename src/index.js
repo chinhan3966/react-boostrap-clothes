@@ -14,13 +14,11 @@ import axios from "axios";
 
 // axios.defaults.baseURL = "https://clothingstorecn.herokuapp.com/api";
 axios.defaults.baseURL = "https://clothingkstore.herokuapp.com/api";
-
-// clothingkstore.herokuapp.com/
 // axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 // axios.defaults.headers.post["Authorization"] = `Bearer ${localStorage.getItem(
 //   "token"
 // )}`;
-https: ReactDOM.render(
+ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
       <BrowserRouter>

@@ -181,7 +181,9 @@ const Collections = () => {
     // setTimeout(async () => {
     try {
       setLoading(true);
-      let response = await axios.get(`/product/?param=${id}`);
+      // let response = await axios.get(`/product/?param=${id}`);
+      let response = await axios.get(`/product/?page=1&param=${id}&size=10`);
+
       console.log("check response filter :>>", response.data);
       if (response?.data?.length < 0) {
         throw "Lỗi server";
